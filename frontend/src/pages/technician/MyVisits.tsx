@@ -7,8 +7,7 @@ import {
   PhoneIcon,
   MagnifyingGlassIcon,
   ChevronRightIcon,
-  BuildingStorefrontIcon,
-  FunnelIcon
+  BuildingStorefrontIcon
 } from '@heroicons/react/24/outline';
 import { useTranslation } from '@/lib/i18n/TranslationProvider';
 import { technicianService, TechnicianVisit } from '@/services/technician';

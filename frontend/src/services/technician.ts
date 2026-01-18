@@ -110,6 +110,18 @@ export interface TechnicianVisit {
   contract?: {
     id: number;
     frequency: string;
+    customer?: {
+      name: string;
+      phone?: string;
+      address?: string;
+    };
+    customer_name?: string;
+    customer_phone?: string;
+    customer_address?: string;
+  };
+  branch?: {
+    id: number;
+    name: string;
   };
   products?: Array<{
     id: number;
