@@ -21,7 +21,6 @@ class OfflineCache {
   private pendingActions: Array<() => Promise<any>> = [];
 
   constructor() {
-    // Listen for online/offline events
     window.addEventListener('online', this.handleOnline.bind(this));
     window.addEventListener('offline', this.handleOffline.bind(this));
   }
@@ -43,7 +42,6 @@ class OfflineCache {
           await action();
         } catch (error) {
           console.error('Failed to sync pending action:', error);
-          // Re-add to queue if failed
           this.pendingActions.unshift(action);
           break;
         }
@@ -52,10 +50,7 @@ class OfflineCache {
   }
 
   set<T>(key: string, data: T): void {
-    const cacheItem: CacheItem<T> = {
-      data,
-      timestamp: Date.now(),
-    };
+    const cacheItem: CacheItem<T> = { data, timestamp: Date.now() };
     localStorage.setItem(key, JSON.stringify(cacheItem));
   }
 
@@ -63,15 +58,12 @@ class OfflineCache {
     try {
       const cached = localStorage.getItem(key);
       if (!cached) return null;
-
       const cacheItem: CacheItem<T> = JSON.parse(cached);
       const isExpired = Date.now() - cacheItem.timestamp > CACHE_DURATION;
-      
       if (isExpired) {
         localStorage.removeItem(key);
         return null;
       }
-
       return cacheItem.data;
     } catch {
       return null;
@@ -114,6 +106,7 @@ export interface TechnicianVisit {
       name: string;
       phone?: string;
       address?: string;
+      email?: string;
     };
     customer_name?: string;
     customer_phone?: string;
@@ -122,6 +115,7 @@ export interface TechnicianVisit {
   branch?: {
     id: number;
     name: string;
+    code?: string;
   };
   products?: Array<{
     id: number;
@@ -153,44 +147,29 @@ export interface CompleteVisitData {
 }
 
 export const technicianService = {
-  // Dashboard
   async getDashboard(): Promise<DashboardStats> {
     try {
       const response = await api.get('/technician/dashboard');
-      const data = response.data;
-      
-      // Cache the data for offline use
-      offlineCache.set(CACHE_KEYS.DASHBOARD, data);
-      
-      return data;
+      offlineCache.set(CACHE_KEYS.DASHBOARD, response.data);
+      return response.data;
     } catch (error) {
-      // Try to get cached data if offline
       if (!offlineCache.getIsOnline()) {
         const cachedData = offlineCache.get<DashboardStats>(CACHE_KEYS.DASHBOARD);
-        if (cachedData) {
-          return cachedData;
-        }
+        if (cachedData) return cachedData;
       }
       throw error;
     }
   },
 
-  // Visits
   async getVisits(filters?: { status?: string; start_date?: string; end_date?: string }) {
     try {
       const response = await api.get('/technician/visits', { params: filters });
-      const data = response.data;
-      
-      // Cache visits data
-      offlineCache.set(CACHE_KEYS.VISITS, data);
-      
-      return data;
+      offlineCache.set(CACHE_KEYS.VISITS, response.data);
+      return response.data;
     } catch (error) {
       if (!offlineCache.getIsOnline()) {
         const cachedData = offlineCache.get(CACHE_KEYS.VISITS);
-        if (cachedData) {
-          return cachedData;
-        }
+        if (cachedData) return cachedData;
       }
       throw error;
     }
@@ -199,18 +178,12 @@ export const technicianService = {
   async getTodayVisits() {
     try {
       const response = await api.get('/technician/visits/today');
-      const data = response.data;
-      
-      // Cache today's visits
-      offlineCache.set(CACHE_KEYS.TODAY_VISITS, data);
-      
-      return data;
+      offlineCache.set(CACHE_KEYS.TODAY_VISITS, response.data);
+      return response.data;
     } catch (error) {
       if (!offlineCache.getIsOnline()) {
         const cachedData = offlineCache.get(CACHE_KEYS.TODAY_VISITS);
-        if (cachedData) {
-          return cachedData;
-        }
+        if (cachedData) return cachedData;
       }
       throw error;
     }
@@ -223,64 +196,47 @@ export const technicianService = {
 
   async startVisit(id: number) {
     if (!offlineCache.getIsOnline()) {
-      // Queue action for when online
       offlineCache.queueAction(async () => {
         await api.post(`/technician/visits/${id}/start`);
       });
-      
-      // Return optimistic response
       return { message: 'Visit start queued for sync when online' };
     }
-    
     const response = await api.post(`/technician/visits/${id}/start`);
     return response.data;
   },
 
   async completeVisit(id: number, data: CompleteVisitData) {
     if (!offlineCache.getIsOnline()) {
-      // Queue action for when online
       offlineCache.queueAction(async () => {
         await api.post(`/technician/visits/${id}/complete`, data);
       });
-      
-      // Return optimistic response
       return { message: 'Visit completion queued for sync when online' };
     }
-    
     const response = await api.post(`/technician/visits/${id}/complete`, data);
     return response.data;
   },
 
-  // Products/Parts
   async getProducts(search?: string, lowStock?: boolean) {
     try {
       const response = await api.get('/technician/products', {
         params: { search, low_stock: lowStock },
       });
-      const data = response.data;
-      
-      // Cache products data
-      offlineCache.set(CACHE_KEYS.PRODUCTS, data);
-      
-      return data;
+      offlineCache.set(CACHE_KEYS.PRODUCTS, response.data);
+      return response.data;
     } catch (error) {
       if (!offlineCache.getIsOnline()) {
         const cachedData = offlineCache.get(CACHE_KEYS.PRODUCTS);
-        if (cachedData) {
-          return cachedData;
-        }
+        if (cachedData) return cachedData;
       }
       throw error;
     }
   },
 
-  // History
   async getHistory(filters?: { start_date?: string; end_date?: string; search?: string }) {
     const response = await api.get('/technician/history', { params: filters });
     return response.data;
   },
 
-  // Metrics
   async getMetrics(startDate?: string, endDate?: string) {
     const response = await api.get('/technician/metrics', {
       params: { start_date: startDate, end_date: endDate },
@@ -288,12 +244,10 @@ export const technicianService = {
     return response.data;
   },
 
-  // Offline status
   isOnline(): boolean {
     return offlineCache.getIsOnline();
   },
 
-  // Clear cache
   clearCache(): void {
     Object.values(CACHE_KEYS).forEach(key => {
       localStorage.removeItem(key);
