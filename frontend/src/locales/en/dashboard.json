@@ -1,0 +1,63 @@
+{
+  "dashboard": "Dashboard",
+  "overview": "Overview",
+  "statistics": "Statistics",
+  "reports": "Reports",
+  "analytics": "Analytics",
+  "totalSales": "Total Sales",
+  "totalProducts": "Total Products",
+  "totalCustomers": "Total Customers",
+  "totalOrders": "Total Orders",
+  "recentActivity": "Recent Activity",
+  "quickActions": "Quick Actions",
+  "viewAll": "View All",
+  "thisMonth": "This Month",
+  "lastMonth": "Last Month",
+  "thisYear": "This Year",
+  "revenue": "Revenue",
+  "profit": "Profit",
+  "growth": "Growth",
+  "welcome_message": "Welcome to your business dashboard",
+  "stats": {
+    "todays_sales": "Today's Sales",
+    "total_products": "Total Products",
+    "low_stock_items": "Low Stock Items",
+    "staff_members": "Staff Members",
+    "today": "today",
+    "items": "items",
+    "active": "active",
+    "new_this_week": "new this week",
+    "needs_attention": "Needs attention",
+    "all_good": "All good"
+  },
+  "business_metrics": {
+    "monthly_revenue": "Monthly Revenue",
+    "customer_growth": "Customer Growth",
+    "inventory_turnover": "Inventory Turnover",
+    "profit_margin": "Profit Margin",
+    "this_month": "This month",
+    "vs_last_month": "vs last month",
+    "times_per_month": "times per month",
+    "monthly_average": "monthly average"
+  },
+  "charts": {
+    "weekly_sales": "Weekly Sales",
+    "sales_performance": "Sales performance over the last 7 days",
+    "recent_sales": "Recent Sales",
+    "latest_transactions": "Latest transactions from your store",
+    "no_sales_yet": "No sales yet",
+    "start_selling": "Start selling to see your recent transactions here.",
+    "sales": "Sales"
+  },
+  "actions": {
+    "new_sale": "New Sale",
+    "add_product": "Add Product",
+    "add_staff": "Add Staff",
+    "view_reports": "View Reports",
+    "common_tasks": "Common tasks to manage your business"
+  },
+  "translation_test": {
+    "title": "Translation Test",
+    "description": "Test the translation system functionality"
+  }
+}

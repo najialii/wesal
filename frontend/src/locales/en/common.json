@@ -1,0 +1,221 @@
+{
+  "welcome": "Welcome",
+  "loading": "Loading...",
+  "error": "Error",
+  "success": "Success",
+  "cancel": "Cancel",
+  "save": "Save",
+  "delete": "Delete",
+  "edit": "Edit",
+  "add": "Add",
+  "search": "Search",
+  "filter": "Filter",
+  "clear": "Clear",
+  "submit": "Submit",
+  "close": "Close",
+  "back": "Back",
+  "next": "Next",
+  "previous": "Previous",
+  "yes": "Yes",
+  "no": "No",
+  "ok": "OK",
+  "confirm": "Confirm",
+  "language": "Language",
+  "english": "English",
+  "arabic": "Arabic",
+  "selectBranch": "Select Branch",
+  "currentBranch": "Current Branch",
+  "switchBranch": "Switch Branch",
+  "allBranches": "All Branches",
+  "noBranchesAvailable": "No branches available",
+  "selectMultipleBranches": "You can select multiple branches",
+  "shared": "Shared",
+  "sharedTooltip": "This item is shared across all branches",
+  "sharedCategoryTooltip": "Categories are shared across all branches. Changes affect all locations.",
+  "sharedCustomerTooltip": "Customers are shared across all branches. They can be served at any location.",
+  "branchSpecific": "Branch-specific",
+  "branchSpecificTooltip": "This item belongs to a specific branch",
+  "branch": "Branch",
+  "assignToBranch": "Assign to Branch",
+  "bulkAssignToBranch": "Bulk Assign to Branch",
+  "branchAssignment": "Branch Assignment",
+  "branchAssignmentDescription": "Select which branches this item will be available in",
+  "productsAssigned": "{{count}} products assigned to branch",
+  "productsSkipped": "{{count}} products skipped (already in branch)",
+  "branchSummary": "Branch Summary",
+  "lowStockWarning": "Low stock warning",
+  "errors": {
+    "branchAccessDenied": "You do not have access to this branch",
+    "insufficientStock": "Insufficient stock for this operation",
+    "inactiveBranch": "Cannot perform operations on inactive branch",
+    "branchRequired": "Branch selection is required",
+    "transferFailed": "Stock transfer failed",
+    "branchSwitchFailed": "Failed to switch branch",
+    "cannotRemoveLastBranch": "Cannot remove the last branch from a product",
+    "stockExistsInBranch": "This branch has existing stock. Please transfer or adjust stock before removing."
+  },
+  "navigation": {
+    "title": "Navigation",
+    "business": "Business",
+    "dashboard": "Dashboard",
+    "pos": "Point of Sale",
+    "products": "Products",
+    "categories": "Categories",
+    "customers": "Customers",
+    "sales": "Sales",
+    "staff": "Staff",
+    "branches": "Branches",
+    "maintenance": "Maintenance",
+    "settings": "Settings"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Complete Business Management Platform",
+      "subtitle": "Manage your sales, products, and team from one place. Advanced technology solutions for your business growth."
+    },
+    "cta": {
+      "getStarted": "Get Started",
+      "learnMore": "Learn More"
+    },
+    "features": {
+      "title": "Key Features",
+      "pos": {
+        "title": "Point of Sale",
+        "description": "Advanced POS system for easy sales and payment management"
+      },
+      "inventory": {
+        "title": "Inventory Management",
+        "description": "Track products and inventory with smart low-stock alerts"
+      },
+      "team": {
+        "title": "Team Management",
+        "description": "Manage staff and permissions with performance tracking"
+      }
+    },
+    "footer": {
+      "tagline": "Advanced technology solutions for business management",
+      "login": "Login",
+      "contact": "Contact"
+    }
+  },
+  "onboarding": {
+    "welcome": "Welcome to WesalTech",
+    "subtitle": "Let's set up your business in 3 simple steps",
+    "progress": "Step {{current}} of {{total}}",
+    "step1": {
+      "title": "Complete Your Business Profile",
+      "description": "Tell us more about your business",
+      "form": {
+        "name": "Business Name",
+        "namePlaceholder": "Enter your business name",
+        "logo": "Business Logo",
+        "logoHint": "Upload an image (max 5MB)",
+        "optional": "Optional Information",
+        "phone": "Phone Number",
+        "phonePlaceholder": "Enter phone number",
+        "email": "Email Address",
+        "emailPlaceholder": "Enter email address",
+        "address": "Business Address",
+        "addressPlaceholder": "Enter business address",
+        "taxNumber": "Tax Number",
+        "taxNumberPlaceholder": "Enter tax number (optional)",
+        "crNumber": "CR Number",
+        "crNumberPlaceholder": "Enter commercial registration number (optional)"
+      },
+      "validation": {
+        "nameRequired": "Business name is required",
+        "phoneRequired": "Phone number is required",
+        "emailRequired": "Email address is required",
+        "emailInvalid": "Please enter a valid email address",
+        "addressRequired": "Business address is required",
+        "logoSize": "Logo must be less than 5MB",
+        "logoType": "Logo must be an image file"
+      },
+      "success": "Business profile updated successfully"
+    },
+    "step2": {
+      "title": "Add Your First Product",
+      "description": "Start building your inventory",
+      "form": {
+        "name": "Product Name",
+        "namePlaceholder": "Enter product name",
+        "sku": "SKU",
+        "skuPlaceholder": "Enter product SKU",
+        "price": "Price",
+        "pricePlaceholder": "Enter price",
+        "stockQuantity": "Stock Quantity",
+        "stockQuantityPlaceholder": "Enter quantity",
+        "unit": "Unit",
+        "unitPlaceholder": "Select unit",
+        "units": {
+          "pieces": "Pieces",
+          "kg": "Kilograms",
+          "liters": "Liters",
+          "meters": "Meters",
+          "boxes": "Boxes"
+        }
+      },
+      "validation": {
+        "nameRequired": "Product name is required",
+        "skuRequired": "SKU is required",
+        "priceRequired": "Price is required",
+        "priceMin": "Price must be greater than 0",
+        "stockQuantityRequired": "Stock quantity is required",
+        "stockQuantityMin": "Stock quantity must be 0 or greater",
+        "unitRequired": "Unit is required"
+      },
+      "success": "Product '{{name}}' created successfully"
+    },
+    "step3": {
+      "title": "Add Your First Technician",
+      "description": "Invite a team member",
+      "form": {
+        "name": "Technician Name",
+        "namePlaceholder": "Enter technician name",
+        "email": "Email Address",
+        "emailPlaceholder": "Enter email address",
+        "phone": "Phone Number",
+        "phonePlaceholder": "Enter phone number"
+      },
+      "validation": {
+        "nameRequired": "Technician name is required",
+        "emailRequired": "Email address is required",
+        "emailInvalid": "Please enter a valid email address",
+        "emailExists": "This email is already registered",
+        "phoneRequired": "Phone number is required"
+      },
+      "success": "Technician account created successfully. Welcome email sent to {{email}}",
+      "redirect": "Redirecting to dashboard..."
+    },
+    "buttons": {
+      "continue": "Continue",
+      "skip": "Skip for now",
+      "finish": "Finish Setup"
+    },
+    "errors": {
+      "loadingFailed": "Failed to load onboarding status",
+      "saveFailed": "Failed to save. Please try again.",
+      "networkError": "Network error. Please check your connection."
+    }
+  },
+  "auth": {
+    "logout": "Logout",
+    "staff": "Staff"
+  },
+  "breadcrumb": {
+    "add": "Add",
+    "edit": "Edit",
+    "create": "Create",
+    "view": "View",
+    "calendar": "Calendar"
+  },
+  "pagination": {
+    "showing": "Showing",
+    "to": "to",
+    "of": "of",
+    "results": "results",
+    "items_per_page": "Items per page",
+    "previous": "Previous",
+    "next": "Next"
+  }
+}

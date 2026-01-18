@@ -1,0 +1,224 @@
+{
+  "welcome": "مرحباً",
+  "loading": "جاري التحميل...",
+  "error": "خطأ",
+  "success": "نجح",
+  "cancel": "إلغاء",
+  "save": "حفظ",
+  "delete": "حذف",
+  "edit": "تعديل",
+  "add": "إضافة",
+  "search": "بحث",
+  "filter": "تصفية",
+  "clear": "مسح",
+  "submit": "إرسال",
+  "close": "إغلاق",
+  "back": "رجوع",
+  "next": "التالي",
+  "previous": "السابق",
+  "yes": "نعم",
+  "no": "لا",
+  "ok": "موافق",
+  "confirm": "تأكيد",
+  "language": "اللغة",
+  "english": "الإنجليزية",
+  "arabic": "العربية",
+  "selectBranch": "اختر الفرع",
+  "currentBranch": "الفرع الحالي",
+  "switchBranch": "تبديل الفرع",
+  "allBranches": "جميع الفروع",
+  "noBranchesAvailable": "لا توجد فروع متاحة",
+  "selectMultipleBranches": "يمكنك اختيار عدة فروع",
+  "shared": "مشترك",
+  "sharedTooltip": "هذا العنصر مشترك بين جميع الفروع",
+  "sharedCategoryTooltip": "الفئات مشتركة بين جميع الفروع. التغييرات تؤثر على جميع المواقع.",
+  "sharedCustomerTooltip": "العملاء مشتركون بين جميع الفروع. يمكن خدمتهم في أي موقع.",
+  "branchSpecific": "خاص بالفرع",
+  "branchSpecificTooltip": "هذا العنصر ينتمي إلى فرع محدد",
+  "branch": "فرع",
+  "assignToBranch": "تعيين للفرع",
+  "bulkAssignToBranch": "تعيين جماعي للفرع",
+  "branchAssignment": "تعيين الفرع",
+  "branchAssignmentDescription": "اختر الفروع التي سيكون هذا العنصر متاحاً فيها",
+  "productsAssigned": "تم تعيين {{count}} منتج للفرع",
+  "productsSkipped": "تم تخطي {{count}} منتج (موجود بالفعل في الفرع)",
+  "branchSummary": "ملخص الفرع",
+  "lowStockWarning": "تحذير انخفاض المخزون",
+  "errors": {
+    "branchAccessDenied": "ليس لديك صلاحية الوصول إلى هذا الفرع",
+    "insufficientStock": "مخزون غير كافٍ لهذه العملية",
+    "inactiveBranch": "لا يمكن إجراء عمليات على فرع غير نشط",
+    "branchRequired": "يجب اختيار الفرع",
+    "transferFailed": "فشل نقل المخزون",
+    "branchSwitchFailed": "فشل تبديل الفرع",
+    "cannotRemoveLastBranch": "لا يمكن إزالة الفرع الأخير من المنتج",
+    "stockExistsInBranch": "هذا الفرع يحتوي على مخزون. يرجى نقل أو تعديل المخزون قبل الإزالة."
+  },
+  "navigation": {
+    "title": "التنقل",
+    "business": "الأعمال",
+    "dashboard": "لوحة التحكم",
+    "pos": "نقطة البيع",
+    "products": "المنتجات",
+    "categories": "الفئات",
+    "customers": "العملاء",
+    "sales": "المبيعات",
+    "staff": "الموظفين",
+    "branches": "الفروع",
+    "maintenance": "الصيانة",
+    "settings": "الإعدادات",
+    "technician": "الفني"
+  },
+  "homepage": {
+    "hero": {
+      "title": "منصة إدارة الأعمال الشاملة",
+      "subtitle": "إدارة مبيعاتك، منتجاتك، وفريق العمل من مكان واحد. حلول تقنية متقدمة لنمو أعمالك."
+    },
+    "cta": {
+      "getStarted": "ابدأ الآن",
+      "learnMore": "تعرف أكثر"
+    },
+    "features": {
+      "title": "المميزات الرئيسية",
+      "pos": {
+        "title": "نقطة البيع",
+        "description": "نظام نقطة بيع متقدم لإدارة المبيعات والمدفوعات بسهولة"
+      },
+      "inventory": {
+        "title": "إدارة المخزون",
+        "description": "تتبع المنتجات والمخزون مع تنبيهات ذكية للنفاد"
+      },
+      "team": {
+        "title": "إدارة الفريق",
+        "description": "إدارة الموظفين والصلاحيات مع تتبع الأداء"
+      }
+    },
+    "footer": {
+      "tagline": "حلول تقنية متقدمة لإدارة الأعمال",
+      "login": "تسجيل الدخول",
+      "contact": "اتصل بنا"
+    }
+  },
+  "onboarding": {
+    "welcome": "مرحباً بك في وصل تك",
+    "subtitle": "دعنا نقوم بإعداد عملك في 3 خطوات بسيطة",
+    "progress": "الخطوة {{current}} من {{total}}",
+    "step1": {
+      "title": "أكمل ملف شركتك",
+      "description": "أخبرنا المزيد عن شركتك",
+      "form": {
+        "name": "اسم الشركة",
+        "namePlaceholder": "أدخل اسم شركتك",
+        "logo": "شعار الشركة",
+        "logoHint": "ارفع صورة (الحد الأقصى 5 ميجابايت)",
+        "optional": "معلومات اختيارية",
+        "phone": "رقم الهاتف",
+        "phonePlaceholder": "أدخل رقم الهاتف",
+        "email": "البريد الإلكتروني",
+        "emailPlaceholder": "أدخل البريد الإلكتروني",
+        "address": "عنوان الشركة",
+        "addressPlaceholder": "أدخل عنوان الشركة",
+        "taxNumber": "الرقم الضريبي",
+        "taxNumberPlaceholder": "أدخل الرقم الضريبي (اختياري)",
+        "crNumber": "رقم السجل التجاري",
+        "crNumberPlaceholder": "أدخل رقم السجل التجاري (اختياري)"
+      },
+      "validation": {
+        "nameRequired": "اسم الشركة مطلوب",
+        "phoneRequired": "رقم الهاتف مطلوب",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح",
+        "addressRequired": "عنوان الشركة مطلوب",
+        "logoSize": "يجب أن يكون حجم الشعار أقل من 5 ميجابايت",
+        "logoType": "يجب أن يكون الشعار ملف صورة"
+      },
+      "success": "تم تحديث ملف الشركة بنجاح"
+    },
+    "step2": {
+      "title": "أضف منتجك الأول",
+      "description": "ابدأ في بناء مخزونك",
+      "form": {
+        "name": "اسم المنتج",
+        "namePlaceholder": "أدخل اسم المنتج",
+        "sku": "رمز المنتج (SKU)",
+        "skuPlaceholder": "أدخل رمز المنتج",
+        "price": "السعر",
+        "pricePlaceholder": "أدخل السعر",
+        "stockQuantity": "كمية المخزون",
+        "stockQuantityPlaceholder": "أدخل الكمية",
+        "unit": "الوحدة",
+        "unitPlaceholder": "اختر الوحدة",
+        "units": {
+          "pieces": "قطعة",
+          "kg": "كيلوجرام",
+          "liters": "لتر",
+          "meters": "متر",
+          "boxes": "صندوق"
+        }
+      },
+      "validation": {
+        "nameRequired": "اسم المنتج مطلوب",
+        "skuRequired": "رمز المنتج مطلوب",
+        "priceRequired": "السعر مطلوب",
+        "priceMin": "يجب أن يكون السعر أكبر من 0",
+        "stockQuantityRequired": "كمية المخزون مطلوبة",
+        "stockQuantityMin": "يجب أن تكون كمية المخزون 0 أو أكثر",
+        "unitRequired": "الوحدة مطلوبة"
+      },
+      "success": "تم إنشاء المنتج '{{name}}' بنجاح"
+    },
+    "step3": {
+      "title": "أضف أول فني لديك",
+      "description": "قم بدعوة عضو في فريقك",
+      "form": {
+        "name": "اسم الفني",
+        "namePlaceholder": "أدخل اسم الفني",
+        "email": "البريد الإلكتروني",
+        "emailPlaceholder": "أدخل البريد الإلكتروني",
+        "phone": "رقم الهاتف",
+        "phonePlaceholder": "أدخل رقم الهاتف"
+      },
+      "validation": {
+        "nameRequired": "اسم الفني مطلوب",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح",
+        "emailExists": "هذا البريد الإلكتروني مسجل بالفعل",
+        "phoneRequired": "رقم الهاتف مطلوب"
+      },
+      "success": "تم إنشاء حساب الفني بنجاح. تم إرسال بريد ترحيبي إلى {{email}}",
+      "redirect": "جاري التوجيه إلى لوحة التحكم..."
+    },
+    "buttons": {
+      "continue": "متابعة",
+      "skip": "تخطي الآن",
+      "finish": "إنهاء الإعداد"
+    },
+    "errors": {
+      "loadingFailed": "فشل تحميل حالة الإعداد",
+      "saveFailed": "فشل الحفظ. يرجى المحاولة مرة أخرى.",
+      "networkError": "خطأ في الشبكة. يرجى التحقق من اتصالك."
+    }
+  },
+  "auth": {
+    "logout": "تسجيل الخروج",
+    "staff": "الموظفين",
+    "technician": "فني"
+  },
+  "technician": "فني",
+  "breadcrumb": {
+    "add": "إضافة",
+    "edit": "تعديل",
+    "create": "إنشاء",
+    "view": "عرض",
+    "calendar": "التقويم"
+  },
+  "pagination": {
+    "showing": "عرض",
+    "to": "إلى",
+    "of": "من",
+    "results": "نتيجة",
+    "items_per_page": "عدد العناصر في الصفحة",
+    "previous": "السابق",
+    "next": "التالي"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "dashboard": "لوحة التحكم",
+  "overview": "نظرة عامة",
+  "statistics": "الإحصائيات",
+  "reports": "التقارير",
+  "analytics": "التحليلات",
+  "totalSales": "إجمالي المبيعات",
+  "totalProducts": "إجمالي المنتجات",
+  "totalCustomers": "إجمالي العملاء",
+  "totalOrders": "إجمالي الطلبات",
+  "recentActivity": "النشاط الأخير",
+  "quickActions": "الإجراءات السريعة",
+  "viewAll": "عرض الكل",
+  "thisMonth": "هذا الشهر",
+  "lastMonth": "الشهر الماضي",
+  "thisYear": "هذا العام",
+  "revenue": "الإيرادات",
+  "profit": "الربح",
+  "growth": "النمو",
+  "welcome_message": "مرحباً بك في لوحة تحكم عملك",
+  "stats": {
+    "todays_sales": "مبيعات اليوم",
+    "total_products": "إجمالي المنتجات",
+    "low_stock_items": "عناصر المخزون المنخفض",
+    "staff_members": "أعضاء الفريق",
+    "today": "اليوم",
+    "items": "عناصر",
+    "active": "نشط",
+    "new_this_week": "جديد هذا الأسبوع",
+    "needs_attention": "يحتاج إلى اهتمام",
+    "all_good": "كل شيء على ما يرام"
+  },
+  "business_metrics": {
+    "monthly_revenue": "الإيرادات الشهرية",
+    "customer_growth": "نمو العملاء",
+    "inventory_turnover": "دوران المخزون",
+    "profit_margin": "هامش الربح",
+    "this_month": "هذا الشهر",
+    "vs_last_month": "مقارنة بالشهر الماضي",
+    "times_per_month": "مرات في الشهر",
+    "monthly_average": "متوسط الشهر"
+  },
+  "charts": {
+    "weekly_sales": "المبيعات الأسبوعية",
+    "sales_performance": "أداء المبيعات خلال آخر 7 أيام",
+    "recent_sales": "المبيعات الأخيرة",
+    "latest_transactions": "آخر المعاملات من متجرك",
+    "no_sales_yet": "لا توجد مبيعات بعد",
+    "start_selling": "ابدأ البيع لرؤية معاملاتك الأخيرة هنا.",
+    "sales": "المبيعات"
+  },
+  "actions": {
+    "new_sale": "بيع جديد",
+    "add_product": "إضافة منتج",
+    "add_staff": "إضافة موظف",
+    "view_reports": "عرض التقارير",
+    "common_tasks": "المهام الشائعة لإدارة عملك"
+  },
+  "translation_test": {
+    "title": "اختبار الترجمة",
+    "description": "اختبار وظائف نظام الترجمة"
+  }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Test</title>
+</head>
+<body>
+    <h1>Login and Analytics Test</h1>
+    <button onclick="testLogin()">Test Login</button>
+    <button onclick="testAnalytics()">Test Analytics (after login)</button>
+    <div id="result"></div>
+
+    <script>
+        let authToken = null;
+
+        async function testLogin() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing login...';
+            
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'admin@wesaltech.com',
+                        password: 'password'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    authToken = data.token;
+                    resultDiv.innerHTML = `
+                        <h3>Login Success!</h3>
+                        <p>Token: ${authToken.substring(0, 20)}...</p>
+                        <p>User: ${data.user.email}</p>
+                        <p>Super Admin: ${data.user.is_super_admin}</p>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <h3>Login Failed - Status: ${response.status}</h3>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<h3>Login Error:</h3><pre>${error.message}</pre>`;
+            }
+        }
+
+        async function testAnalytics() {
+            const resultDiv = document.getElementById('result');
+            
+            if (!authToken) {
+                resultDiv.innerHTML = '<h3>Please login first!</h3>';
+                return;
+            }
+            
+            resultDiv.innerHTML = 'Testing analytics...';
+            
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/admin/analytics/dashboard', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = `
+                    <h3>Analytics Response - Status: ${response.status}</h3>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<h3>Analytics Error:</h3><pre>${error.message}</pre>`;
+            }
+        }
+    </script>
+</body>
+</html>

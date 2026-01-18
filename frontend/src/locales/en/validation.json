@@ -1,0 +1,16 @@
+{
+  "required": "This field is required",
+  "email": "Please enter a valid email address",
+  "minLength": "Must be at least {{min}} characters",
+  "maxLength": "Must be no more than {{max}} characters",
+  "numeric": "Must be a number",
+  "positive": "Must be a positive number",
+  "integer": "Must be an integer",
+  "phone": "Please enter a valid phone number",
+  "url": "Please enter a valid URL",
+  "date": "Please enter a valid date",
+  "passwordMatch": "Passwords do not match",
+  "unique": "This value already exists",
+  "min": "Must be at least {{min}}",
+  "max": "Must be no more than {{max}}"
+}

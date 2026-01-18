@@ -1,0 +1,21 @@
+{
+  "branchMetrics": "Branch Metrics",
+  "compareBranches": "Compare Branches",
+  "consolidatedView": "Consolidated View",
+  "selectBranches": "Select Branches to Compare",
+  "dateRange": "Date Range",
+  "totalSales": "Total Sales",
+  "totalRevenue": "Total Revenue",
+  "totalOrders": "Total Orders",
+  "averageOrderValue": "Average Order Value",
+  "topProducts": "Top Products",
+  "salesTrend": "Sales Trend",
+  "revenueByBranch": "Revenue by Branch",
+  "performanceComparison": "Performance Comparison",
+  "inventoryValue": "Inventory Value",
+  "lowStockItems": "Low Stock Items",
+  "stockMovements": "Stock Movements",
+  "branchPerformance": "Branch Performance",
+  "bestPerforming": "Best Performing",
+  "needsAttention": "Needs Attention"
+}

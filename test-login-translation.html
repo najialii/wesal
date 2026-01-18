@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Translation Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .test-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .test-description {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        .test-steps {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .step {
+            margin-bottom: 8px;
+        }
+        .expected {
+            background: #e8f5e8;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login Page Arabic Translation Test</h1>
+    
+    <div class="test-section">
+        <div class="test-title">Test: Arabic Label Translation</div>
+        <div class="test-description">
+            This test verifies that the email and password labels change to Arabic when the language is switched.
+        </div>
+        
+        <div class="test-steps">
+            <div class="step"><strong>Step 1:</strong> Open the application at <a href="http://localhost:5175" target="_blank">http://localhost:5175</a></div>
+            <div class="step"><strong>Step 2:</strong> You should see the login page with English labels</div>
+            <div class="step"><strong>Step 3:</strong> Click the "العربية" button in the top-right corner</div>
+            <div class="step"><strong>Step 4:</strong> Observe the form labels</div>
+        </div>
+        
+        <div class="expected">
+            <strong>Expected Result:</strong><br>
+            - When English is selected: "Email Address" and "Password" labels<br>
+            - When Arabic is selected: "عنوان البريد الإلكتروني" and "كلمة المرور" labels<br>
+            - The login button should also change from "Sign In" to "تسجيل الدخول"<br>
+            - The form should be right-aligned when Arabic is selected
+        </div>
+    </div>
+
+    <div class="test-section">
+        <div class="test-title">Translation Keys Being Tested</div>
+        <div class="test-description">
+            The following translation keys should work correctly:
+        </div>
+        
+        <div class="test-steps">
+            <div class="step"><strong>email_label:</strong> "Email Address" → "عنوان البريد الإلكتروني"</div>
+            <div class="step"><strong>password_label:</strong> "Password" → "كلمة المرور"</div>
+            <div class="step"><strong>sign_in:</strong> "Sign In" → "تسجيل الدخول"</div>
+            <div class="step"><strong>email_placeholder:</strong> "Enter your email address" → "أدخل عنوان بريدك الإلكتروني"</div>
+            <div class="step"><strong>password_placeholder:</strong> "Enter your password" → "أدخل كلمة المرور"</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <div class="test-title">Recent Changes Made</div>
+        <div class="test-description">
+            The following changes were made to fix the translation issue:
+        </div>
+        
+        <div class="test-steps">
+            <div class="step">1. Added cache clearing when language changes in TranslationProvider</div>
+            <div class="step">2. Added version tracking to force re-renders when language changes</div>
+            <div class="step">3. Added language change event listener in Login component</div>
+            <div class="step">4. Added form key with currentLanguage and forceUpdate to ensure re-rendering</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Role Information</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #17a2b8;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .table th, .table td {
+            border: 1px solid #dee2e6;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        .highlight {
+            background: #fff3cd;
+            font-weight: bold;
+        }
+        .user-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .role-badge {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin: 2px;
+        }
+        .permission-list {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>👤 User Role Information</h1>
+    
+    <div class="success">
+        <h2>✅ User Found in Tenant ID 8</h2>
+        <p>I found the user you were asking about. There's no user ID 28, but there is a user in tenant ID 8.</p>
+    </div>
+
+    <div class="info">
+        <h2>🎯 User in Tenant ID 8</h2>
+        
+        <div class="user-card">
+            <h3>👤 User Details</h3>
+            <table class="table">
+                <tr>
+                    <th>User ID</th>
+                    <td class="highlight">24</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>naji alinassur</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>admin@test.com</td>
+                </tr>
+                <tr>
+                    <th>Tenant ID</th>
+                    <td class="highlight">8</td>
+                </tr>
+                <tr>
+                    <th>Role</th>
+                    <td><span class="role-badge">admin</span></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="user-card">
+            <h3>🏢 Tenant Details</h3>
+            <table class="table">
+                <tr>
+                    <th>Tenant ID</th>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <th>Company Name</th>
+                    <td>company</td>
+                </tr>
+                <tr>
+                    <th>Domain</th>
+                    <td>company-1768308896</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>active</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="info">
+        <h2>🎭 Role Permissions</h2>
+        <p>The user has the <strong>admin</strong> role with the following permissions:</p>
+        
+        <div class="permission-list">
+            <h4>Admin Role Permissions (9 total):</h4>
+            <ul>
+                <li>✅ <strong>view_dashboard</strong> - Can view the business dashboard</li>
+                <li>✅ <strong>manage_users</strong> - Can manage staff and user accounts</li>
+                <li>✅ <strong>manage_products</strong> - Can add, edit, delete products</li>
+                <li>✅ <strong>manage_categories</strong> - Can manage product categories</li>
+                <li>✅ <strong>manage_customers</strong> - Can manage customer information</li>
+                <li>✅ <strong>manage_sales</strong> - Can process sales and view sales data</li>
+                <li>✅ <strong>manage_maintenance</strong> - Can manage maintenance contracts</li>
+                <li>✅ <strong>view_reports</strong> - Can view business reports</li>
+                <li>✅ <strong>manage_settings</strong> - Can modify business settings</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="warning">
+        <h2>📊 All System Roles</h2>
+        <p>Here are all the available roles in the system:</p>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Role Name</th>
+                    <th>Role ID</th>
+                    <th>Permissions Count</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="role-badge">super_admin</span></td>
+                    <td>4</td>
+                    <td>0</td>
+                    <td>System administrator (highest level)</td>
+                </tr>
+                <tr class="highlight">
+                    <td><span class="role-badge">admin</span></td>
+                    <td>5</td>
+                    <td>9</td>
+                    <td>Organization administrator (your user's role)</td>
+                </tr>
+                <tr>
+                    <td><span class="role-badge">tenant_admin</span></td>
+                    <td>1</td>
+                    <td>34</td>
+                    <td>Tenant administrator (most permissions)</td>
+                </tr>
+                <tr>
+                    <td><span class="role-badge">manager</span></td>
+                    <td>3</td>
+                    <td>32</td>
+                    <td>Business manager</td>
+                </tr>
+                <tr>
+                    <td><span class="role-badge">staff</span></td>
+                    <td>6</td>
+                    <td>4</td>
+                    <td>Staff member (limited permissions)</td>
+                </tr>
+                <tr>
+                    <td><span class="role-badge">salesman</span></td>
+                    <td>2</td>
+                    <td>6</td>
+                    <td>Sales person</td>
+                </tr>
+                <tr>
+                    <td><span class="role-badge">user</span></td>
+                    <td>7</td>
+                    <td>0</td>
+                    <td>Basic user (no special permissions)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="info">
+        <h2>🔍 Summary</h2>
+        <ul>
+            <li><strong>User ID:</strong> 24 (not 28 as originally asked)</li>
+            <li><strong>Name:</strong> naji alinassur</li>
+            <li><strong>Email:</strong> admin@test.com</li>
+            <li><strong>Tenant ID:</strong> 8 ✅</li>
+            <li><strong>Company:</strong> company</li>
+            <li><strong>Role:</strong> admin (with 9 permissions)</li>
+            <li><strong>Access Level:</strong> Full business administration</li>
+        </ul>
+        
+        <p>This user has administrative access to their organization and can manage all business operations including products, sales, customers, staff, and settings.</p>
+    </div>
+</body>
+</html>

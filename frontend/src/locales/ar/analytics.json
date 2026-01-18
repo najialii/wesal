@@ -1,0 +1,21 @@
+{
+  "branchMetrics": "مقاييس الفرع",
+  "compareBranches": "مقارنة الفروع",
+  "consolidatedView": "العرض الموحد",
+  "selectBranches": "اختر الفروع للمقارنة",
+  "dateRange": "نطاق التاريخ",
+  "totalSales": "إجمالي المبيعات",
+  "totalRevenue": "إجمالي الإيرادات",
+  "totalOrders": "إجمالي الطلبات",
+  "averageOrderValue": "متوسط قيمة الطلب",
+  "topProducts": "المنتجات الأكثر مبيعاً",
+  "salesTrend": "اتجاه المبيعات",
+  "revenueByBranch": "الإيرادات حسب الفرع",
+  "performanceComparison": "مقارنة الأداء",
+  "inventoryValue": "قيمة المخزون",
+  "lowStockItems": "عناصر منخفضة المخزون",
+  "stockMovements": "حركات المخزون",
+  "branchPerformance": "أداء الفرع",
+  "bestPerforming": "الأفضل أداءً",
+  "needsAttention": "يحتاج إلى اهتمام"
+}

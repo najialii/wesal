@@ -1,0 +1,279 @@
+@import 'tailwindcss';
+@import './assets/fonts/tajawal.css';
+@import './styles/rtl.css';
+@import '@abdulrysr/saudi-riyal-new-symbol-font/style.css';
+
+/* Brand Colors */
+@theme {
+  --color-primary-50: #e6f4ff;
+  --color-primary-100: #bae0ff;
+  --color-primary-200: #91caff;
+  --color-primary-300: #69b1ff;
+  --color-primary-400: #4096ff;
+  --color-primary-500: #088BF8;
+  --color-primary-600: #0770d6;
+  --color-primary-700: #0558b4;
+  --color-primary-800: #044192;
+  --color-primary-900: #022a70;
+  
+  --color-secondary-50: #e6fcff;
+  --color-secondary-100: #b3f5ff;
+  --color-secondary-200: #80eeff;
+  --color-secondary-300: #4de7ff;
+  --color-secondary-400: #1ae0ff;
+  --color-secondary-500: #0bd8fa;
+  --color-secondary-600: #09b8d6;
+  --color-secondary-700: #0798b2;
+  --color-secondary-800: #05788e;
+  --color-secondary-900: #03586a;
+  
+  /* Font families */
+  --font-tajawal: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Custom styles */
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Hierarchy */
+.text-h1 {
+  @apply text-2xl font-semibold text-gray-800;
+}
+
+.text-h2 {
+  @apply text-xl font-semibold text-gray-800;
+}
+
+.text-h3 {
+  @apply text-lg font-semibold text-gray-800;
+}
+
+.text-body {
+  @apply text-sm text-gray-700;
+}
+
+.text-label {
+  @apply text-sm font-medium text-gray-700;
+}
+
+.text-caption {
+  @apply text-xs text-gray-500;
+}
+
+/* Document-level language support */
+html[lang="ar"] {
+  font-family: var(--font-tajawal) !important;
+  direction: rtl;
+}
+
+html[lang="ar"] body {
+  font-family: var(--font-tajawal) !important;
+  direction: rtl;
+}
+
+/* Enhanced Sidebar Styles */
+[data-sidebar="sidebar"] {
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+}
+
+.dark [data-sidebar="sidebar"] {
+  background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+}
+
+/* Sidebar menu button hover effects */
+[data-sidebar="menu-button"]:hover {
+  transform: translateX(2px);
+  transition: all 0.2s ease-in-out;
+}
+
+[dir="rtl"] [data-sidebar="menu-button"]:hover {
+  transform: translateX(-2px);
+}
+
+/* Active menu item glow effect */
+[data-sidebar="menu-button"][data-active="true"] {
+  box-shadow: 0 4px 12px rgba(8, 139, 248, 0.15);
+}
+
+.dark [data-sidebar="menu-button"][data-active="true"] {
+  box-shadow: 0 4px 12px rgba(8, 139, 248, 0.25);
+}
+
+/* Smooth transitions for all sidebar elements */
+[data-sidebar="menu-button"],
+[data-sidebar="menu-button"] > * {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Icon container animations */
+[data-sidebar="menu-button"] .icon-container {
+  transition: all 0.2s ease-in-out;
+}
+
+[data-sidebar="menu-button"]:hover .icon-container {
+  transform: scale(1.05);
+}
+
+/* Grid pattern backgrounds */
+.bg-grid-slate-100 {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(148 163 184 / 0.05)'%3e%3cpath d='m0 .5h32m-32 32v-32'/%3e%3c/svg%3e");
+}
+
+.bg-grid-slate-700\/25 {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(51 65 85 / 0.25)'%3e%3cpath d='m0 .5h32m-32 32v-32'/%3e%3c/svg%3e");
+}
+
+/* Arabic text support */
+[lang="ar"], [dir="rtl"] {
+  font-family: var(--font-tajawal);
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "curs" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Mixed content handling */
+.mixed-content {
+  unicode-bidi: plaintext;
+}
+
+/* Arabic text flow */
+.arabic-flow {
+  unicode-bidi: embed;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Loading spinner */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Fade in animation for login message */
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Force Tajawal font for all elements */
+* {
+  font-family: var(--font-sans) !important;
+}
+
+/* Ensure Arabic text is properly rendered */
+[dir="rtl"], [lang="ar"] {
+  font-family: var(--font-tajawal) !important;
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] *, [lang="ar"] * {
+  font-family: var(--font-tajawal) !important;
+}
+
+/* Specific Arabic font application for common elements */
+[lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3, [lang="ar"] h4, [lang="ar"] h5, [lang="ar"] h6,
+[lang="ar"] p, [lang="ar"] span, [lang="ar"] div, [lang="ar"] button, [lang="ar"] input, 
+[lang="ar"] textarea, [lang="ar"] select, [lang="ar"] label, [lang="ar"] th, [lang="ar"] td {
+  font-family: var(--font-tajawal) !important;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "curs" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* RTL specific styling */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] input, [dir="rtl"] textarea, [dir="rtl"] select {
+  text-align: right;
+}
+
+/* Ensure proper font loading */
+@supports (font-display: swap) {
+  [lang="ar"] {
+    font-display: swap;
+  }
+}
+
+/* P
+rint Styles for Receipt */
+@media print {
+  @page {
+    size: 80mm auto;
+    margin: 0;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+/* RTL Sidebar Fix */
+[dir="rtl"] [data-slot="sidebar-gap"] {
+  order: 2;
+}
+
+[dir="rtl"] [data-sidebar-provider] {
+  flex-direction: row-reverse;
+}
+
+/* Ensure sidebar container respects RTL */
+[dir="rtl"] [data-slot="sidebar-container"][data-side="right"] {
+  right: 0 !important;
+  left: auto !important;
+}
+
+[dir="rtl"] [data-slot="sidebar-container"][data-side="right"].group-data-\[collapsible\=offcanvas\]\:right-\[calc\(var\(--sidebar-width\)\*-1\)\] {
+  right: calc(var(--sidebar-width) * -1) !important;
+}
+
+[dir="rtl"] .group[data-side="right"][data-state="collapsed"] [data-slot="sidebar-gap"] {
+  width: 0 !important;
+}
+
+/* Fix for collapsed state in RTL */
+[dir="rtl"] .peer[data-side="right"][data-state="collapsed"] ~ [data-slot="sidebar-inset"] {
+  margin-right: 0;
+}
+
+
+/* RTL Sidebar Fixes */
+[dir="rtl"] .peer[data-side="right"][data-state="collapsed"] + [data-slot="sidebar-gap"] {
+  width: 0 !important;
+}
+
+[dir="rtl"] .group[data-side="right"][data-state="collapsed"] [data-slot="sidebar-container"] {
+  right: calc(var(--sidebar-width) * -1) !important;
+}

@@ -1,0 +1,455 @@
+/* Enhanced RTL Support Styles with CSS Logical Properties */
+
+/* Import Tajawal font */
+@import '../assets/fonts/tajawal.css';
+
+/* Base RTL styles with Tajawal font for Arabic */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: start;
+  font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "curs" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[dir="ltr"] {
+  direction: ltr;
+  text-align: start;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Sidebar RTL is now handled in the component itself */
+/* Fix sidebar content text alignment */
+[dir="rtl"] [data-sidebar="sidebar"] * {
+  text-align: right;
+}
+
+[dir="ltr"] [data-sidebar="sidebar"] * {
+  text-align: left;
+}
+
+/* Fix common Tailwind utilities for RTL */
+[dir="rtl"] .ml-auto { margin-right: auto; margin-left: 0; }
+[dir="rtl"] .mr-auto { margin-left: auto; margin-right: 0; }
+[dir="rtl"] .ml-2 { margin-right: 0.5rem; margin-left: 0; }
+[dir="rtl"] .mr-2 { margin-left: 0.5rem; margin-right: 0; }
+[dir="rtl"] .ml-4 { margin-right: 1rem; margin-left: 0; }
+[dir="rtl"] .mr-4 { margin-left: 1rem; margin-right: 0; }
+
+/* Fix padding utilities */
+[dir="rtl"] .pl-2 { padding-right: 0.5rem; padding-left: 0; }
+[dir="rtl"] .pr-2 { padding-left: 0.5rem; padding-right: 0; }
+[dir="rtl"] .pl-4 { padding-right: 1rem; padding-left: 0; }
+[dir="rtl"] .pr-4 { padding-left: 1rem; padding-right: 0; }
+[dir="rtl"] .pl-6 { padding-right: 1.5rem; padding-left: 0; }
+[dir="rtl"] .pr-6 { padding-left: 1.5rem; padding-right: 0; }
+
+/* Fix border utilities */
+[dir="rtl"] .border-l { border-right-width: 1px; border-left-width: 0; }
+[dir="rtl"] .border-r { border-left-width: 1px; border-right-width: 0; }
+[dir="rtl"] .border-l-2 { border-right-width: 2px; border-left-width: 0; }
+[dir="rtl"] .border-r-2 { border-left-width: 2px; border-right-width: 0; }
+
+/* Fix rounded corners */
+[dir="rtl"] .rounded-l { border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+[dir="rtl"] .rounded-r { border-top-left-radius: 0.25rem; border-bottom-left-radius: 0.25rem; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+[dir="rtl"] .rounded-l-md { border-top-right-radius: 0.375rem; border-bottom-right-radius: 0.375rem; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+[dir="rtl"] .rounded-r-md { border-top-left-radius: 0.375rem; border-bottom-left-radius: 0.375rem; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+
+/* Fix positioning */
+[dir="rtl"] .left-0 { right: 0; left: auto; }
+[dir="rtl"] .right-0 { left: 0; right: auto; }
+[dir="rtl"] .left-4 { right: 1rem; left: auto; }
+[dir="rtl"] .right-4 { left: 1rem; right: auto; }
+
+/* Fix justify content for flex items */
+[dir="rtl"] .justify-start { justify-content: flex-end !important; }
+[dir="rtl"] .justify-end { justify-content: flex-start !important; }
+[dir="rtl"] .justify-between { justify-content: space-between !important; }
+
+/* Fix items alignment */
+[dir="rtl"] .items-start { align-items: flex-start !important; }
+[dir="rtl"] .items-end { align-items: flex-end !important; }
+
+/* Fix space-x utilities to work in RTL */
+[dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  margin-right: 0.5rem !important;
+  margin-left: 0 !important;
+}
+
+[dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  margin-right: 1rem !important;
+  margin-left: 0 !important;
+}
+
+[dir="rtl"] .space-x-6 > :not([hidden]) ~ :not([hidden]) {
+  margin-right: 1.5rem !important;
+  margin-left: 0 !important;
+}
+
+[dir="rtl"] .space-x-reverse {
+  flex-direction: row-reverse !important;
+}
+
+/* Breadcrumbs fix */
+[dir="rtl"] .breadcrumb,
+[dir="rtl"] [role="navigation"] {
+  direction: rtl !important;
+}
+
+[dir="rtl"] .breadcrumb > *,
+[dir="rtl"] [role="navigation"] > * {
+  direction: rtl !important;
+}
+
+/* Fix flex layouts for RTL - ONLY apply to specific elements, not globally */
+[dir="rtl"] .rtl-flex-reverse {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .flex-col {
+  flex-direction: column;
+}
+
+/* Override flex-row-reverse in RTL to be normal row */
+[dir="rtl"] .flex-row-reverse {
+  flex-direction: row;
+}
+
+/* Arabic font utilities */
+.font-tajawal {
+  font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.font-tajawal-light {
+  font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 300;
+}
+
+.font-tajawal-regular {
+  font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+}
+
+.font-tajawal-medium {
+  font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+}
+
+.font-tajawal-bold {
+  font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 700;
+}
+
+/* Arabic text rendering */
+.arabic-text {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "curs" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Sidebar specific fixes */
+[dir="rtl"] .sidebar {
+  right: 0;
+  left: auto;
+}
+
+[dir="ltr"] .sidebar {
+  left: 0;
+  right: auto;
+}
+
+/* Form elements */
+[dir="rtl"] input,
+[dir="rtl"] textarea,
+[dir="rtl"] select {
+  text-align: right;
+}
+
+[dir="ltr"] input,
+[dir="ltr"] textarea,
+[dir="ltr"] select {
+  text-align: left;
+}
+
+/* Dropdown menus */
+[dir="rtl"] .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+[dir="ltr"] .dropdown-menu {
+  left: 0;
+  right: auto;
+}
+
+/* Modal positioning */
+[dir="rtl"] .modal {
+  text-align: right;
+}
+
+[dir="ltr"] .modal {
+  text-align: left;
+}
+
+/* Notification positioning */
+[dir="rtl"] .notification {
+  right: 1rem;
+  left: auto;
+}
+
+[dir="ltr"] .notification {
+  left: 1rem;
+  right: auto;
+}
+
+/* Button groups */
+[dir="rtl"] .btn-group .btn:first-child {
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+[dir="rtl"] .btn-group .btn:last-child {
+  border-top-left-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+[dir="ltr"] .btn-group .btn:first-child {
+  border-top-left-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+[dir="ltr"] .btn-group .btn:last-child {
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Search inputs */
+[dir="rtl"] .search-input {
+  padding-right: 2.5rem;
+  padding-left: 0.75rem;
+}
+
+[dir="rtl"] .search-icon {
+  right: 0.75rem;
+  left: auto;
+}
+
+[dir="ltr"] .search-input {
+  padding-left: 2.5rem;
+  padding-right: 0.75rem;
+}
+
+[dir="ltr"] .search-icon {
+  left: 0.75rem;
+  right: auto;
+}
+
+/* Checkbox and radio alignment */
+[dir="rtl"] .form-check {
+  text-align: right;
+}
+
+[dir="rtl"] .form-check-input {
+  margin-right: 0;
+  margin-left: 0.25rem;
+}
+
+[dir="ltr"] .form-check {
+  text-align: left;
+}
+
+[dir="ltr"] .form-check-input {
+  margin-left: 0;
+  margin-right: 0.25rem;
+}
+
+/* List items */
+[dir="rtl"] .list-item {
+  text-align: right;
+}
+
+[dir="rtl"] .list-item-icon {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+[dir="ltr"] .list-item {
+  text-align: left;
+}
+
+[dir="ltr"] .list-item-icon {
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+
+/* Breadcrumbs */
+[dir="rtl"] .breadcrumb-separator::before {
+  content: "\\";
+}
+
+[dir="ltr"] .breadcrumb-separator::before {
+  content: "/";
+}
+
+/* Progress bars */
+[dir="rtl"] .progress-bar {
+  right: 0;
+  left: auto;
+}
+
+[dir="ltr"] .progress-bar {
+  left: 0;
+  right: auto;
+}
+
+/* Tabs */
+[dir="rtl"] .tab-list {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+[dir="rtl"] .tab-item {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+[dir="ltr"] .tab-item {
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+
+/* Tooltip positioning */
+[dir="rtl"] .tooltip {
+  text-align: right;
+}
+
+[dir="ltr"] .tooltip {
+  text-align: left;
+}
+
+/* Card layouts */
+[dir="rtl"] .card-header {
+  text-align: right;
+}
+
+[dir="ltr"] .card-header {
+  text-align: left;
+}
+
+/* Responsive RTL adjustments */
+@media (max-width: 768px) {
+  [dir="rtl"] .mobile-menu {
+    right: 0;
+    left: auto;
+  }
+  
+  [dir="ltr"] .mobile-menu {
+    left: 0;
+    right: auto;
+  }
+}
+
+/* Animation adjustments for RTL */
+[dir="rtl"] .slide-in-right {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+[dir="rtl"] .slide-in-left {
+  animation: slideInRight 0.3s ease-out;
+}
+
+[dir="ltr"] .slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+[dir="ltr"] .slide-in-left {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* CSS Logical Properties Support */
+.rtl-text-start {
+  text-align: start;
+}
+
+.rtl-text-end {
+  text-align: end;
+}
+
+.rtl-margin-start-2 {
+  margin-inline-start: 0.5rem;
+}
+
+.rtl-margin-start-4 {
+  margin-inline-start: 1rem;
+}
+
+.rtl-margin-end-2 {
+  margin-inline-end: 0.5rem;
+}
+
+.rtl-margin-end-4 {
+  margin-inline-end: 1rem;
+}
+
+.rtl-padding-start-2 {
+  padding-inline-start: 0.5rem;
+}
+
+.rtl-padding-start-4 {
+  padding-inline-start: 1rem;
+}
+
+.rtl-padding-end-2 {
+  padding-inline-end: 0.5rem;
+}
+
+.rtl-padding-end-4 {
+  padding-inline-end: 1rem;
+}
+
+/* Fix for Arabic text rendering */
+[dir="rtl"], [lang="ar"] {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "curs" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure proper Arabic text flow */
+[dir="rtl"] p, [dir="rtl"] span, [dir="rtl"] div {
+  unicode-bidi: embed;
+}
+
+/* Fix for mixed content (Arabic + English) */
+[dir="rtl"] .mixed-content {
+  unicode-bidi: plaintext;
+}

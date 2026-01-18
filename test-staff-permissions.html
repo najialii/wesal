@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Permission Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #4F46E5;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 8px;
+            border-left: 4px solid #4F46E5;
+        }
+        .command {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .success {
+            color: #10b981;
+            font-weight: bold;
+        }
+        .error {
+            color: #ef4444;
+            font-weight: bold;
+        }
+        .info {
+            background: #dbeafe;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #3b82f6;
+            margin: 15px 0;
+        }
+        .warning {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #f59e0b;
+            margin: 15px 0;
+        }
+        ul {
+            line-height: 1.8;
+        }
+        code {
+            background: #e5e7eb;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Staff Permission Authorization Fix</h1>
+        
+        <div class="warning">
+            <strong>⚠️ Issue:</strong> "This action is unauthorized" when trying to add staff members
+        </div>
+
+        <div class="section">
+            <h2>📋 Problem Analysis</h2>
+            <p>The authorization error occurs because:</p>
+            <ul>
+                <li>The user needs the <code>create_staff</code> permission</li>
+                <li>Permissions might not be seeded in the database</li>
+                <li>The user's role might not have the required permissions</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🔨 Solution Steps</h2>
+            
+            <h3>Step 1: Reseed Permissions</h3>
+            <p>Run this command to ensure all permissions are created and assigned to roles:</p>
+            <div class="command">
+                cd backend/wesaltech<br>
+                php artisan db:seed --class=RolePermissionSeeder
+            </div>
+
+            <h3>Step 2: Check Your User's Role</h3>
+            <p>Verify your user has the correct role in the database:</p>
+            <div class="command">
+                php artisan tinker<br>
+                <br>
+                # Check your user's roles and permissions<br>
+                $user = User::where('email', 'your-email@example.com')->first();<br>
+                $user->roles->pluck('name');<br>
+                $user->getAllPermissions()->pluck('name');
+            </div>
+
+            <h3>Step 3: Assign Role if Missing</h3>
+            <p>If your user doesn't have a role, assign one:</p>
+            <div class="command">
+                php artisan tinker<br>
+                <br>
+                $user = User::where('email', 'your-email@example.com')->first();<br>
+                $user->assignRole('tenant_admin');<br>
+                <br>
+                # Verify<br>
+                $user->hasPermissionTo('create_staff'); // Should return true
+            </div>
+
+            <h3>Step 4: Clear Cache</h3>
+            <p>Clear the permission cache:</p>
+            <div class="command">
+                php artisan permission:cache-reset<br>
+                php artisan cache:clear
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Quick Fix Command</h2>
+            <p>Run all commands at once:</p>
+            <div class="command">
+                cd backend/wesaltech && php artisan db:seed --class=RolePermissionSeeder && php artisan permission:cache-reset && php artisan cache:clear
+            </div>
+        </div>
+
+        <div class="info">
+            <h3>📊 Permission Structure</h3>
+            <p><strong>tenant_admin</strong> role has ALL permissions including:</p>
+            <ul>
+                <li>✅ create_staff</li>
+                <li>✅ edit_staff</li>
+                <li>✅ delete_staff</li>
+                <li>✅ view_staff</li>
+            </ul>
+            
+            <p><strong>manager</strong> role has most permissions including:</p>
+            <ul>
+                <li>✅ create_staff</li>
+                <li>✅ edit_staff</li>
+                <li>✅ delete_staff</li>
+                <li>✅ view_staff</li>
+            </ul>
+            
+            <p><strong>salesman</strong> role has limited permissions:</p>
+            <ul>
+                <li>✅ view_staff</li>
+                <li>❌ create_staff</li>
+                <li>❌ edit_staff</li>
+                <li>❌ delete_staff</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🧪 Test the Fix</h2>
+            <ol>
+                <li>Run the permission seeder command above</li>
+                <li>Log out and log back in to your application</li>
+                <li>Try to add a staff member again</li>
+                <li>If still failing, check the Laravel logs at <code>backend/wesaltech/storage/logs/laravel.log</code></li>
+            </ol>
+        </div>
+
+        <div class="info">
+            <h3>💡 Additional Debugging</h3>
+            <p>If the issue persists, check:</p>
+            <ul>
+                <li>Your user's <code>tenant_id</code> is set correctly</li>
+                <li>The <code>model_has_roles</code> table has entries for your user</li>
+                <li>The <code>role_has_permissions</code> table has the correct permissions</li>
+            </ul>
+            
+            <p>SQL Query to check:</p>
+            <div class="command">
+                SELECT u.email, r.name as role, p.name as permission<br>
+                FROM users u<br>
+                JOIN model_has_roles mhr ON u.id = mhr.model_id<br>
+                JOIN roles r ON mhr.role_id = r.id<br>
+                JOIN role_has_permissions rhp ON r.id = rhp.role_id<br>
+                JOIN permissions p ON rhp.permission_id = p.id<br>
+                WHERE u.email = 'your-email@example.com'<br>
+                AND p.name LIKE '%staff%';
+            </div>
+        </div>
+    </div>
+</body>
+</html>

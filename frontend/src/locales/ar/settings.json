@@ -1,0 +1,109 @@
+{
+  "title": "الإعدادات",
+  "subtitle": "إدارة إعدادات عملك وحسابك",
+  "tabs": {
+    "business": "معلومات العمل",
+    "account": "الحساب",
+    "notifications": "الإشعارات",
+    "security": "الأمان",
+    "billing": "الفواتير",
+    "preferences": "التفضيلات"
+  },
+  "business": {
+    "title": "معلومات العمل",
+    "logo": "شعار العمل",
+    "logoDescription": "يتم إدارة الشعار من خلال إعدادات المنظمة",
+    "name": "اسم العمل",
+    "email": "البريد الإلكتروني للعمل",
+    "phone": "رقم الهاتف",
+    "taxId": "الرقم الضريبي / رقم ضريبة القيمة المضافة",
+    "address": "العنوان",
+    "city": "المدينة",
+    "country": "الدولة",
+    "currency": "العملة",
+    "timezone": "المنطقة الزمنية",
+    "readOnlyNotice": "يمكن لأصحاب الأعمال فقط تعديل معلومات العمل."
+  },
+  "account": {
+    "personalInfo": "المعلومات الشخصية",
+    "fullName": "الاسم الكامل",
+    "email": "عنوان البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "language": "اللغة",
+    "role": "الدور",
+    "roles": {
+      "business_owner": "مالك العمل",
+      "business_admin": "مدير العمل",
+      "salesman": "مندوب مبيعات",
+      "manager": "مدير",
+      "technician": "فني"
+    },
+    "changePassword": "تغيير كلمة المرور",
+    "currentPassword": "كلمة المرور الحالية",
+    "newPassword": "كلمة المرور الجديدة",
+    "confirmPassword": "تأكيد كلمة المرور الجديدة",
+    "passwordHint": "يجب أن تكون 8 أحرف على الأقل مع حروف وأرقام",
+    "changePasswordButton": "تغيير كلمة المرور"
+  },
+  "validation": {
+    "nameRequired": "الاسم مطلوب",
+    "emailRequired": "البريد الإلكتروني مطلوب",
+    "emailInvalid": "تنسيق البريد الإلكتروني غير صالح",
+    "emailTaken": "هذا البريد الإلكتروني مستخدم بالفعل",
+    "phoneInvalid": "تنسيق الهاتف غير صالح",
+    "phoneMinDigits": "يجب أن يحتوي رقم الهاتف على 10 أرقام على الأقل",
+    "phoneTooLong": "رقم الهاتف طويل جداً",
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "passwordMinLength": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+    "passwordNeedsLetter": "يجب أن تحتوي كلمة المرور على حرف واحد على الأقل",
+    "passwordNeedsNumber": "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل",
+    "passwordMismatch": "تأكيد كلمة المرور غير متطابق",
+    "currentPasswordIncorrect": "كلمة المرور الحالية غير صحيحة"
+  },
+  "passwordStrength": {
+    "weak": "ضعيفة",
+    "medium": "متوسطة",
+    "strong": "قوية",
+    "addLowercase": "أضف أحرف صغيرة",
+    "addUppercase": "أضف أحرف كبيرة",
+    "addNumbers": "أضف أرقام",
+    "addSpecial": "أضف أحرف خاصة",
+    "minLength": "يجب أن تكون كلمة المرور 8 أحرف على الأقل"
+  },
+  "buttons": {
+    "save": "حفظ التغييرات",
+    "saving": "جاري الحفظ...",
+    "changingPassword": "جاري تغيير كلمة المرور..."
+  },
+  "messages": {
+    "profileUpdated": "تم تحديث الملف الشخصي بنجاح!",
+    "profileUpdateFailed": "فشل تحديث الملف الشخصي",
+    "passwordChanged": "تم تغيير كلمة المرور بنجاح!",
+    "passwordChangeFailed": "فشل تغيير كلمة المرور",
+    "businessUpdated": "تم تحديث معلومات العمل بنجاح!",
+    "businessUpdateFailed": "فشل تحديث معلومات العمل",
+    "loadingProfile": "جاري تحميل الملف الشخصي...",
+    "loadingBusiness": "جاري تحميل معلومات العمل..."
+  },
+  "notifications": {
+    "title": "إشعارات البريد الإلكتروني",
+    "emailNotifications": "إشعارات البريد الإلكتروني",
+    "emailNotificationsDesc": "تلقي إشعارات حول إشعارات البريد الإلكتروني",
+    "salesNotifications": "إشعارات المبيعات",
+    "salesNotificationsDesc": "تلقي إشعارات حول إشعارات المبيعات",
+    "inventoryAlerts": "تنبيهات المخزون",
+    "inventoryAlertsDesc": "تلقي إشعارات حول تنبيهات المخزون",
+    "maintenanceReminders": "تذكيرات الصيانة",
+    "maintenanceRemindersDesc": "تلقي إشعارات حول تذكيرات الصيانة",
+    "staffUpdates": "تحديثات الموظفين",
+    "staffUpdatesDesc": "تلقي إشعارات حول تحديثات الموظفين",
+    "marketingEmails": "رسائل التسويق",
+    "marketingEmailsDesc": "تلقي إشعارات حول رسائل التسويق"
+  },
+  "preferences": {
+    "title": "تفضيلات العرض",
+    "dateFormat": "تنسيق التاريخ",
+    "timeFormat": "تنسيق الوقت",
+    "numberFormat": "تنسيق الأرقام"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "title": "Settings",
+  "subtitle": "Manage your business and account settings",
+  "tabs": {
+    "business": "Business Info",
+    "account": "Account",
+    "notifications": "Notifications",
+    "security": "Security",
+    "billing": "Billing",
+    "preferences": "Preferences"
+  },
+  "business": {
+    "title": "Business Information",
+    "logo": "Business Logo",
+    "logoDescription": "Logo is managed through organization settings",
+    "name": "Business Name",
+    "email": "Business Email",
+    "phone": "Phone Number",
+    "taxId": "Tax ID / VAT Number",
+    "address": "Address",
+    "city": "City",
+    "country": "Country",
+    "currency": "Currency",
+    "timezone": "Timezone",
+    "readOnlyNotice": "Only business owners can edit business information."
+  },
+  "account": {
+    "personalInfo": "Personal Information",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "language": "Language",
+    "role": "Role",
+    "roles": {
+      "business_owner": "Business Owner",
+      "business_admin": "Business Admin",
+      "salesman": "Salesman",
+      "manager": "Manager",
+      "technician": "Technician"
+    },
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "passwordHint": "Must be at least 8 characters with letters and numbers",
+    "changePasswordButton": "Change Password"
+  },
+  "validation": {
+    "nameRequired": "Name is required",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email format",
+    "emailTaken": "This email is already taken",
+    "phoneInvalid": "Invalid phone format",
+    "phoneMinDigits": "Phone number must have at least 10 digits",
+    "phoneTooLong": "Phone number is too long",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "passwordNeedsLetter": "Password must contain at least one letter",
+    "passwordNeedsNumber": "Password must contain at least one number",
+    "passwordMismatch": "Password confirmation does not match",
+    "currentPasswordIncorrect": "The current password is incorrect"
+  },
+  "passwordStrength": {
+    "weak": "Weak",
+    "medium": "Medium",
+    "strong": "Strong",
+    "addLowercase": "Add lowercase letters",
+    "addUppercase": "Add uppercase letters",
+    "addNumbers": "Add numbers",
+    "addSpecial": "Add special characters",
+    "minLength": "Password should be at least 8 characters"
+  },
+  "buttons": {
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "changingPassword": "Changing Password..."
+  },
+  "messages": {
+    "profileUpdated": "Profile updated successfully!",
+    "profileUpdateFailed": "Failed to update profile",
+    "passwordChanged": "Password changed successfully!",
+    "passwordChangeFailed": "Failed to change password",
+    "businessUpdated": "Business information updated successfully!",
+    "businessUpdateFailed": "Failed to update business information",
+    "loadingProfile": "Loading profile...",
+    "loadingBusiness": "Loading business information..."
+  },
+  "notifications": {
+    "title": "Email Notifications",
+    "emailNotifications": "Email Notifications",
+    "emailNotificationsDesc": "Receive notifications about email notifications",
+    "salesNotifications": "Sales Notifications",
+    "salesNotificationsDesc": "Receive notifications about sales notifications",
+    "inventoryAlerts": "Inventory Alerts",
+    "inventoryAlertsDesc": "Receive notifications about inventory alerts",
+    "maintenanceReminders": "Maintenance Reminders",
+    "maintenanceRemindersDesc": "Receive notifications about maintenance reminders",
+    "staffUpdates": "Staff Updates",
+    "staffUpdatesDesc": "Receive notifications about staff updates",
+    "marketingEmails": "Marketing Emails",
+    "marketingEmailsDesc": "Receive notifications about marketing emails"
+  },
+  "preferences": {
+    "title": "Display Preferences",
+    "dateFormat": "Date Format",
+    "timeFormat": "Time Format",
+    "numberFormat": "Number Format"
+  }
+}
