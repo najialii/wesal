@@ -1,0 +1,33 @@
+# Commands to find the WesalTech project and check logs
+
+# 1. Find the project directory
+find /var -name "wesaltech*" -type d 2>/dev/null
+find /home -name "wesaltech*" -type d 2>/dev/null
+find /opt -name "wesaltech*" -type d 2>/dev/null
+
+# 2. Check common web directories
+ls -la /var/www/
+ls -la /var/www/html/
+
+# 3. Look for Laravel projects
+find /var -name "artisan" -type f 2>/dev/null
+
+# 4. Check what's currently running on port 8001
+sudo netstat -tlnp | grep :8001
+sudo lsof -i :8001
+
+# 5. Check nginx logs for errors
+sudo tail -n 20 /var/log/nginx/error.log
+
+# 6. Check if PHP-FPM is running
+sudo systemctl status php8.2-fpm
+sudo systemctl status php8.1-fpm
+sudo systemctl status php8.0-fpm
+
+# 7. Check what PHP version is available
+php --version
+which php
+
+# 8. Check current nginx configuration
+sudo nginx -t
+sudo cat /etc/nginx/sites-enabled/wesaaltech.com

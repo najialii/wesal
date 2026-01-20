@@ -1,0 +1,67 @@
+# Backend Log Checking Commands
+
+# 1. Laravel Application Logs
+# Check the main Laravel log file
+sudo tail -f /var/www/wesaltech-new/backend/wesaltech/storage/logs/laravel.log
+
+# View last 50 lines of Laravel logs
+sudo tail -n 50 /var/www/wesaltech-new/backend/wesaltech/storage/logs/laravel.log
+
+# Check for specific error patterns
+sudo grep -i "error\|exception\|fatal" /var/www/wesaltech-new/backend/wesaltech/storage/logs/laravel.log
+
+# 2. PHP-FPM Logs (if using PHP-FPM)
+sudo tail -f /var/log/php8.2-fpm.log
+
+# 3. Nginx Logs
+# Check nginx error logs
+sudo tail -f /var/log/nginx/error.log
+
+# Check nginx access logs
+sudo tail -f /var/log/nginx/access.log
+
+# Check specific site logs (if configured)
+sudo tail -f /var/log/nginx/wesaaltech_error.log
+sudo tail -f /var/log/nginx/wesaaltech_access.log
+
+# 4. System Logs
+# Check system logs for PHP/web server issues
+sudo journalctl -u nginx -f
+sudo journalctl -u php8.2-fpm -f
+
+# 5. Check if Laravel is running
+# Test if the backend API is accessible
+curl -I http://127.0.0.1:8001/api/health
+curl -I https://wesaaltech.com/api/health
+
+# 6. Check Laravel artisan serve process (if running)
+ps aux | grep "artisan serve"
+ps aux | grep php
+
+# 7. Check port usage
+sudo netstat -tlnp | grep :8001
+sudo netstat -tlnp | grep :80
+sudo netstat -tlnp | grep :443
+
+# 8. Laravel specific debugging
+cd /var/www/wesaltech-new/backend/wesaltech
+
+# Check Laravel configuration
+php artisan config:show
+
+# Check routes
+php artisan route:list
+
+# Check if database is accessible
+php artisan migrate:status
+
+# Clear all caches if needed
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+
+# 9. Check file permissions
+ls -la /var/www/wesaltech-new/backend/wesaltech/storage/logs/
+sudo chmod -R 755 /var/www/wesaltech-new/backend/wesaltech/storage
+sudo chown -R www-data:www-data /var/www/wesaltech-new/backend/wesaltech/storage

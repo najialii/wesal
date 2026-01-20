@@ -166,10 +166,23 @@ return new class extends Migration
      */
     private function indexExists(string $table, string $index): bool
     {
-        $indexes = Schema::getConnection()
-            ->getDoctrineSchemaManager()
-            ->listTableIndexes($table);
-        
-        return array_key_exists($index, $indexes);
+        try {
+            $connection = Schema::getConnection();
+            $schemaBuilder = $connection->getSchemaBuilder();
+            
+            // Get all indexes for the table
+            $indexes = $connection->select("SHOW INDEX FROM `{$table}`");
+            
+            foreach ($indexes as $indexInfo) {
+                if ($indexInfo->Key_name === $index) {
+                    return true;
+                }
+            }
+            
+            return false;
+        } catch (\Exception $e) {
+            // If we can't check, assume it doesn't exist
+            return false;
+        }
     }
 };

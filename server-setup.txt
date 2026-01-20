@@ -1,0 +1,58 @@
+# WesalTech Server Setup Commands
+
+# 1. First, rebuild frontend with correct API URL
+cd /var/www/wesaltech-new/frontend
+npm run build
+
+# 2. Copy new frontend build to web directory
+sudo cp -r dist/* /var/www/html/
+
+# 3. Set up backend API
+cd /var/www/wesaltech-new/backend/wesaltech
+
+# Install PHP dependencies
+sudo composer install --no-dev --optimize-autoloader
+
+# Set up production environment
+sudo cp .env .env.production
+sudo sed -i 's/APP_ENV=local/APP_ENV=production/' .env.production
+sudo sed -i 's/APP_DEBUG=true/APP_DEBUG=false/' .env.production
+sudo sed -i 's/APP_URL=http:\/\/localhost/APP_URL=https:\/\/wesaaltech.com/' .env.production
+
+# Generate application key
+sudo php artisan key:generate --env=production
+
+# Run migrations and seeders
+sudo php artisan migrate --force --env=production
+sudo php artisan db:seed --class=SuperAdminSeeder --env=production
+sudo php artisan db:seed --class=RoleSeeder --env=production
+
+# Cache configuration
+sudo php artisan config:cache --env=production
+sudo php artisan route:cache --env=production
+
+# Set permissions
+sudo chmod -R 755 storage bootstrap/cache
+sudo chown -R www-data:www-data storage bootstrap/cache
+
+# 4. Update nginx configuration to handle API routes
+sudo nano /etc/nginx/sites-available/wesaaltech.com
+
+# Add this location block for API:
+# location /api {
+#     try_files $uri $uri/ /index.php?$query_string;
+# }
+# 
+# location ~ \.php$ {
+#     fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+#     fastcgi_index index.php;
+#     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#     include fastcgi_params;
+# }
+
+# 5. Restart services
+sudo systemctl restart nginx
+sudo systemctl restart php8.2-fpm
+
+# 6. Test API endpoint
+curl -X GET https://wesaaltech.com/api/health
