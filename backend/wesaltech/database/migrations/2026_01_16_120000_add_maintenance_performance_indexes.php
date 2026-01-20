@@ -69,14 +69,14 @@ return new class extends Migration
             });
         }
 
-        // Users indexes for technician queries
-        if (Schema::hasTable('users')) {
-            Schema::table('users', function (Blueprint $table) {
-                if (!$this->indexExists('users', 'idx_users_tenant_role')) {
-                    $table->index(['tenant_id', 'role'], 'idx_users_tenant_role');
-                }
-            });
-        }
+        // Users indexes for technician queries - Skip for now as role column doesn't exist
+        // if (Schema::hasTable('users')) {
+        //     Schema::table('users', function (Blueprint $table) {
+        //         if (!$this->indexExists('users', 'idx_users_tenant_role')) {
+        //             $table->index(['tenant_id', 'role'], 'idx_users_tenant_role');
+        //         }
+        //     });
+        // }
 
         // Branches indexes
         if (Schema::hasTable('branches')) {
@@ -144,13 +144,14 @@ return new class extends Migration
             });
         }
 
-        if (Schema::hasTable('users')) {
-            Schema::table('users', function (Blueprint $table) {
-                if ($this->indexExists('users', 'idx_users_tenant_role')) {
-                    $table->dropIndex('idx_users_tenant_role');
-                }
-            });
-        }
+        // Skip users index in down method too
+        // if (Schema::hasTable('users')) {
+        //     Schema::table('users', function (Blueprint $table) {
+        //         if ($this->indexExists('users', 'idx_users_tenant_role')) {
+        //             $table->dropIndex('idx_users_tenant_role');
+        //         }
+        //     });
+        // }
 
         if (Schema::hasTable('branches')) {
             Schema::table('branches', function (Blueprint $table) {

@@ -106,6 +106,9 @@ return new class extends Migration
             }
         }
 
+        // Skip recalculating total_visits as this column doesn't exist
+        // This section has been commented out as total_visits column is not in the table schema
+        /*
         // Recalculate total_visits for contracts that don't have it set
         $contractsWithoutTotalVisits = DB::table('maintenance_contracts')
             ->where(function($query) {
@@ -127,6 +130,7 @@ return new class extends Migration
                 ->where('id', $contract->id)
                 ->update(['total_visits' => $totalVisits]);
         }
+        */
     }
 
     /**
