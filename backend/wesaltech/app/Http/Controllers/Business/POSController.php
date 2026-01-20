@@ -23,8 +23,8 @@ class POSController extends Controller
         // Get current branch from request or session
         $branchId = $request->get('branch_id') ?: session('active_branch_id');
         
-        $query = Product::active()
-            ->regularProducts(); // Only show regular products, not spare parts
+        $query = Product::active();
+            // ->regularProducts();
         
         // Always filter by branch (for both owners and staff)
         if ($branchId) {

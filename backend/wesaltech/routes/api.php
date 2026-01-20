@@ -212,6 +212,16 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'super_admin', 'audit'])->gr
 
 // Tenant Routes (Tenant-specific data)
 Route::middleware(['auth:sanctum', 'tenant'])->group(function () {
+    // Notification Routes
+    Route::prefix('notifications')->group(function () {
+        Route::get('/', [\App\Http\Controllers\NotificationController::class, 'index']);
+        Route::get('/unread-count', [\App\Http\Controllers\NotificationController::class, 'unreadCount']);
+        Route::post('/mark-all-read', [\App\Http\Controllers\NotificationController::class, 'markAllAsRead']);
+        Route::post('/{notification}/mark-read', [\App\Http\Controllers\NotificationController::class, 'markAsRead']);
+        Route::post('/fcm-token', [\App\Http\Controllers\NotificationController::class, 'registerFCMToken']);
+        Route::delete('/fcm-token', [\App\Http\Controllers\NotificationController::class, 'removeFCMToken']);
+    });
+    
     // Tenant dashboard and stats
     Route::get('/tenant/stats', [TenantDataController::class, 'tenantStats']);
     

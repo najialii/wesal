@@ -70,6 +70,12 @@ export function BranchProvider({ children }: { children: React.ReactNode }) {
       return; // Prevent multiple simultaneous calls
     }
     
+    // Check if user is authenticated before making API calls
+    if (!authService.isAuthenticated()) {
+      console.log('❌ User not authenticated, skipping branch refresh');
+      return;
+    }
+    
     setLoading(true);
     try {
       console.log('🔄 Refreshing branches...');
@@ -99,6 +105,12 @@ export function BranchProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // console.log('🚀 BranchContext useEffect triggered, isInitialized:', isInitialized);
     if (!isInitialized) {
+      // Only initialize branches if user is authenticated
+      if (!authService.isAuthenticated()) {
+        console.log('❌ User not authenticated, skipping branch initialization');
+        return;
+      }
+      
       console.log('🔄 Starting branch initialization...');
       // Refresh user data first to ensure we have latest roles
       authService.refreshUser().then(() => {

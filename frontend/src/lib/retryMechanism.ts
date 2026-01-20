@@ -115,11 +115,16 @@ class CircuitBreaker {
   private failures = 0;
   private lastFailureTime = 0;
   private state: 'CLOSED' | 'OPEN' | 'HALF_OPEN' = 'CLOSED';
+  private failureThreshold: number;
+  private recoveryTimeout: number;
 
   constructor(
-    private failureThreshold = 5,
-    private recoveryTimeout = 60000 // 1 minute
-  ) {}
+    failureThreshold = 5,
+    recoveryTimeout = 60000 // 1 minute
+  ) {
+    this.failureThreshold = failureThreshold;
+    this.recoveryTimeout = recoveryTimeout;
+  }
 
   async execute<T>(operation: () => Promise<T>): Promise<T> {
     if (this.state === 'OPEN') {

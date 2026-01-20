@@ -5,9 +5,7 @@ import {
   Calendar,
   Clock,
   User,
-  Phone,
-  MapPin,
-  Package,
+
   DollarSign,
   CheckCircle,
   XCircle,
@@ -330,7 +328,7 @@ export default function MaintenanceContractSchedule() {
               
               {/* Timeline items */}
               <div className="space-y-6">
-                {sortedVisits.map((visit, index) => (
+                {sortedVisits.map((visit) => (
                   <div key={visit.id} className={`relative ${isRTL ? 'pr-10' : 'pl-10'}`}>
                     {/* Timeline dot */}
                     <div className={`absolute top-1.5 ${isRTL ? 'right-[7px]' : 'left-[7px]'} w-2.5 h-2.5 rounded-full border-2 border-white ${

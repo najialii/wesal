@@ -781,7 +781,7 @@ export default function Plans() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="w-8"></TableHead>
+                      <TableHead className="w-8"><div></div></TableHead>
                       <TableHead>{t('plans.plan_name')}</TableHead>
                       <TableHead>{t('plans.price')}</TableHead>
                       <TableHead>{t('plans.billing_cycle')}</TableHead>

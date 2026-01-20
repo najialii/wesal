@@ -1,4 +1,5 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
+import { useTranslation } from '@/lib/translation';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -29,7 +30,7 @@ class ErrorBoundary extends Component<Props, State> {
     this.setState({ error, errorInfo });
     
     // Log error to console in development
-    if (process.env.NODE_ENV === 'development') {
+    if (typeof process !== 'undefined' && process.env.NODE_ENV === 'development') {
       console.error('ErrorBoundary caught an error:', error, errorInfo);
     }
 
@@ -75,7 +76,7 @@ class ErrorBoundary extends Component<Props, State> {
                   We're sorry, but something unexpected happened. Please try refreshing the page or go back to the homepage.
                 </p>
 
-                {process.env.NODE_ENV === 'development' && this.state.error && (
+                {typeof process !== 'undefined' && process.env.NODE_ENV === 'development' && this.state.error && (
                   <details className="mb-6 text-left">
                     <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
                       Error Details (Development)

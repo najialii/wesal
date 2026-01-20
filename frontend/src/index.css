@@ -221,8 +221,7 @@ code {
   }
 }
 
-/* P
-rint Styles for Receipt */
+/* Print Styles for Receipt */
 @media print {
   @page {
     size: 80mm auto;

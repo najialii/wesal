@@ -20,7 +20,7 @@ interface AccountCreationStepProps {
 }
 
 export const AccountCreationStep: React.FC<AccountCreationStepProps> = ({ onNext }) => {
-  const { t, isRTL } = useTranslation();
+  const { isRTL } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',

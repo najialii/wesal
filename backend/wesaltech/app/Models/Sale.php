@@ -46,14 +46,52 @@ class Sale extends Model
         
         static::creating(function ($sale) {
             if (empty($sale->sale_number)) {
-                $year = date('Y');
-                $count = Sale::where('tenant_id', $sale->tenant_id)
-                           ->whereYear('created_at', $year)
-                           ->count() + 1;
-                           
-                $sale->sale_number = 'INV-' . $year . '-' . str_pad($count, 6, '0', STR_PAD_LEFT);
+                $sale->sale_number = static::generateUniqueSaleNumber($sale->tenant_id, $sale->branch_id);
             }
         });
+    }
+
+    protected static function generateUniqueSaleNumber($tenantId, $branchId = null)
+    {
+        $year = date('Y');
+        $maxAttempts = 10;
+        $attempt = 0;
+        
+        do {
+            $attempt++;
+            
+            // Get the latest sale number for this tenant and year
+            $latestSale = Sale::where('tenant_id', $tenantId)
+                            ->whereYear('created_at', $year)
+                            ->orderBy('id', 'desc')
+                            ->first();
+            
+            if ($latestSale && preg_match('/INV-' . $year . '-(\d+)/', $latestSale->sale_number, $matches)) {
+                $nextNumber = intval($matches[1]) + 1;
+            } else {
+                $nextNumber = 1;
+            }
+            
+            // Include branch prefix if multi-branch
+            $prefix = $branchId ? "INV-B{$branchId}-{$year}-" : "INV-{$year}-";
+            $saleNumber = $prefix . str_pad($nextNumber, 6, '0', STR_PAD_LEFT);
+            
+            // Check if this number already exists
+            $exists = Sale::where('tenant_id', $tenantId)
+                        ->where('sale_number', $saleNumber)
+                        ->exists();
+            
+            if (!$exists) {
+                return $saleNumber;
+            }
+            
+            // If it exists, add a small random delay and try again
+            usleep(rand(1000, 5000)); // 1-5ms delay
+            
+        } while ($attempt < $maxAttempts);
+        
+        // Fallback with timestamp if all attempts failed
+        return ($branchId ? "INV-B{$branchId}-" : "INV-") . $year . '-' . str_pad(time() % 1000000, 6, '0', STR_PAD_LEFT);
     }
 
     public function customer(): BelongsTo

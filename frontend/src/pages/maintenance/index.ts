@@ -17,6 +17,6 @@ export const TechnicianVisitHistory = lazy(() => import('../technician/VisitHist
 export const TechnicianPartsInventory = lazy(() => import('../technician/PartsInventory'));
 
 // Components
-export const MaintenanceScheduleModal = lazy(() => import('../../components/modals/MaintenanceScheduleModal'));
-export const MaintenanceDetailModal = lazy(() => import('../../components/modals/MaintenanceDetailModal'));
+export const MaintenanceScheduleModal = lazy(() => import('../../components/modals/MaintenanceScheduleModal').then(m => ({ default: m.MaintenanceScheduleModal })));
+export const MaintenanceDetailModal = lazy(() => import('../../components/modals/MaintenanceDetailModal').then(m => ({ default: m.MaintenanceDetailModal })));
 export const CompleteVisitModal = lazy(() => import('../../components/technician/CompleteVisitModal'));

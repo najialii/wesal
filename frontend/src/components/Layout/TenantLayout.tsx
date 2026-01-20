@@ -1,4 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
+import * as React from 'react';
 import {
   HomeIcon,
   ShoppingBagIcon,
@@ -11,7 +12,11 @@ import {
   BuildingStorefrontIcon,
   BellIcon,
 } from '@heroicons/react/24/outline';
-import SharedBadge from '../ui/SharedBadge';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Separator } from '@/components/ui/separator';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import {
   Sidebar,
   SidebarContent,
@@ -26,16 +31,12 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Separator } from '@/components/ui/separator';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { SimpleLanguageToggle } from '../SimpleLanguageToggle';
 import BranchSelector from '../BranchSelector';
 import { useTranslation, useDirectionClasses } from '../../lib/translation';
 import { authService } from '../../services/auth';
 import { BranchProvider } from '../../contexts/BranchContext';
+import { cn } from '../../lib/utils';
 
 function BusinessSidebar() {
   const location = useLocation();
@@ -43,23 +44,14 @@ function BusinessSidebar() {
   const { isRTL } = useDirectionClasses();
   const user = authService.getCurrentUser();
   
-  // Check if user is business owner - check both role field and roles array
-  const isBusinessOwner = user?.role === 'business_owner' || 
-    user?.role === 'Business Owner' || // Handle display name
-    (user?.roles && Array.isArray(user.roles) && user.roles.some((r: any) => 
-      r.name === 'business_owner' || r.name === 'Business Owner' || r.name === 'admin' || r.name === 'business_admin'
-    )) ||
-    // Fallback: if user has tenant_id and no specific role restrictions, assume they're an owner
-    (user?.tenant_id && !user?.roles?.length);
+  // DEBUG: Log RTL state
+  // console.log('BusinessSidebar - isRTL:', isRTL, 'dir:', document.documentElement.getAttribute('dir'));
   
-  // Check if business has uploaded a custom logo
+  // Get tenant logo
   const hasCustomLogo = user?.tenant?.logo ? true : false;
-  
-  // Get tenant logo URL - handle both logo and logo_url fields
   const tenantLogo = hasCustomLogo
     ? (user?.tenant?.logo_url || `${import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:8000'}/storage/${user?.tenant?.logo}`)
     : '/1.svg';
-  
   const tenantName = user?.tenant?.name || 'WesalTech';
 
   interface NavigationItem {
@@ -103,38 +95,37 @@ function BusinessSidebar() {
     <Sidebar 
       side={isRTL ? "right" : "left"}
       collapsible="icon"
-      className="border-r border-gray-200 dark:border-gray-800 bg-gradient-to-br from-secondary-50/10 via-white to-white dark:from-gray-950 dark:to-gray-950"
+      variant="sidebar"
+      className={cn(
+        "bg-white/95 dark:bg-slate-950/95 backdrop-blur-sm border-0 shadow-lg",
+        isRTL ? "border-l border-gray-200/50 dark:border-slate-800/50" : "border-r border-gray-200/50 dark:border-slate-800/50"
+      )}
     >
-      <SidebarHeader className="border-b border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-950/50 backdrop-blur-sm">
-        {hasCustomLogo ? (
-          // Show only logo for businesses with custom logo
-          <div className="flex h-20 items-center justify-center px-6">
+      <SidebarHeader className="border-0 bg-transparent p-3 group-data-[collapsible=icon]:p-2">
+        <div className="flex h-8 items-center justify-center group-data-[collapsible=icon]:h-6">
+          {hasCustomLogo ? (
             <img 
               src={tenantLogo} 
               alt={`${tenantName} Logo`}
-              className="h-14 w-auto max-w-[180px] object-contain filter drop-shadow-sm"
+              className="h-6 w-auto max-w-[120px] object-contain group-data-[collapsible=icon]:h-5"
               onError={(e) => {
-                // Fallback to default logo if tenant logo fails to load
                 e.currentTarget.src = '/1.svg';
               }}
             />
-          </div>
-        ) : (
-          // Show default WesalTech logo with text for businesses without custom logo
-          <div className="flex h-20 items-center justify-center px-6 gap-2">
+          ) : (
             <img 
               src="/1.svg" 
               alt="WesalTech Logo" 
-              className="h-40 w-auto filter drop-shadow-sm"
+              className="h-6 w-auto group-data-[collapsible=icon]:h-5"
             />
-          </div>
-        )}
+          )}
+        </div>
       </SidebarHeader>
       
-      <SidebarContent className="px-3 py-4">
+      <SidebarContent className="px-2 py-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-slate-600 scrollbar-track-transparent">
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-2">
+            <SidebarMenu className="space-y-0.5">
               {navigation.map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
@@ -142,42 +133,58 @@ function BusinessSidebar() {
                     <SidebarMenuButton 
                       asChild 
                       isActive={isActive}
-                      size="lg"
-                      className={`
-                        relative h-12 px-4 rounded-xl font-medium transition-all duration-200 ease-in-out
-                        ${isActive 
-                          ? 'bg-white text-primary-600 shadow-md border border-gray-200' 
-                          : 'hover:bg-white/60 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'
-                        }
-                        ${isRTL ? 'flex-row-reverse' : ''}
-                      `}
+                      size="default"
+                      tooltip={{
+                        children: item.name,
+                        side: isRTL ? "left" : "right",
+                        align: "center"
+                      }}
+                      className={cn(
+                        "relative h-10 px-2.5 rounded-lg font-medium transition-all duration-200 group",
+                        "hover:shadow-sm active:scale-[0.98]",
+                        "group-data-[collapsible=icon]:h-11 group-data-[collapsible=icon]:w-11 group-data-[collapsible=icon]:p-0",
+                        "group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:items-center",
+                        isActive 
+                          ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md hover:from-blue-600 hover:to-indigo-700' 
+                          : 'text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:hover:text-slate-100 hover:bg-gray-100 dark:hover:bg-slate-800/50'
+                      )}
                     >
-                      <Link to={item.href} className={`flex items-center gap-4 w-full ${isRTL ? 'flex-row-reverse' : ''}`}>
-                        <div className={`
-                          icon-container flex items-center justify-center w-8 h-8 rounded-lg transition-colors duration-200
-                          ${isActive 
-                            ? 'bg-primary-100 text-primary-600' 
-                            : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 group-hover:bg-gray-300 dark:group-hover:bg-gray-600'
-                          }
-                        `}>
-                          <item.icon className="h-5 w-5" />
+                      <Link to={item.href} className={cn(
+                        "flex items-center gap-2.5 w-full",
+                        "group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:items-center",
+                        isRTL ? 'flex-row-reverse' : ''
+                      )}>
+                        <div className={cn(
+                          "flex items-center justify-center flex-shrink-0 transition-colors",
+                          "w-5 h-5 group-data-[collapsible=icon]:w-6 group-data-[collapsible=icon]:h-6",
+                          isActive 
+                            ? 'text-white' 
+                            : 'text-gray-500 dark:text-slate-400 group-hover:text-gray-700 dark:group-hover:text-slate-300'
+                        )}
+                        style={{
+                          // EMERGENCY FIX: Force icons to show in Arabic collapsed mode
+                          display: 'flex !important',
+                          alignItems: 'center !important',
+                          justifyContent: 'center !important',
+                          opacity: '1 !important',
+                          visibility: 'visible !important'
+                        }}
+                        >
+                          <item.icon 
+                            className="w-full h-full" 
+                            style={{
+                              // EMERGENCY FIX: Force SVG icons to show
+                              display: 'block !important',
+                              opacity: '1 !important',
+                              visibility: 'visible !important',
+                              width: '100% !important',
+                              height: '100% !important'
+                            }}
+                          />
                         </div>
-                        <span className="text-sm font-medium truncate flex-1">{item.name}</span>
-                        {/* Only show badges for business owners */}
-                        {isBusinessOwner && item.isShared && (
-                          <SharedBadge type="general" size="sm" showTooltip={false} className="ml-1" />
-                        )}
-                        {isBusinessOwner && item.isBranchSpecific && (
-                          <span 
-                            className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400"
-                            title={t('branchSpecificTooltip') || 'This data belongs to a specific branch'}
-                          >
-                            {t('branch') || 'Branch'}
-                          </span>
-                        )}
-                        {isActive && (
-                          <div className={`absolute ${isRTL ? 'left-0' : 'right-0'} top-1/2 transform -translate-y-1/2 w-1 h-6 bg-primary-500 rounded-full`} />
-                        )}
+                        <span className="text-sm font-medium truncate flex-1 group-data-[collapsible=icon]:sr-only">
+                          {item.name}
+                        </span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -188,10 +195,8 @@ function BusinessSidebar() {
         </SidebarGroup>
       </SidebarContent>
       
-      <SidebarFooter className="border-t border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
-        <div className="p-4">
-          <BusinessUserMenu />
-        </div>
+      <SidebarFooter className="border-0 bg-transparent p-2 mt-auto">
+        <BusinessUserMenu />
       </SidebarFooter>
     </Sidebar>
   );
@@ -217,37 +222,45 @@ function BusinessUserMenu() {
       <DropdownMenuTrigger asChild>
         <Button 
           variant="ghost" 
-          className={`
-            w-full h-14 gap-3 p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 
-            transition-all duration-200 border border-transparent hover:border-gray-200 dark:hover:border-gray-700
-            ${isRTL ? 'justify-end flex-row-reverse' : 'justify-start'}
-          `}
+          className={cn(
+            "w-full h-12 gap-2.5 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800",
+            "transition-all duration-200 border border-transparent hover:border-gray-200 dark:hover:border-slate-700",
+            "group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:p-1",
+            isRTL ? 'justify-end flex-row-reverse' : 'justify-start'
+          )}
         >
-          <Avatar className="h-10 w-10 ring-2 ring-gray-200 dark:ring-gray-700">
+          <Avatar className="h-8 w-8 ring-2 ring-gray-200 dark:ring-slate-700 flex-shrink-0 group-data-[collapsible=icon]:h-6 group-data-[collapsible=icon]:w-6">
             <AvatarImage 
               src={user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&color=7F9CF5&background=EBF4FF`}
               alt={user?.name || 'User'} 
             />
-            <AvatarFallback className="bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 font-semibold">
+            <AvatarFallback className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-semibold text-xs">
               {initials}
             </AvatarFallback>
           </Avatar>
-          <div className={`flex flex-col text-sm ${isRTL ? 'items-end' : 'items-start'} min-w-0 flex-1`}>
-            <span className="font-semibold text-gray-900 dark:text-gray-100 truncate w-full">
+          <div className={cn(
+            "flex flex-col text-xs min-w-0 flex-1 group-data-[collapsible=icon]:hidden",
+            isRTL ? 'items-end' : 'items-start'
+          )}>
+            <span className="font-semibold text-gray-900 dark:text-slate-100 truncate w-full">
               {user?.name || 'User'}
             </span>
-            <span className="text-gray-500 dark:text-gray-400 text-xs">
+            <span className="text-gray-500 dark:text-slate-400 text-xs">
               {t('auth.staff')}
             </span>
           </div>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56 shadow-lg border border-gray-200 dark:border-gray-700">
+      <DropdownMenuContent 
+        align="end" 
+        className="w-48 shadow-lg border border-gray-200 dark:border-slate-700"
+        side={isRTL ? "left" : "right"}
+      >
         <DropdownMenuItem 
           onClick={handleLogout}
           className="text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950 cursor-pointer"
         >
-          <ArrowRightStartOnRectangleIcon className={`h-4 w-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
+          <ArrowRightStartOnRectangleIcon className={cn("h-4 w-4", isRTL ? 'ml-2' : 'mr-2')} />
           <span>{t('auth.logout')}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -324,50 +337,69 @@ export default function TenantLayout() {
     )) ||
     // Fallback: if user has tenant_id and no specific role restrictions, assume they're an owner
     (user?.tenant_id && !user?.roles?.length);
-    
-  // Debug log for troubleshooting
-  console.log('TenantLayout - Business owner check:', {
-    role: user?.role,
-    roles: user?.roles,
-    tenant_id: user?.tenant_id,
-    isBusinessOwner
-  });
 
   return (
     <BranchProvider>
-      <SidebarProvider key={isRTL ? 'rtl' : 'ltr'}>
+      <SidebarProvider key={isRTL ? 'rtl' : 'ltr'} defaultOpen={true}>
         <div 
-          className={`flex min-h-screen w-full bg-gradient-to-br from-secondary-50/20 via-white to-secondary-50/30 dark:from-gray-900 dark:to-gray-950 ${isRTL ? 'flex-row-reverse' : 'flex-row'}`}
+          className={cn(
+            "flex min-h-screen w-full bg-gradient-to-br from-gray-50/30 via-white to-blue-50/20 dark:from-slate-900 dark:to-slate-950",
+            isRTL ? 'flex-row-reverse' : 'flex-row'
+          )}
           dir={isRTL ? 'rtl' : 'ltr'}
           lang={isRTL ? 'ar' : 'en'}
           data-sidebar-provider
+          style={{
+            '--sidebar-width': '16rem',
+            '--sidebar-width-icon': '3.5rem'
+          } as React.CSSProperties}
         >
           <BusinessSidebar />
-          <SidebarInset className="flex-1 min-w-0">
-            {/* Header */}
-            <header className={`sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between border-b bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm px-4 shadow-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <SidebarInset className="flex-1 w-full">
+            {/* Enhanced Header */}
+            <header className={cn(
+              "sticky top-0 z-50 flex h-14 shrink-0 items-center justify-between",
+              "border-b border-gray-200/60 dark:border-slate-800/60",
+              "bg-white/80 dark:bg-slate-950/80 backdrop-blur-md shadow-sm",
+              isRTL ? 'flex-row-reverse' : ''
+            )}>
               {/* Left side - Sidebar trigger and breadcrumb */}
-              <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <SidebarTrigger className="hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg" />
-                <Separator orientation="vertical" className="h-4" />
+              <div className={cn("flex items-center gap-2", isRTL ? 'flex-row-reverse' : '')}>
+                <SidebarTrigger className={cn(
+                  "h-8 w-8 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md transition-all duration-200",
+                  "hover:scale-105 active:scale-95"
+                )} />
+                <Separator orientation="vertical" className="h-4 mx-1" />
                 <BusinessBreadcrumb />
               </div>
               
-              {/* Right side - Branch selector (only for business owners), language toggle, notifications */}
-              <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              {/* Right side - Branch selector, language toggle, notifications */}
+              <div className={cn("flex items-center gap-2", isRTL ? 'flex-row-reverse' : '')}>
                 {isBusinessOwner && <BranchSelector />}
                 <SimpleLanguageToggle variant="button" size="sm" />
-                <Button variant="ghost" size="icon" className="hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className={cn(
+                    "h-8 w-8 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md transition-all duration-200",
+                    "hover:scale-105 active:scale-95 relative"
+                  )}
+                >
                   <BellIcon className="h-4 w-4" />
                   <span className="sr-only">Notifications</span>
+                  {/* Animated notification badge */}
+                  <span className="absolute -top-0.5 -right-0.5 h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
                 </Button>
               </div>
             </header>
             
             {/* Main Content */}
-            <main id="main-content" className="flex-1 p-6 min-h-[calc(100vh-4rem)]">
+            <main 
+              id="main-content" 
+              className="flex-1 w-full p-4 min-h-[calc(100vh-3.5rem)] overflow-auto"
+            >
               <Outlet />
-            </main>
+            </main>         
           </SidebarInset>
         </div>
       </SidebarProvider>

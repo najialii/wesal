@@ -73,7 +73,7 @@ export const ModernOnboardingLayout: React.FC<ModernOnboardingLayoutProps> = ({
                 </div>
 
                 <div className="space-y-6">
-                  {steps.map((step, index) => (
+                  {steps.map((step) => (
                     <div key={step.id} className="flex items-center space-x-4 rtl:space-x-reverse">
                       <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm transition-all ${
                         step.id < currentStep

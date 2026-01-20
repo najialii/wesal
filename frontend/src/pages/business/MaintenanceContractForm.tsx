@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { useTranslation, useDirectionClasses } from '@/lib/translation';
+import { useTranslation } from '@/lib/translation';
 import { formatCurrency } from '@/lib/currency';
 import { getImageUrl } from '@/lib/imageUtils';
 import { toast } from 'sonner';

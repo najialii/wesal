@@ -8,8 +8,7 @@ import {
   UserIcon,
   PhoneIcon,
   MapPinIcon,
-  CurrencyDollarIcon,
-  ClockIcon,
+
   WrenchScrewdriverIcon
 } from '@heroicons/react/24/outline';
 import api from '@/lib/api';

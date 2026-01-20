@@ -29,6 +29,7 @@ class User extends Authenticatable
         'google_id',
         'onboarding_completed',
         'onboarding_step',
+        'fcm_tokens',
     ];
 
     protected $hidden = [
@@ -45,6 +46,7 @@ class User extends Authenticatable
             'is_super_admin' => 'boolean',
             'onboarding_completed' => 'boolean',
             'onboarding_step' => 'integer',
+            'fcm_tokens' => 'array',
         ];
     }
 
@@ -151,5 +153,45 @@ class User extends Authenticatable
         return $this->avatar 
             ? asset('storage/' . $this->avatar)
             : 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF';
+    }
+
+    /**
+     * Add FCM token for the user.
+     */
+    public function addFCMToken(string $token): void
+    {
+        $tokens = $this->fcm_tokens ?? [];
+        
+        if (!in_array($token, $tokens)) {
+            $tokens[] = $token;
+            $this->update(['fcm_tokens' => $tokens]);
+        }
+    }
+
+    /**
+     * Remove FCM token for the user.
+     */
+    public function removeFCMToken(string $token): void
+    {
+        $tokens = $this->fcm_tokens ?? [];
+        $tokens = array_values(array_filter($tokens, fn($t) => $t !== $token));
+        
+        $this->update(['fcm_tokens' => $tokens]);
+    }
+
+    /**
+     * Get all FCM tokens for the user.
+     */
+    public function getFCMTokens(): array
+    {
+        return $this->fcm_tokens ?? [];
+    }
+
+    /**
+     * Get the user's notifications relationship.
+     */
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class);
     }
 }

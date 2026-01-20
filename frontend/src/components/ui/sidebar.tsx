@@ -154,7 +154,7 @@ function SidebarProvider({
 function Sidebar({
   side = "left",
   variant = "sidebar",
-  collapsible = "offcanvas",
+  collapsible = "icon",
   className,
   children,
   ...props
@@ -532,6 +532,25 @@ function SidebarMenuButton({
 } & VariantProps<typeof sidebarMenuButtonVariants>) {
   const Comp = asChild ? Slot : "button"
   const { isMobile, state } = useSidebar()
+  
+  // Detect RTL
+  const [isRTL, setIsRTL] = React.useState(false)
+  
+  React.useEffect(() => {
+    const checkRTL = () => {
+      const dir = document.documentElement.getAttribute('dir') || document.body.getAttribute('dir')
+      setIsRTL(dir === 'rtl')
+    }
+    
+    checkRTL()
+    
+    // Watch for direction changes
+    const observer = new MutationObserver(checkRTL)
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['dir'] })
+    observer.observe(document.body, { attributes: true, attributeFilter: ['dir'] })
+    
+    return () => observer.disconnect()
+  }, [])
 
   const button = (
     <Comp
@@ -558,7 +577,7 @@ function SidebarMenuButton({
     <Tooltip>
       <TooltipTrigger asChild>{button}</TooltipTrigger>
       <TooltipContent
-        side="right"
+        side={isRTL ? "left" : "right"}
         align="center"
         hidden={state !== "collapsed" || isMobile}
         {...tooltip}

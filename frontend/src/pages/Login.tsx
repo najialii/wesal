@@ -11,10 +11,6 @@ import { GoogleSignInButton } from '../components/ui/GoogleSignInButton';
 import { useTranslation, useDirectionClasses } from '../lib/translation';
 import { 
   ExclamationTriangleIcon, 
-  ShieldCheckIcon, 
-  BuildingOfficeIcon,
-  GlobeAltIcon,
-  SparklesIcon,
   EyeIcon,
   EyeSlashIcon
 } from '@heroicons/react/24/outline';
@@ -46,7 +42,7 @@ export default function Login() {
   ];
 
   // Select a random message on component mount
-  const [currentMessage] = useState(() => {
+  useState(() => {
     return messages[Math.floor(Math.random() * messages.length)];
   });
 

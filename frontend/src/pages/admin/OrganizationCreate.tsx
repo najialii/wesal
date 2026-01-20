@@ -10,7 +10,7 @@ import {
   CreditCardIcon,
   InformationCircleIcon,
   KeyIcon,
-  PhotoIcon
+
 } from '@heroicons/react/24/outline';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
