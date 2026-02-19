@@ -328,7 +328,7 @@ export default function StaffView() {
       case 'manager': return 'bg-blue-100 text-blue-800';
       case 'salesman': return 'bg-green-100 text-green-800';
       case 'technician': return 'bg-orange-100 text-orange-800';
-      case 'business_owner': return 'bg-indigo-100 text-indigo-800';
+      case 'business_owner': return 'bg-blue-100 text-blue-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
@@ -442,7 +442,7 @@ export default function StaffView() {
                     key={branch.id}
                     className={`flex items-center p-3 bg-gray-50 rounded-lg ${isRTL ? 'flex-row-reverse' : ''}`}
                   >
-                    <BuildingStorefrontIcon className={`h-5 w-5 text-indigo-500 ${isRTL ? 'ml-3' : 'mr-3'}`} />
+                    <BuildingStorefrontIcon className={`h-5 w-5 text-blue-500 ${isRTL ? 'ml-3' : 'mr-3'}`} />
                     <div className="flex-1">
                       <p className="text-sm font-medium text-gray-900">{branch.name}</p>
                       <p className="text-xs text-gray-500">{branch.code}</p>

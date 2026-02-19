@@ -22,7 +22,13 @@ interface LoginResponse {
 export const authService = {
   async login(credentials: LoginCredentials): Promise<LoginResponse> {
     try {
-      console.log('Attempting login with:', { email: credentials.email });
+      console.log('=== LOGIN DEBUG ===');
+      console.log('Email:', credentials.email);
+      console.log('Password length:', credentials.password?.length);
+      console.log('Password:', credentials.password); // Temporary debug
+      console.log('API URL:', api.defaults.baseURL);
+      console.log('Full credentials object:', JSON.stringify(credentials));
+      
       const response = await api.post('/auth/login', credentials);
       const { user, token } = response.data;
       
@@ -32,7 +38,10 @@ export const authService = {
       console.log('Login successful');
       return { user, token };
     } catch (error: any) {
-      console.error('Login failed:', error);
+      console.error('=== LOGIN ERROR ===');
+      console.error('Error response:', error.response?.data);
+      console.error('Error status:', error.response?.status);
+      console.error('Full error:', error);
       throw error;
     }
   },
@@ -68,7 +77,12 @@ export const authService = {
     family_name?: string;
   }): Promise<LoginResponse> {
     try {
-      console.log('Attempting Google auth with:', { email: googleUser.email, name: googleUser.name });
+      console.log('[v2] Attempting Google auth with:', { 
+        google_id: googleUser.id,
+        email: googleUser.email, 
+        name: googleUser.name,
+        avatar: googleUser.picture 
+      });
       
       const response = await api.post('/auth/google', {
         google_id: googleUser.id,

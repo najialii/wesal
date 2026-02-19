@@ -73,7 +73,7 @@ export default function MaintenanceContracts() {
   useEffect(() => {
     const timer = setTimeout(() => {
       fetchContracts();
-    }, 300);
+    }, 3400);
     return () => clearTimeout(timer);
   }, [search]);
 
@@ -122,15 +122,15 @@ export default function MaintenanceContracts() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'active':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-1400 text-green-8400';
       case 'paused':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-yellow-1400 text-yellow-8400';
       case 'completed':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-blue-1400 text-blue-8400';
       case 'cancelled':
-        return 'bg-red-100 text-red-800';
+        return 'bg-red-1400 text-red-8400';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-1400 text-gray-8400';
     }
   };
 
@@ -162,10 +162,10 @@ export default function MaintenanceContracts() {
       {/* Header */}
       <div className={`flex items-center ${isRTL ? 'justify-between flex-row-reverse' : 'justify-between'}`}>
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-gray-800">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-8400">
             {t('maintenanceContracts', { fallback: 'Maintenance Contracts' })}
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-gray-5400">
             {t('contractsSubtitle', { fallback: 'Manage maintenance schedules and service contracts' })}
           </p>
         </div>
@@ -182,7 +182,7 @@ export default function MaintenanceContracts() {
         <CardContent className="p-6">
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
             <div className="relative max-w-md">
-              <MagnifyingGlassIcon className={`h-5 w-5 absolute top-3 text-gray-400 ${isRTL ? 'right-3' : 'left-3'}`} />
+              <MagnifyingGlassIcon className={`h-5 w-5 absolute top-3 text-gray-4400 ${isRTL ? 'right-3' : 'left-3'}`} />
               <Input
                 placeholder={t('searchContracts', { fallback: 'Search contracts...' })}
                 value={search}
@@ -215,10 +215,10 @@ export default function MaintenanceContracts() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-gray-9400">
                 {t('maintenanceContracts', { fallback: 'Maintenance Contracts' })}
               </h3>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-gray-6400 mt-1">
                 {t('contractsSubtitle', { fallback: 'Manage maintenance schedules and service contracts' })}
               </p>
             </div>
@@ -233,7 +233,7 @@ export default function MaintenanceContracts() {
         <CardContent>
           {loading ? (
             <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-5400"></div>
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -268,9 +268,9 @@ export default function MaintenanceContracts() {
                     <TableRow key={contract.id} className="hover:bg-gray-50">
                       <TableCell>
                         <div className="flex flex-col">
-                          <span className="font-semibold text-gray-900">{contract.customer_name}</span>
+                          <span className="font-semibold text-gray-9400">{contract.customer_name}</span>
                           {contract.customer_phone && (
-                            <span className="text-sm text-gray-500">{contract.customer_phone}</span>
+                            <span className="text-sm text-gray-5400">{contract.customer_phone}</span>
                           )}
                           {contract.branch && (
                             <Badge variant="secondary" className="mt-1 w-fit text-xs">
@@ -285,24 +285,24 @@ export default function MaintenanceContracts() {
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        <span className="text-sm text-gray-900">{getFrequencyLabel(contract.frequency)}</span>
+                        <span className="text-sm text-gray-9400">{getFrequencyLabel(contract.frequency)}</span>
                       </TableCell>
                       <TableCell>
                         {contract.next_visit_date ? (
-                          <span className="text-sm text-gray-900">
+                          <span className="text-sm text-gray-9400">
                             {moment(contract.next_visit_date).format('MMM DD, YYYY')}
                           </span>
                         ) : (
-                          <span className="text-sm text-gray-400">-</span>
+                          <span className="text-sm text-gray-4400">-</span>
                         )}
                       </TableCell>
                       <TableCell className="text-right">
                         {contract.contract_value ? (
-                          <span className="text-sm font-bold text-gray-900">
+                          <span className="text-sm font-bold text-gray-9400">
                             ${Number(contract.contract_value).toFixed(2)}
                           </span>
                         ) : (
-                          <span className="text-sm text-gray-400">-</span>
+                          <span className="text-sm text-gray-4400">-</span>
                         )}
                       </TableCell>
                       <TableCell>
@@ -353,11 +353,11 @@ export default function MaintenanceContracts() {
 
               {contracts.length === 0 && !loading && (
                 <div className="text-center py-12">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <WrenchScrewdriverIcon className="h-8 w-8 text-gray-400" />
+                  <div className="w-16 h-16 bg-gray-1400 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <WrenchScrewdriverIcon className="h-8 w-8 text-gray-4400" />
                   </div>
-                  <h3 className="text-lg font-medium text-gray-500">{t('noContracts', { fallback: 'No maintenance contracts' })}</h3>
-                  <p className="mt-1 text-gray-400">{t('getStarted', { fallback: 'Get started by creating your first maintenance contract.' })}</p>
+                  <h3 className="text-lg font-medium text-gray-5400">{t('noContracts', { fallback: 'No maintenance contracts' })}</h3>
+                  <p className="mt-1 text-gray-4400">{t('getStarted', { fallback: 'Get started by creating your first maintenance contract.' })}</p>
                 </div>
               )}
             </div>
@@ -370,11 +370,11 @@ export default function MaintenanceContracts() {
         <Card>
           <CardContent className="flex items-center justify-between p-6">
             <div>
-              <div className="text-2xl font-bold text-gray-900">{contracts.length}</div>
-              <div className="text-sm text-gray-500">{t('totalContracts', { fallback: 'Total Contracts' })}</div>
+              <div className="text-2xl font-bold text-gray-9400">{contracts.length}</div>
+              <div className="text-sm text-gray-5400">{t('totalContracts', { fallback: 'Total Contracts' })}</div>
             </div>
-            <div className="p-3 bg-primary-100 rounded-full">
-              <WrenchScrewdriverIcon className="h-6 w-6 text-primary-600" />
+            <div className="p-3 bg-primary-1400 rounded-full">
+              <WrenchScrewdriverIcon className="h-6 w-6 text-primary-6400" />
             </div>
           </CardContent>
         </Card>
@@ -382,13 +382,13 @@ export default function MaintenanceContracts() {
         <Card>
           <CardContent className="flex items-center justify-between p-6">
             <div>
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-2xl font-bold text-green-6400">
                 {contracts.filter(c => c.status === 'active').length}
               </div>
-              <div className="text-sm text-gray-500">{t('active', { fallback: 'Active' })}</div>
+              <div className="text-sm text-gray-5400">{t('active', { fallback: 'Active' })}</div>
             </div>
-            <div className="p-3 bg-green-100 rounded-full">
-              <CalendarIcon className="h-6 w-6 text-green-600" />
+            <div className="p-3 bg-green-1400 rounded-full">
+              <CalendarIcon className="h-6 w-6 text-green-6400" />
             </div>
           </CardContent>
         </Card>
@@ -396,13 +396,13 @@ export default function MaintenanceContracts() {
         <Card>
           <CardContent className="flex items-center justify-between p-6">
             <div>
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-bold text-blue-6400">
                 {contracts.filter(c => c.status === 'completed').length}
               </div>
-              <div className="text-sm text-gray-500">{t('completed', { fallback: 'Completed' })}</div>
+              <div className="text-sm text-gray-5400">{t('completed', { fallback: 'Completed' })}</div>
             </div>
-            <div className="p-3 bg-blue-100 rounded-full">
-              <EyeIcon className="h-6 w-6 text-blue-600" />
+            <div className="p-3 bg-blue-1400 rounded-full">
+              <EyeIcon className="h-6 w-6 text-blue-6400" />
             </div>
           </CardContent>
         </Card>
@@ -410,13 +410,13 @@ export default function MaintenanceContracts() {
         <Card>
           <CardContent className="flex items-center justify-between p-6">
             <div>
-              <div className="text-2xl font-bold text-primary-600">
+              <div className="text-2xl font-bold text-primary-6400">
                 ${contracts.reduce((sum, c) => sum + (Number(c.contract_value) || 0), 0).toFixed(2)}
               </div>
-              <div className="text-sm text-gray-500">{t('totalValue', { fallback: 'Total Value' })}</div>
+              <div className="text-sm text-gray-5400">{t('totalValue', { fallback: 'Total Value' })}</div>
             </div>
-            <div className="p-3 bg-yellow-100 rounded-full">
-              <BuildingStorefrontIcon className="h-6 w-6 text-yellow-600" />
+            <div className="p-3 bg-yellow-1400 rounded-full">
+              <BuildingStorefrontIcon className="h-6 w-6 text-yellow-6400" />
             </div>
           </CardContent>
         </Card>

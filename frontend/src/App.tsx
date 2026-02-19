@@ -4,6 +4,11 @@ import AdminLayout from './components/Layout/AdminLayout';
 import TenantLayout from './components/Layout/TenantLayout';
 import TechnicianLayout from './components/Layout/TechnicianLayout';
 import ErrorBoundary from './components/ErrorBoundary';
+import Landing from './pages/Landing';
+import Solutions from './pages/Solutions';
+import Pricing from './pages/Pricing';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import Dashboard from './pages/admin/Dashboard';
 import Tenants from './pages/admin/Tenants';
 import OrganizationView from './pages/admin/OrganizationView';
@@ -17,6 +22,8 @@ import AdminSettings from './pages/admin/Settings';
 import BusinessSettings from './pages/business/Settings';
 import Branches from './pages/business/Branches';
 import BranchView from './pages/business/BranchView';
+import BranchEdit from './pages/business/BranchEdit';
+import BusinessAuditLogs from './pages/business/AuditLogs';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Onboarding from './pages/Onboarding';
@@ -35,7 +42,7 @@ import StaffView from './pages/business/StaffView';
 import MaintenanceContracts from './pages/business/MaintenanceContracts';
 import MaintenanceContractForm from './pages/business/MaintenanceContractForm';
 import MaintenanceContractView from './pages/business/MaintenanceContractView';
-import Maintenance from './pages/business/Maintenance';
+import MaintenanceCalendar from './pages/business/MaintenanceCalendar';
 import MaintenanceVisitView from './pages/business/MaintenanceVisitView';
 import MaintenanceContractSchedule from './pages/business/MaintenanceContractSchedule';
 import TechnicianDashboard from './pages/technician/Dashboard';
@@ -181,7 +188,11 @@ function App() {
               </a>
             
             <Routes>
-              <Route path="/" element={<Navigate to="/login" replace />} />
+              <Route path="/" element={<Landing />} />
+              <Route path="/solutions" element={<Solutions />} />
+              {/* <Route path="/pricing" element={<Pricing />} /> */}
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               
@@ -251,7 +262,7 @@ function App() {
                 <Route path="maintenance/edit/:id" element={<MaintenanceContractForm />} />
                 <Route path="maintenance/view/:id" element={<MaintenanceContractView />} />
                 <Route path="maintenance/schedule/:id" element={<MaintenanceContractSchedule />} />
-                <Route path="maintenance/calendar" element={<Maintenance />} />
+                <Route path="maintenance/calendar" element={<MaintenanceCalendar />} />
                 <Route path="maintenance/view/:id" element={<MaintenanceVisitView />} />
                 <Route path="branches" element={
                   <RoleRoute allowedRoles={['business_owner']}>
@@ -261,6 +272,16 @@ function App() {
                 <Route path="branches/:id" element={
                   <RoleRoute allowedRoles={['business_owner']}>
                     <BranchView />
+                  </RoleRoute>
+                } />
+                <Route path="branches/:id/edit" element={
+                  <RoleRoute allowedRoles={['business_owner']}>
+                    <BranchEdit />
+                  </RoleRoute>
+                } />
+                <Route path="audit-logs" element={
+                  <RoleRoute allowedRoles={['business_owner']}>
+                    <BusinessAuditLogs />
                   </RoleRoute>
                 } />
                 <Route path="settings" element={<BusinessSettings />} />

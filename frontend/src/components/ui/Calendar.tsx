@@ -2,6 +2,8 @@ import * as React from "react"
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
 import { cn } from "@/lib/utils"
 import { useTranslation, useDirectionClasses } from "@/lib/translation"
+import { useCalendarLight } from "@/hooks/useCalendarLight"
+import "../../styles/calendar-light-effect.css"
 
 export type CalendarProps = {
   mode?: "single" | "multiple" | "range"
@@ -39,6 +41,9 @@ export function Calendar({
   const [currentMonth, setCurrentMonth] = React.useState(new Date())
   const { t, currentLanguage } = useTranslation('common');
   const { isRTL } = useDirectionClasses();
+  
+  // Initialize Windows 10 hover light effect
+  useCalendarLight();
 
   // Month names in Arabic and English
   const monthNames = {
@@ -216,7 +221,7 @@ export function Calendar({
       </div>
 
       {/* Calendar Grid */}
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+      <div className="calendar-container bg-white rounded-lg border border-gray-200 overflow-hidden">
         {/* Day Headers */}
         <div className="grid grid-cols-7 border-b border-gray-200 bg-gray-50">
           {getDayNames().map((day) => (
@@ -243,10 +248,11 @@ export function Calendar({
                 <div
                   key={dayIndex}
                   className={cn(
-                    "min-h-[120px] border-r border-gray-200 last:border-r-0 p-2 transition-colors",
-                    !currentMonthDay && "bg-gray-50",
-                    isDisabled && "opacity-50 cursor-not-allowed",
-                    !isDisabled && "hover:bg-gray-50 cursor-pointer"
+                    "calendar-day min-h-[120px] p-2",
+                    !currentMonthDay && "out-of-month",
+                    isDisabled && "disabled",
+                    today && "today",
+                    selected && "selected"
                   )}
                   onClick={() => !isDisabled && handleDateClick(date)}
                 >
@@ -269,6 +275,7 @@ export function Calendar({
                   <div className="space-y-1">
                     {dayEvents.slice(0, 3).map((event) => {
                       const isRecurring = typeof event.id === 'string' && event.id.startsWith('contract_');
+                      const isHighlighted = highlightedEventId === event.id;
                       return (
                         <div
                           key={event.id}
@@ -280,7 +287,7 @@ export function Calendar({
                             "text-xs px-2 py-1 rounded cursor-pointer transition-all hover:shadow-md",
                             getPriorityBorder(event.priority),
                             event.color || "bg-primary-100 text-primary-700",
-                            highlightedEventId === event.id && "ring-2 ring-yellow-400 shadow-lg scale-105 animate-pulse",
+                            isHighlighted && "ring-2 ring-yellow-400 shadow-lg scale-105 animate-pulse",
                             isRecurring && "opacity-70 border-dashed border"
                           )}
                           title={`${event.title}${isRecurring ? ' (Recurring)' : ''}`}

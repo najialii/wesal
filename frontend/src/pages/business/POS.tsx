@@ -12,7 +12,7 @@ import {
   BuildingStorefrontIcon
 } from '@heroicons/react/24/outline';
 import { useTranslation, useDirectionClasses } from '../../lib/translation';
-import { formatCurrency } from '@/lib/currency';
+import { CurrencyDisplay } from '@/components/ui/CurrencyDisplay';
 import { getProductImageUrl } from '@/lib/imageUtils';
 import { ProductGridSkeleton } from '@/components/ui/ProductCardSkeleton';
 import api from '../../lib/api';
@@ -225,13 +225,13 @@ export default function POS() {
                 <h1 className="text-3xl font-bold text-gray-800">
                   {t('pos')}
                 </h1>
-                <p className="text-gray-600 mt-1">{t('selectProducts')}</p>
+                <p className="text-gray-400 mt-1">{t('selectProducts')}</p>
               </div>
               <div className={`flex items-center ${isRTL ? 'space-x-reverse space-x-4' : 'space-x-4'}`}>
                 {/* Current Branch Display */}
                 {currentBranch && (
                   <div className="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full">
-                    <BuildingStorefrontIcon className="h-5 w-5 text-blue-600" />
+                    <BuildingStorefrontIcon className="h-5 w-5 text-blue-400" />
                     <span className="text-blue-700 font-medium">{currentBranch.name}</span>
                   </div>
                 )}
@@ -314,7 +314,7 @@ export default function POS() {
                         {/* Quantity Badge for items in cart */}
                         {isInCart && (
                           <div className={`absolute top-2 ${isRTL ? 'left-2' : 'right-2'}`}>
-                            <span className="inline-flex items-center rounded-full bg-primary-600 px-2.5 py-0.5 text-xs font-medium text-white">
+                            <span className="inline-flex items-center rounded-full bg-primary-400 px-2.5 py-0.5 text-xs font-medium text-white">
                               {cartItem.quantity} {t('inCart')}
                             </span>
                           </div>
@@ -343,12 +343,12 @@ export default function POS() {
                           <p className="mt-1.5 text-xs text-gray-500 font-mono">
                             SKU: {product.sku}
                           </p>
-                          <p className="mt-1 text-xs text-gray-600 font-medium">
+                          <p className="mt-1 text-xs text-gray-400 font-medium">
                             {product.stock_quantity} {product.unit} {t('available')}
                           </p>
                         </div>
-                        <p className="text-lg font-bold text-primary-600 whitespace-nowrap">
-                          {formatCurrency(Number(product.selling_price))}
+                        <p className="text-lg font-bold text-primary-400 whitespace-nowrap">
+                          <CurrencyDisplay amount={Number(product.selling_price)} />
                         </p>
                       </div>
 
@@ -357,7 +357,7 @@ export default function POS() {
                         {!isInCart ? (
                           <button
                             onClick={() => addToCart(product)}
-                            className="w-full flex items-center justify-center rounded-lg border border-transparent bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-200 shadow-sm hover:shadow-md"
+                            className="w-full flex items-center justify-center rounded-lg border border-transparent bg-primary-400 px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-200 shadow-sm hover:shadow-md"
                           >
                             <PlusIcon className={`h-5 w-5 ${isRTL ? 'ml-2' : 'mr-2'}`} />
                             {t('addToCart')}
@@ -368,7 +368,7 @@ export default function POS() {
                             <div className="flex items-center justify-between rounded-lg border-2 border-primary-200 bg-white shadow-sm">
                               <button
                                 onClick={() => updateQuantity(product.id, cartItem.quantity - 1)}
-                                className={`flex items-center justify-center px-4 py-2.5 text-gray-600 hover:text-gray-800 hover:bg-gray-50 ${isRTL ? 'rounded-r-lg' : 'rounded-l-lg'} transition-colors duration-200`}
+                                className={`flex items-center justify-center px-4 py-2.5 text-gray-400 hover:text-gray-800 hover:bg-gray-50 ${isRTL ? 'rounded-r-lg' : 'rounded-l-lg'} transition-colors duration-200`}
                               >
                                 <MinusIcon className="h-5 w-5" />
                               </button>
@@ -377,7 +377,7 @@ export default function POS() {
                               </div>
                               <button
                                 onClick={() => updateQuantity(product.id, cartItem.quantity + 1)}
-                                className={`flex items-center justify-center px-4 py-2.5 text-primary-600 hover:text-primary-800 hover:bg-primary-50 ${isRTL ? 'rounded-l-lg' : 'rounded-r-lg'} transition-colors duration-200`}
+                                className={`flex items-center justify-center px-4 py-2.5 text-primary-400 hover:text-primary-800 hover:bg-primary-50 ${isRTL ? 'rounded-l-lg' : 'rounded-r-lg'} transition-colors duration-200`}
                               >
                                 <PlusIcon className="h-5 w-5" />
                               </button>
@@ -405,17 +405,17 @@ export default function POS() {
         {/* Modern Cart Section */}
         <div className={`w-96 flex-shrink-0 bg-white shadow-2xl flex flex-col ${isRTL ? 'border-r' : 'border-l'} border-gray-200`} dir={isRTL ? 'rtl' : 'ltr'}>
           {/* Cart Header */}
-          <div className="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-primary-50 to-primary-100">
+          <div className="px-6 py-4 border-b border-gray-100 ">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold text-gray-900">{t('currentSale')}</h2>
               <div className={`flex items-center ${isRTL ? 'space-x-reverse space-x-2' : 'space-x-2'}`}>
-                <div className="bg-primary-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                <div className="bg-primary-400 text-white text-xs font-bold px-3 py-1 rounded-full">
                   {cart.length}
                 </div>
                 {cart.length > 0 && (
                   <button
                     onClick={clearCart}
-                    className="text-xs text-gray-600 hover:text-red-600 transition-colors"
+                    className="text-xs text-gray-400 hover:text-red-400 transition-colors"
                   >
                     {t('clearAll')}
                   </button>
@@ -458,7 +458,7 @@ export default function POS() {
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-3">
                   <ShoppingCartIcon className="h-8 w-8 text-gray-400" />
                 </div>
-                <p className="text-sm font-medium text-gray-600">{t('cartEmpty')}</p>
+                <p className="text-sm font-medium text-gray-400">{t('cartEmpty')}</p>
                 <p className="text-xs text-gray-500 text-center mt-1">{t('addProductsToStart')}</p>
               </div>
             ) : (
@@ -482,7 +482,9 @@ export default function POS() {
                       {/* Product Info */}
                       <div className="flex-1 min-w-0">
                         <h4 className="text-sm font-semibold text-gray-900 truncate">{item.name}</h4>
-                        <p className="text-xs text-gray-500 mt-0.5">{formatCurrency(Number(item.selling_price))} {t('each')}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">
+                          <CurrencyDisplay amount={Number(item.selling_price)} showIcon={false} /> {t('each')}
+                        </p>
                         
                         {/* Quantity Controls */}
                         <div className="flex items-center justify-between mt-2">
@@ -498,7 +500,7 @@ export default function POS() {
                             </span>
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className={`p-1.5 text-primary-600 hover:text-primary-700 hover:bg-primary-50 ${isRTL ? 'rounded-l-lg' : 'rounded-r-lg'} transition-colors duration-200`}
+                              className={`p-1.5 text-primary-400 hover:text-primary-700 hover:bg-primary-50 ${isRTL ? 'rounded-l-lg' : 'rounded-r-lg'} transition-colors duration-200`}
                             >
                               <PlusIcon className="h-3 w-3" />
                             </button>
@@ -507,7 +509,7 @@ export default function POS() {
                           {/* Remove Button */}
                           <button
                             onClick={() => removeFromCart(item.id)}
-                            className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
+                            className="p-1.5 text-red-400 hover:text-red-400 hover:bg-red-50 rounded-lg transition-colors duration-200"
                           >
                             <TrashIcon className="h-3 w-3" />
                           </button>
@@ -515,7 +517,7 @@ export default function POS() {
                         
                         {/* Item Total */}
                         <div className={`mt-2 ${isRTL ? 'text-left' : 'text-right'}`}>
-                          <span className="text-sm font-bold text-primary-600">{formatCurrency(item.total)}</span>
+                          <CurrencyDisplay amount={item.total} className="text-sm font-bold text-primary-400" />
                         </div>
                       </div>
                     </div>
@@ -531,16 +533,16 @@ export default function POS() {
               {/* Totals */}
               <div className="px-6 py-4 space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">{t('subtotal')}:</span>
-                  <span className="font-medium">{formatCurrency(subtotal)}</span>
+                  <span className="text-gray-400">{t('subtotal')}:</span>
+                  <CurrencyDisplay amount={subtotal} className="font-medium" showIcon={false} />
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">{t('tax')} (15%):</span>
-                  <span className="font-medium">{formatCurrency(tax)}</span>
+                  <span className="text-gray-400">{t('tax')} (15%):</span>
+                  <CurrencyDisplay amount={tax} className="font-medium" showIcon={false} />
                 </div>
                 <div className="flex justify-between text-lg font-bold border-t border-gray-200 pt-2">
                   <span>{t('total')}:</span>
-                  <span className="text-primary-600">{formatCurrency(total)}</span>
+                  <CurrencyDisplay amount={total} className="text-primary-400" />
                 </div>
               </div>
 
@@ -580,7 +582,7 @@ export default function POS() {
                 <button
                   onClick={processSale}
                   disabled={cart.length === 0 || loading}
-                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-4 rounded-xl font-bold hover:from-primary-700 hover:to-primary-800 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] transition-all duration-200 shadow-lg hover:shadow-xl"
+                  className="w-full bg-gradient-to-r from-primary-400 to-primary-700 text-white py-3 px-4 rounded-xl font-bold hover:from-primary-700 hover:to-primary-800 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
                   {loading ? (
                     <div className="flex items-center justify-center">
@@ -590,7 +592,9 @@ export default function POS() {
                   ) : (
                     <div className="flex items-center justify-center">
                       <span>{t('completeSale')}</span>
-                      <span className={`${isRTL ? 'mr-2' : 'ml-2'} text-sm opacity-90`}>{formatCurrency(total)}</span>
+                      <span className={`${isRTL ? 'mr-2' : 'ml-2'} text-sm opacity-90`}>
+                        <CurrencyDisplay amount={total} showIcon={false} />
+                      </span>
                     </div>
                   )}
                 </button>

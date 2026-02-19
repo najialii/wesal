@@ -62,7 +62,7 @@ export default function ReceiptModal({ sale, onClose }: ReceiptModalProps) {
           }
         `}</style>
         
-        <div className="relative top-20 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white">
+        <div className="relative top-20 mx-auto p-5 border w-full max-w-lg shadow-lg rounded-md bg-white">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-medium text-gray-900">
               {t('saleCompleted', { fallback: 'Sale Completed!' })}
@@ -82,11 +82,70 @@ export default function ReceiptModal({ sale, onClose }: ReceiptModalProps) {
               </svg>
             </div>
             <p className="text-sm text-gray-600 mb-2">
-              {t('saleNumber', { fallback: 'Sale Number' })}: <span className="font-bold text-gray-900">{sale.sale_number}</span>
+              {t('saleNumber', { fallback: 'Invoice' })} <span className="font-bold text-gray-900">#{sale.sale_number}</span>
             </p>
-            <p className="text-2xl font-bold text-primary-600">
+            <p className="text-3xl font-bold text-green-600">
               ${Number(sale.total_amount).toFixed(2)}
             </p>
+            <p className="text-xs text-gray-500 mt-1">
+              {new Date(sale.sale_date).toLocaleString()}
+            </p>
+          </div>
+
+          {/* Invoice Details */}
+          <div className="bg-gray-50 rounded-lg p-4 mb-4 space-y-3">
+            {/* Customer Info */}
+            {sale.customer_name && !sale.customer_name.toLowerCase().includes('walk') && (
+              <div className="border-b border-gray-200 pb-3">
+                <p className="text-xs text-gray-500 mb-1">Customer</p>
+                <p className="font-semibold text-gray-900">{sale.customer_name}</p>
+                {sale.customer_phone && (
+                  <p className="text-sm text-gray-600">{sale.customer_phone}</p>
+                )}
+              </div>
+            )}
+
+            {/* Items */}
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Items ({sale.items.length})</p>
+              <div className="space-y-2 max-h-40 overflow-y-auto">
+                {sale.items.map((item, index) => (
+                  <div key={index} className="flex justify-between text-sm">
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-900">{item.product.name}</p>
+                      <p className="text-xs text-gray-500">{item.quantity} × ${Number(item.unit_price).toFixed(2)}</p>
+                    </div>
+                    <p className="font-semibold text-gray-900">${Number(item.total_amount).toFixed(2)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Totals */}
+            <div className="border-t border-gray-200 pt-3 space-y-1 text-sm">
+              <div className="flex justify-between text-gray-600">
+                <span>Subtotal</span>
+                <span>${Number(sale.subtotal).toFixed(2)}</span>
+              </div>
+              {sale.discount_amount > 0 && (
+                <div className="flex justify-between text-red-600">
+                  <span>Discount</span>
+                  <span>-${Number(sale.discount_amount).toFixed(2)}</span>
+                </div>
+              )}
+              <div className="flex justify-between text-gray-600">
+                <span>VAT (15%)</span>
+                <span>${Number(sale.tax_amount).toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-base font-bold text-gray-900 border-t border-gray-300 pt-2 mt-2">
+                <span>Total</span>
+                <span>${Number(sale.total_amount).toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">Payment Method</span>
+                <span className="font-semibold text-gray-900 uppercase">{sale.payment_method}</span>
+              </div>
+            </div>
           </div>
 
           <div className="space-y-3">

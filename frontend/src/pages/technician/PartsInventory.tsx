@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { technicianService } from '@/services/technician';
-import { formatCurrency } from '@/lib/currency';
+import { CurrencyDisplay } from '@/components/ui/CurrencyDisplay';
 import { useTranslation, useDirectionClasses } from '@/lib/translation';
 import { toast } from 'sonner';
 
@@ -146,7 +146,7 @@ export default function PartsInventory() {
                     <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
                       <span className="text-sm text-gray-600">{t('parts.unit_price')}</span>
                       <span className="text-lg font-semibold text-gray-900">
-                        {formatCurrency(product.selling_price)}
+                        <CurrencyDisplay amount={product.selling_price} />
                       </span>
                     </div>
                   </div>

@@ -593,4 +593,16 @@
 
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}/*
+ Direction-specific text alignment for individual elements */
+.direction-rtl {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: embed;
+}
+
+.direction-ltr {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
 }

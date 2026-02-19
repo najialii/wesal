@@ -44,35 +44,45 @@ export class GoogleAuthService {
       }
 
       try {
-        // Initialize Google Sign-In with callback
-        window.google.accounts.id.initialize({
-          client_id: GOOGLE_CONFIG.clientId,
-          callback: (response: GoogleAuthResponse) => {
-            try {
-              const user = this.parseCredential(response.credential);
-              resolve(user);
-            } catch (error) {
-              reject(error);
-            }
-          },
-          auto_select: false,
-          cancel_on_tap_outside: true,
-        });
-
-        // Show the One Tap prompt
-        window.google.accounts.id.prompt((notification: any) => {
-          console.log('Google prompt notification:', notification);
-          
-          if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-            // If One Tap is not displayed, fall back to popup
-            this.showPopup().then(resolve).catch(reject);
-          }
+        // Use popup method directly for better reliability
+        this.showPopup().then(resolve).catch((popupError) => {
+          console.log('Popup failed, trying One Tap:', popupError);
+          // Fallback to One Tap if popup fails
+          this.tryOneTap().then(resolve).catch(reject);
         });
 
       } catch (error) {
         console.error('Error in Google Sign-In:', error);
         reject(error);
       }
+    });
+  }
+
+  private async tryOneTap(): Promise<GoogleUser> {
+    return new Promise((resolve, reject) => {
+      window.google.accounts.id.initialize({
+        client_id: GOOGLE_CONFIG.clientId,
+        callback: (response: GoogleAuthResponse) => {
+          try {
+            const user = this.parseCredential(response.credential);
+            resolve(user);
+          } catch (error) {
+            reject(error);
+          }
+        },
+        auto_select: false,
+        cancel_on_tap_outside: true,
+        ux_mode: 'popup',
+      });
+
+      // Show the One Tap prompt
+      window.google.accounts.id.prompt((notification: any) => {
+        console.log('Google prompt notification:', notification);
+        
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+          reject(new Error('One Tap not available'));
+        }
+      });
     });
   }
 
@@ -83,25 +93,40 @@ export class GoogleAuthService {
         return;
       }
 
-      const client = window.google.accounts.oauth2.initTokenClient({
-        client_id: GOOGLE_CONFIG.clientId,
-        scope: GOOGLE_CONFIG.scopes.join(' '),
-        callback: async (tokenResponse: any) => {
-          try {
-            if (tokenResponse.error) {
-              reject(new Error(tokenResponse.error));
-              return;
+      try {
+        const client = window.google.accounts.oauth2.initTokenClient({
+          client_id: GOOGLE_CONFIG.clientId,
+          scope: GOOGLE_CONFIG.scopes.join(' '),
+          ux_mode: 'popup',
+          callback: async (tokenResponse: any) => {
+            try {
+              if (tokenResponse.error) {
+                console.error('Token response error:', tokenResponse.error);
+                reject(new Error(tokenResponse.error));
+                return;
+              }
+
+              const userInfo = await this.getUserInfo(tokenResponse.access_token);
+              resolve(userInfo);
+            } catch (error) {
+              console.error('Error processing token response:', error);
+              reject(error);
             }
-
-            const userInfo = await this.getUserInfo(tokenResponse.access_token);
-            resolve(userInfo);
-          } catch (error) {
-            reject(error);
+          },
+          error_callback: (error: any) => {
+            console.error('OAuth error callback:', error);
+            reject(new Error(error.type || 'OAuth error'));
           }
-        },
-      });
+        });
 
-      client.requestAccessToken();
+        // Request access token with user interaction
+        client.requestAccessToken({
+          prompt: 'consent',
+        });
+      } catch (error) {
+        console.error('Error initializing token client:', error);
+        reject(error);
+      }
     });
   }
 
@@ -154,6 +179,20 @@ export class GoogleAuthService {
     } catch (error) {
       console.error('Failed to get user info:', error);
       throw error;
+    }
+  }
+
+  // Method to check if popups are blocked
+  isPopupBlocked(): boolean {
+    try {
+      const popup = window.open('', '_blank', 'width=1,height=1');
+      if (popup) {
+        popup.close();
+        return false;
+      }
+      return true;
+    } catch {
+      return true;
     }
   }
 }

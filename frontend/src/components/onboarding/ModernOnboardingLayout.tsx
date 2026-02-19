@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation, useDirectionClasses } from '@/lib/translation';
 import { SimpleLanguageToggle } from '../SimpleLanguageToggle';
+import { WrenchScrewdriverIcon, ShoppingCartIcon, CogIcon, ChartBarIcon } from '@heroicons/react/24/outline';
 
 interface ModernOnboardingLayoutProps {
   children: React.ReactNode;
@@ -24,133 +25,105 @@ export const ModernOnboardingLayout: React.FC<ModernOnboardingLayoutProps> = ({
     { id: 1, name: isRTL ? 'معلومات العمل' : 'Business Info' },
     { id: 2, name: isRTL ? 'إنشاء فرع' : 'Create Branch' },
     { id: 3, name: isRTL ? 'أهلا وسهلا' : 'Welcome' },
-    { id: 4, name: isRTL ? 'إنشاء حساب' : 'Create Account' },
+    // { id: 4, name: isRTL ? 'إنشاء حساب' : 'Create Account' },
   ];
 
   return (
     <div 
       key={currentLanguage}
-      className={`min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 ${isRTL ? 'font-cairo' : 'font-inter'}`}
+      className={`min-h-screen grid grid-cols-1 lg:grid-cols-2 ${isRTL ? 'font-tajawal' : ''}`}
       dir={isRTL ? 'rtl' : 'ltr'}
-      style={{
-        fontFamily: isRTL ? "'Cairo', 'Tajawal', sans-serif" : "'Inter', 'SF Pro Display', system-ui, sans-serif"
-      }}
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-400/20 to-pink-600/20 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-cyan-400/10 to-blue-600/10 rounded-full blur-3xl"></div>
-      </div>
+      {/* Left Side - Gradient Background */}
+      <div className="hidden lg:flex bg-gradient-to-br from-blue-600 to-white flex-col justify-center px-12 py-16 text-white relative overflow-hidden">
+        {/* Floating icons */}
+        <div className="absolute inset-0 opacity-30">
+          <WrenchScrewdriverIcon className="absolute top-32 right-32 w-16 h-16 text-white" />
+          <ShoppingCartIcon className="absolute top-60 left-16 w-14 h-14 text-white" />
+          <CogIcon className="absolute bottom-40 right-16 w-20 h-20 text-white" />
+          <ChartBarIcon className="absolute bottom-60 left-32 w-12 h-12 text-white" />
+        </div>
 
-      {/* Language Toggle */}
-      <div className={`absolute top-6 z-50 ${isRTL ? 'left-6' : 'right-6'}`}>
-        <SimpleLanguageToggle variant="button" size="sm" />
-      </div>
-
-      {/* Main Content */}
-      <div className="relative min-h-screen flex">
-        {/* Left Sidebar - Progress */}
-        <div className="hidden lg:flex lg:w-80 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border-r border-gray-200/50 dark:border-gray-700/50 sticky top-0 h-screen overflow-y-auto">
-          <div className="flex flex-col justify-between p-8 w-full">
-            {/* Logo */}
-            <div className="flex items-center justify-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-                <img src="/1.svg" alt="WesalTech" className="w-10 h-10" />
-              </div>
-            </div>
-
-            {/* Progress Steps */}
-            <div className="flex-1 py-12">
-              <div className="space-y-8">
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                    {stepTitle}
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    {stepDescription}
-                  </p>
+        <div className="max-w-md relative z-10">
+          <img src="/1.svg" alt="WesalTech" className="w-auto h-96 mb-8 filter brightness-0 invert" />
+          {/* <h1 className="text-5xl font-bold mb-4 text-white">WesalTech</h1> */}
+          <p className="text-xl mb-8 text-white/90">{currentLanguage === 'ar' ? 'إعداد منصة إدارة الأعمال الذكية' : 'Setting up Smart Business Management Platform'}</p>
+          
+          <div className="space-y-4 mb-8">
+            {steps.map((step) => (
+              <div key={step.id} className="flex items-center space-x-3 rtl:space-x-reverse">
+                <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-semibold text-sm transition-all ${
+                  step.id < currentStep
+                    ? 'bg-green-500 text-white'
+                    : step.id === currentStep
+                    ? 'bg-white text-blue-600'
+                    : 'bg-white/20 text-white/70'
+                }`}>
+                  {step.id < currentStep ? '✓' : step.id}
                 </div>
-
-                <div className="space-y-6">
-                  {steps.map((step) => (
-                    <div key={step.id} className="flex items-center space-x-4 rtl:space-x-reverse">
-                      <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm transition-all ${
-                        step.id < currentStep
-                          ? 'bg-green-500 text-white shadow-lg'
-                          : step.id === currentStep
-                          ? 'bg-blue-600 text-white shadow-lg ring-4 ring-blue-600/20'
-                          : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
-                      }`}>
-                        {step.id < currentStep ? '✓' : step.id}
-                      </div>
-                      <div className="flex-1">
-                        <p className={`font-medium ${
-                          step.id <= currentStep
-                            ? 'text-gray-900 dark:text-white'
-                            : 'text-gray-500 dark:text-gray-400'
-                        }`}>
-                          {step.name}
-                        </p>
-                        {step.id === currentStep && (
-                          <div className="mt-1 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1">
-                            <div className="bg-blue-600 h-1 rounded-full transition-all duration-500" style={{ width: '60%' }}></div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <span className={`text-sm ${
+                  step.id <= currentStep ? 'text-white' : 'text-white/70'
+                }`}>
+                  {step.name}
+                </span>
               </div>
-            </div>
+            ))}
+          </div>
 
-            {/* Footer */}
-            <div className="text-center">
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                © 2024 WesalTech. {isRTL ? 'جميع الحقوق محفوظة' : 'All rights reserved'}
-              </p>
+          <div className="space-y-4">
+            <div className="flex items-center space-x-3 rtl:space-x-reverse">
+              <div className="w-3 h-3 bg-white rounded-full"></div>
+              <span className="text-white/90">{currentLanguage === 'ar' ? 'إعداد سريع وسهل' : 'Quick & Easy Setup'}</span>
+            </div>
+            <div className="flex items-center space-x-3 rtl:space-x-reverse">
+              <div className="w-3 h-3 bg-white rounded-full"></div>
+              <span className="text-white/90">{currentLanguage === 'ar' ? 'دعم متكامل للصيانة والمبيعات' : 'Complete Maintenance & Sales Support'}</span>
+            </div>
+            <div className="flex items-center space-x-3 rtl:space-x-reverse">
+              <div className="w-3 h-3 bg-white rounded-full"></div>
+              <span className="text-white/90">{currentLanguage === 'ar' ? 'ابدأ في دقائق معدودة' : 'Get Started in Minutes'}</span>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Right Content Area */}
-        <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-12 overflow-y-auto">
-          <div className="w-full max-w-2xl">
-            {/* Mobile Header */}
-            <div className="lg:hidden mb-8 text-center">
-              <div className="flex justify-center mb-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-                  <img src="/1.svg" alt="WesalTech" className="w-10 h-10" />
-                </div>
-              </div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                {stepTitle}
-              </h1>
-              <p className="text-gray-600 dark:text-gray-400">
-                {stepDescription}
-              </p>
-              
-              {/* Mobile Progress */}
-              <div className="mt-6 flex justify-center">
-                <div className="flex space-x-2 rtl:space-x-reverse">
-                  {steps.map((step) => (
-                    <div key={step.id} className={`w-3 h-3 rounded-full transition-all ${
-                      step.id <= currentStep
-                        ? 'bg-blue-600'
-                        : 'bg-gray-300 dark:bg-gray-600'
-                    }`}></div>
-                  ))}
-                </div>
-                <span className="ml-4 rtl:mr-4 rtl:ml-0 text-sm text-gray-500 dark:text-gray-400">
-                  {currentStep} {isRTL ? 'من' : 'of'} {totalSteps}
-                </span>
-              </div>
-            </div>
+      {/* Right Side - Content */}
+      <div className="flex flex-col justify-center px-6 py-12 lg:px-12 bg-white">
+        {/* Language Toggle */}
+        <div className={`absolute top-6 ${isRTL ? 'left-6' : 'right-6'}`}>
+          <SimpleLanguageToggle variant="button" size="sm" />
+        </div>
 
-            {/* Main Content Card */}
-            <div className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 p-8 lg:p-12">
-              {children}
+        <div className="w-full max-w-2xl mx-auto">
+          {/* Mobile Header */}
+          <div className="lg:hidden mb-8 text-center">
+            <img src="/1.svg" alt="WesalTech" className="w-16 h-14 mb-4 mx-auto" />
+            <h1 className="text-2xl font-bold text-gray-900">WesalTech</h1>
+            
+            {/* Mobile Progress */}
+            <div className="mt-6 flex justify-center items-center">
+              <div className="flex space-x-2 rtl:space-x-reverse">
+                {steps.map((step) => (
+                  <div key={step.id} className={`w-3 h-3 rounded-full transition-all ${
+                    step.id <= currentStep ? 'bg-blue-600' : 'bg-gray-300'
+                  }`}></div>
+                ))}
+              </div>
+              <span className="ml-4 rtl:mr-4 rtl:ml-0 text-sm text-gray-500">
+                {currentStep} {isRTL ? 'من' : 'of'} {totalSteps}
+              </span>
             </div>
+          </div>
+
+          {/* Step Header */}
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">{stepTitle}</h2>
+            <p className="text-gray-600">{stepDescription}</p>
+          </div>
+
+          {/* Main Content */}
+          <div>
+            {children}
           </div>
         </div>
       </div>

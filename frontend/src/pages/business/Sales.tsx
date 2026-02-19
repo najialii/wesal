@@ -4,7 +4,7 @@ import { SalesEditModal } from '@/components/modals/SalesEditModal';
 import { SalesDetailModal } from '@/components/modals/SalesDetailModal';
 import { toast } from 'sonner';
 import { useTranslation, useDirectionClasses } from '../../lib/translation';
-import { formatCurrency } from '@/lib/currency';
+import { CurrencyDisplay } from '@/components/ui/CurrencyDisplay';
 import api from '../../lib/api';
 import { useBranch } from '../../contexts/BranchContext';
 
@@ -119,7 +119,7 @@ export default function Sales() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow duration-200">
           <div className="text-2xl font-bold text-gray-900">
-            {formatCurrency(sales.reduce((sum, sale) => sum + Number(sale.total_amount), 0))}
+            <CurrencyDisplay amount={sales.reduce((sum, sale) => sum + Number(sale.total_amount), 0)} />
           </div>
           <div className="text-sm text-gray-500">{t('totalSales', { fallback: 'Total Sales' })}</div>
         </div>
@@ -230,7 +230,7 @@ export default function Sales() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-bold text-gray-900">
-                        {formatCurrency(Number(sale.total_amount))}
+                        <CurrencyDisplay amount={Number(sale.total_amount)} />
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">

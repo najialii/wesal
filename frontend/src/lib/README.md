@@ -4,7 +4,7 @@
 
 Your platform now uses a unified color system with two primary brand colors:
 
-- **Primary**: `#4f46e5` (Indigo)
+- **Primary**: `#4f46e5` (blue)
 - **Secondary**: `#0ea5e9` (Sky Blue)
 
 ## Usage

@@ -24,7 +24,6 @@ export const BusinessInfoStep: React.FC<BusinessInfoStepProps> = ({ onNext, onBa
     address: initialData?.address || '',
     city: initialData?.city || '',
     phone: initialData?.phone || '',
-    email: initialData?.email || '',
     logo: initialData?.logo || null,
   });
   const [logoPreview, setLogoPreview] = useState<string | null>(initialData?.logoPreview || null);
@@ -104,12 +103,6 @@ export const BusinessInfoStep: React.FC<BusinessInfoStepProps> = ({ onNext, onBa
       newErrors.phone = isRTL ? 'رقم الهاتف مطلوب' : 'Phone number is required';
     }
 
-    if (!formData.email.trim()) {
-      newErrors.email = isRTL ? 'البريد الإلكتروني مطلوب' : 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = isRTL ? 'البريد الإلكتروني غير صحيح' : 'Email is invalid';
-    }
-
     if (!formData.address.trim()) {
       newErrors.address = isRTL ? 'العنوان مطلوب' : 'Address is required';
     }
@@ -134,7 +127,6 @@ export const BusinessInfoStep: React.FC<BusinessInfoStepProps> = ({ onNext, onBa
       const apiFormData = new FormData();
       apiFormData.append('name', formData.businessName);
       apiFormData.append('phone', formData.phone);
-      apiFormData.append('email', formData.email);
       apiFormData.append('address', `${formData.address}${formData.city ? ', ' + formData.city : ''}`);
       apiFormData.append('_method', 'PUT'); // Laravel method override
       
@@ -218,7 +210,7 @@ export const BusinessInfoStep: React.FC<BusinessInfoStepProps> = ({ onNext, onBa
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="text-center">
+      {/* <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
           {isRTL ? 'معلومات عملك' : 'Tell us about your business'}
         </h2>
@@ -228,7 +220,7 @@ export const BusinessInfoStep: React.FC<BusinessInfoStepProps> = ({ onNext, onBa
             : 'Help us customize the experience for your business'
           }
         </p>
-      </div>
+      </div> */}
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Logo Upload */}
@@ -355,26 +347,6 @@ export const BusinessInfoStep: React.FC<BusinessInfoStepProps> = ({ onNext, onBa
             </div>
             {errors.phone && <p className="text-sm text-red-500">{errors.phone}</p>}
           </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-              {isRTL ? 'البريد الإلكتروني' : 'Business Email'} *
-            </Label>
-            <div className="relative">
-              <EnvelopeIcon className={`absolute top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 ${isRTL ? 'right-3' : 'left-3'}`} />
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
-                className={`h-12 ${isRTL ? 'pr-10' : 'pl-10'} border-2 focus:border-blue-500 transition-colors ${
-                  errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                }`}
-                placeholder={isRTL ? 'البريد الإلكتروني للعمل' : 'Business email'}
-              />
-            </div>
-            {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
-          </div>
         </div>
 
         {/* Submit Error */}
@@ -397,7 +369,7 @@ export const BusinessInfoStep: React.FC<BusinessInfoStepProps> = ({ onNext, onBa
           </Button>
           <Button 
             type="submit" 
-            className="flex-1 h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold text-base shadow-xl hover:shadow-2xl transition-all transform hover:scale-105"
+            className="flex-1 h-12 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-base"
             disabled={loading}
           >
             {loading ? (

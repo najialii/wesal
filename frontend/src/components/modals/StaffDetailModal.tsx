@@ -316,7 +316,7 @@ export function StaffDetailModal({
     >
       {loading ? (
         <div className="flex items-center justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
           <span className={`text-gray-600 ${isRTL ? 'mr-3' : 'ml-3'}`}>
             {t('loadingStaffDetails', { fallback: 'Loading staff member details...' })}
           </span>
@@ -333,7 +333,7 @@ export function StaffDetailModal({
               <button
                 onClick={handlePrint}
                 disabled={isPrinting}
-                className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
               >
                 <PrinterIcon className={`h-4 w-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
                 {isPrinting ? t('generating', { fallback: 'Generating...' }) : t('printReport', { fallback: 'Print Report' })}
@@ -407,7 +407,7 @@ export function StaffDetailModal({
                     key={branch.id}
                     className="flex items-center p-3 bg-white border border-gray-200 rounded-lg"
                   >
-                    <BuildingStorefrontIcon className={`h-5 w-5 text-indigo-500 flex-shrink-0 ${isRTL ? 'ml-3' : 'mr-3'}`} />
+                    <BuildingStorefrontIcon className={`h-5 w-5 text-blue-500 flex-shrink-0 ${isRTL ? 'ml-3' : 'mr-3'}`} />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-900 truncate">{branch.name}</p>
                       <p className="text-xs text-gray-500">
@@ -439,7 +439,7 @@ export function StaffDetailModal({
             
             {loadingActivities ? (
               <div className="flex items-center justify-center py-8">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
               </div>
             ) : activities.length > 0 ? (
               <>
@@ -451,7 +451,7 @@ export function StaffDetailModal({
                     {activities.map((activity, index) => (
                       <div key={activity.id || index} className={`relative flex items-start ${isRTL ? 'pr-10' : 'pl-10'}`}>
                         {/* Timeline dot */}
-                        <div className={`absolute w-8 h-8 bg-white border-2 border-indigo-500 rounded-full flex items-center justify-center text-sm ${isRTL ? 'right-0' : 'left-0'}`}>
+                        <div className={`absolute w-8 h-8 bg-white border-2 border-blue-500 rounded-full flex items-center justify-center text-sm ${isRTL ? 'right-0' : 'left-0'}`}>
                           {getActivityIcon(activity.action)}
                         </div>
                         
@@ -517,7 +517,7 @@ export function StaffDetailModal({
             <button
               type="button"
               onClick={handleClose}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               {t('close', { fallback: 'Close' })}
             </button>

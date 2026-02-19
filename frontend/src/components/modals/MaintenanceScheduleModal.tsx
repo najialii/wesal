@@ -13,7 +13,7 @@ import {
   PhoneIcon,
   MapPinIcon,
   WrenchScrewdriverIcon,
-  ChartBarIcon
+  ChartBarIcon,
 } from '@heroicons/react/24/outline'
 import { toast } from 'sonner'
 import api from '@/lib/api'
@@ -49,6 +49,11 @@ interface MaintenanceContract {
   start_date: string
   status: string
   next_visit_date?: string
+  branch?: {
+    id: number
+    name: string
+    code: string
+  }
 }
 
 interface DayScheduleInfo {
@@ -411,6 +416,29 @@ export function MaintenanceScheduleModal({
         ? parseInt(data.maintenance_contract_id) 
         : data.maintenance_contract_id
       
+      // Get current branch ID - try to get from contract first, then from session/user
+      let branchId = selectedContract?.branch?.id || null;
+      
+      // If no branch in contract, try to get current branch from API
+      if (!branchId) {
+        try {
+          const branchResponse = await api.get('/business/branches/current');
+          branchId = branchResponse.data?.branch?.id || branchResponse.data?.id || null;
+        } catch (branchError) {
+          console.warn('Could not get current branch:', branchError);
+          // For single-branch businesses, we might need to get the default branch
+          try {
+            const branchesResponse = await api.get('/business/branches');
+            const branches = branchesResponse.data?.data || branchesResponse.data || [];
+            if (branches.length > 0) {
+              branchId = branches[0].id;
+            }
+          } catch (branchesError) {
+            console.warn('Could not get branches:', branchesError);
+          }
+        }
+      }
+      
       const payload = {
         maintenance_contract_id: contractId,
         scheduled_date: moment(scheduleInfo.date).format('YYYY-MM-DD'), // Ensure consistent date format
@@ -418,6 +446,7 @@ export function MaintenanceScheduleModal({
         assigned_technician_id: selectedWorker?.id || selectedContract?.assigned_technician_id || null,
         priority: data.priority,
         work_description: `Scheduled ${selectedContract?.frequency} maintenance for ${selectedContract?.product.name}`,
+        branch_id: branchId, // Add branch_id to the payload
       }
       
       console.log('Submitting visit:', payload)
@@ -534,7 +563,6 @@ export function MaintenanceScheduleModal({
     >
       <Form {...form}>
         <div className="space-y-6">
-          {/* Step 1: Contract Selection */}
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
@@ -602,7 +630,7 @@ export function MaintenanceScheduleModal({
                               {contract.frequency}
                             </span>
                             {contract.customer_phone && (
-                              <span className="text-xs text-gray-500">📞 {contract.customer_phone}</span>
+                              <span className="text-xs text-gray-500"> {contract.customer_phone}</span>
                             )}
                           </div>
                         </div>
@@ -612,7 +640,7 @@ export function MaintenanceScheduleModal({
                 </div>
               )}
 
-              {/* No Results */}
+
               {showDropdown && searchQuery && filteredContracts.length === 0 && (
                 <div 
                   ref={dropdownRef}
@@ -625,7 +653,6 @@ export function MaintenanceScheduleModal({
             </div>
           </div>
 
-          {/* Step 2: Priority Selection */}
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
@@ -660,7 +687,6 @@ export function MaintenanceScheduleModal({
             </div>
           </div>
 
-          {/* Schedule Preview */}
           {selectedContract && scheduleInfo ? (
             <div className="space-y-3">
               <div className="flex items-center gap-2">
@@ -672,8 +698,8 @@ export function MaintenanceScheduleModal({
                 <h3 className="font-semibold text-gray-900">Schedule Preview</h3>
               </div>
               
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-5">
-                {/* Main Schedule Info */}
+              <div className="bg-gradient-to-br from-blue-50 to-blue-50 border-2 border-blue-200 rounded-xl p-5">
+
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                   {/* Date Card - Editable */}
                   <button

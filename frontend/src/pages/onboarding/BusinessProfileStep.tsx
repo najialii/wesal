@@ -307,7 +307,6 @@ export const BusinessProfileStep: React.FC<BusinessProfileStepProps> = ({
         </div>
       </div>
 
-      {/* Submit Button - Beautiful Gradient */}
       <Button 
         type="submit" 
         className={`w-full h-14 bg-gradient-to-r from-primary-600 to-blue-600 hover:from-primary-700 hover:to-blue-700 text-white font-semibold text-lg shadow-xl hover:shadow-2xl transition-all transform hover:scale-[1.02] ${

@@ -213,7 +213,7 @@ export default function TechnicianDashboard() {
 
       {/* Next Visit Card */}
       {stats?.next_visit && (
-        <div className="bg-gradient-to-r from-primary-50 to-indigo-50 rounded-xl border border-primary-200 p-6">
+        <div className="bg-gradient-to-r from-primary-50 to-blue-50 rounded-xl border border-primary-200 p-6">
           <div className={`flex items-center gap-2 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <WrenchScrewdriverIcon className="h-5 w-5 text-primary-600" />
             <h2 className="text-lg font-semibold text-primary-900">

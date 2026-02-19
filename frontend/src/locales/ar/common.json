@@ -66,6 +66,7 @@
     "staff": "الموظفين",
     "branches": "الفروع",
     "maintenance": "الصيانة",
+    "audit_logs": "سجل التدقيق",
     "settings": "الإعدادات",
     "technician": "الفني"
   },

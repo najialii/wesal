@@ -137,20 +137,20 @@ export default function AddProduct() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8" dir={isRTL ? 'rtl' : 'ltr'} lang={isRTL ? 'ar' : 'en'}>
+    <div className="min-h-screen bg-white py-8" dir={isRTL ? 'rtl' : 'ltr'} lang={isRTL ? 'ar' : 'en'}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
           <div className={`flex items-center mb-4 ${isRTL ? 'space-x-reverse space-x-4' : 'space-x-4'}`}>
             <button
               onClick={() => navigate('/business/products')}
-              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-white rounded-lg transition-colors shadow-sm"
+              className="p-2 text-gray-400 hover:text-gray-400 hover:bg-white rounded-lg transition-colors shadow-sm"
             >
               <ArrowLeftIcon className="w-5 h-5" />
             </button>
             <div>
               <h1 className="text-3xl font-bold text-gray-900">{t('add_new_product')}</h1>
-              <p className="mt-2 text-sm text-gray-600">
+              <p className="mt-2 text-sm text-gray-400">
                 {t('create_new_product')}
               </p>
             </div>
@@ -158,7 +158,7 @@ export default function AddProduct() {
         </div>
 
         {/* Form */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+        <div className="bg-">
           <form onSubmit={handleSubmit} className="p-8">
             {error && (
               <div className="mb-6 p-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg flex items-center">
@@ -171,7 +171,7 @@ export default function AddProduct() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Left Column - Image Upload */}
-              <div className="lg:col-span-1">
+              <div className="lg:col-span-1 ">
                 <div className="sticky top-8">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('product_image')}</h3>
                   <div className="space-y-4">
@@ -187,7 +187,7 @@ export default function AddProduct() {
                           <button
                             type="button"
                             onClick={removeImage}
-                            className={`absolute top-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors ${isRTL ? 'left-2' : 'right-2'}`}
+                            className={`absolute top-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-400 transition-colors ${isRTL ? 'left-2' : 'right-2'}`}
                           >
                             <XMarkIcon className="w-4 h-4 text-center" />
                           </button>
@@ -314,7 +314,7 @@ export default function AddProduct() {
                     {t('product_type')}
                   </h3>
                   <div className="space-y-4">
-                    <p className="text-sm text-gray-600 mb-4">
+                    <p className="text-sm text-gray-400 mb-4">
                       {t('product_type_description')}
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -386,7 +386,7 @@ export default function AddProduct() {
                         {t('cost_price')} <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
-                        <span className={`absolute top-1/2 -translate-y-1/2 text-gray-500 text-sm ${isRTL ? 'right-4' : 'left-4'}`}>$</span>
+                        <img src="/currancy.svg" alt="SAR" className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 ${isRTL ? 'right-4' : 'left-4'}`} />
                         <input
                           type="number"
                           step="0.01"
@@ -405,7 +405,7 @@ export default function AddProduct() {
                         {t('selling_price')} <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
-                        <span className={`absolute top-1/2 -translate-y-1/2 text-gray-500 text-sm ${isRTL ? 'right-4' : 'left-4'}`}>$</span>
+                        <img src="/currancy.svg" alt="SAR" className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 ${isRTL ? 'right-4' : 'left-4'}`} />
                         <input
                           type="number"
                           step="0.01"
@@ -496,7 +496,7 @@ export default function AddProduct() {
                           type="checkbox"
                           checked={formData.is_active}
                           onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
-                          className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+                          className="w-4 h-4 text-primary-400 border-gray-300 rounded focus:ring-primary-500"
                         />
                         <span className="text-sm font-medium text-gray-700">{t('product_active_sale')}</span>
                       </label>

@@ -59,7 +59,7 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ children }) 
       description: isRTL
         ? 'حماية بياناتك مع تشفير من الدرجة المصرفية ونسخ احتياطي تلقائي'
         : 'Protect your data with bank-grade encryption and automatic backups',
-      color: 'from-indigo-500 to-blue-500',
+      color: 'from-blue-500 to-blue-500',
     },
     {
       icon: GlobeAltIcon,
@@ -177,7 +177,7 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({ children }) 
       </div>
 
       {/* Right Side - Form */}
-      <div className="w-full lg:w-1/2 flex flex-col bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
+      <div className="w-full lg:w-1/2 flex flex-col bg-gradient-to-br from-slate-50 via-blue-50 to-blue-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-slate-700/25 dark:[mask-image:linear-gradient(0deg,rgba(255,255,255,0.1),rgba(255,255,255,0.5))]" />
 

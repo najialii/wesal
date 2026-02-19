@@ -1,0 +1,127 @@
+/* Windows 10 Card/Tile Hover Light Effect */
+:root {
+  --tile-bg: #ffffff;
+  --tile-border: #e5e7eb;
+  --light-color: rgba(255, 255, 255, 0.6);
+}
+
+.calendar-container {
+  position: relative;
+  background: var(--tile-bg);
+}
+
+/* Each calendar day is a tile with its own light effect */
+.calendar-day {
+  position: relative;
+  overflow: hidden;
+  background: var(--tile-bg);
+  border: 1px solid var(--tile-border);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
+/* Light element inside each tile */
+.calendar-day::before {
+  content: '';
+  position: absolute;
+  left: var(--mouse-x);
+  top: var(--mouse-y);
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(
+    circle at center,
+    var(--light-color) 0%,
+    rgba(255, 255, 255, 0.4) 15%,
+    rgba(255, 255, 255, 0.2) 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+/* Show light on hover */
+.calendar-day:hover::before {
+  opacity: 1;
+}
+
+/* Tile content stays above light */
+.calendar-day > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Subtle border highlight on hover */
+.calendar-day:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+/* Disabled state */
+.calendar-day.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.calendar-day.disabled::before {
+  display: none;
+}
+
+.calendar-day.disabled:hover {
+  transform: none;
+  border-color: var(--tile-border);
+  box-shadow: none;
+}
+
+/* Today highlight */
+.calendar-day.today {
+  background: rgba(59, 130, 246, 0.05);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+/* Selected state */
+.calendar-day.selected {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+/* Out of month days */
+.calendar-day.out-of-month {
+  background: #f9fafb;
+  opacity: 0.6;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tile-bg: #1f2937;
+    --tile-border: #374151;
+    --light-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .calendar-day:hover {
+    border-color: rgba(96, 165, 250, 0.4);
+  }
+  
+  .calendar-day.out-of-month {
+    background: #111827;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .calendar-day,
+  .calendar-day::before {
+    transition: none;
+  }
+  
+  .calendar-day:hover {
+    transform: none;
+  }
+}

@@ -151,5 +151,22 @@
   "recentVisits": "الزيارات الأخيرة",
   "totalItemsCost": "إجمالي تكلفة العناصر",
   "each": "لكل واحد",
-  "noEndDate": "لا يوجد تاريخ انتهاء"
+  "noEndDate": "لا يوجد تاريخ انتهاء",
+  "maintenanceCalendar": "تقويم الصيانة",
+  "manageScheduledVisits": "إدارة وتتبع زيارات الصيانة المجدولة",
+  "filters": "المرشحات",
+  "filterVisits": "تصفية الزيارات",
+  "clearAll": "مسح الكل",
+  "search": "البحث",
+  "searchPlaceholder": "البحث في الزيارات...",
+  "allStatuses": "جميع الحالات",
+  "allPriorities": "جميع الأولويات",
+  "allTechnicians": "جميع الفنيين",
+  "inProgress": "قيد التنفيذ",
+  "month": "شهر",
+  "week": "أسبوع",
+  "day": "يوم",
+  "today": "اليوم",
+  "visitScheduledSuccessfully": "تم جدولة الزيارة بنجاح",
+  "failedToLoadVisits": "فشل في تحميل الزيارات"
 }

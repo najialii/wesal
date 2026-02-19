@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { technicianService } from '@/services/technician';
-import { formatCurrency } from '@/lib/currency';
+import { CurrencyDisplay } from '@/components/ui/CurrencyDisplay';
 import { toast } from 'sonner';
 
 interface Product {
@@ -180,7 +180,7 @@ export default function CompleteVisitModal({ visitId, onClose, onSuccess }: Comp
                             className="w-20"
                           />
                           <span className="text-sm font-medium text-gray-900 w-24 text-right">
-                            {formatCurrency(product.selling_price * item.quantity)}
+                            <CurrencyDisplay amount={product.selling_price * item.quantity} />
                           </span>
                           <button
                             type="button"
@@ -198,7 +198,7 @@ export default function CompleteVisitModal({ visitId, onClose, onSuccess }: Comp
                   <div className="flex items-center justify-between p-3 bg-primary-50 rounded-lg">
                     <span className="font-semibold text-gray-900">Total Cost</span>
                     <span className="font-semibold text-lg text-gray-900">
-                      {formatCurrency(calculateTotal())}
+                      <CurrencyDisplay amount={calculateTotal()} />
                     </span>
                   </div>
                 </div>
@@ -233,7 +233,7 @@ export default function CompleteVisitModal({ visitId, onClose, onSuccess }: Comp
                               </p>
                             </div>
                             <span className="text-sm font-medium text-gray-900">
-                              {formatCurrency(product.selling_price)}
+                              <CurrencyDisplay amount={product.selling_price} />
                             </span>
                           </button>
                         ))

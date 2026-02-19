@@ -90,7 +90,7 @@ export const BusinessSetupStep: React.FC<BusinessSetupStepProps> = ({ onNext, on
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="text-center">
+      {/* <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
           {isRTL ? 'إنشاء فرعك الأول' : 'Create Your First Branch'}
         </h2>
@@ -100,11 +100,11 @@ export const BusinessSetupStep: React.FC<BusinessSetupStepProps> = ({ onNext, on
             : 'Create your first branch and add location details'
           }
         </p>
-      </div>
+      </div> */}
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Branch Setup */}
-        <div className="bg-gray-50 dark:bg-slate-700/50 rounded-2xl p-6">
+        <div className=" dark:bg-slate-700/50 rounded-2xl p-6">
           <div className="flex items-center justify-center mb-4">
             <MapPinIcon className="h-6 w-6 text-blue-600 mr-2" />
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -190,7 +190,7 @@ export const BusinessSetupStep: React.FC<BusinessSetupStepProps> = ({ onNext, on
           </Button>
           <Button 
             type="submit" 
-            className="flex-1 h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold text-base shadow-lg"
+            className="flex-1 h-12 bg-gradient-to-r from-primary-600 to-blue-600  hover:from-blue-700 hover:to-purple-700 text-white font-semibold text-base shadow-lg"
             disabled={loading}
           >
             {loading ? (

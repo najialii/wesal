@@ -528,7 +528,7 @@ export default function Staff() {
                     <td className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${isRTL ? 'space-x-reverse space-x-2' : 'space-x-2'}`}>
                       <button 
                         onClick={() => handleViewStaff(member.id)}
-                        className="text-indigo-600 hover:text-indigo-900 p-2 rounded-lg hover:bg-indigo-50 transition-colors duration-200"
+                        className="text-blue-600 hover:text-blue-900 p-2 rounded-lg hover:bg-blue-50 transition-colors duration-200"
                         title={t('buttons.view')}
                       >
                         <EyeIcon className="h-4 w-4" />

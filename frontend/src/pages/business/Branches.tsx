@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../../lib/i18n/TranslationProvider';
-import { Plus, Building2, MapPin, Phone, Mail, Edit, Power, PowerOff } from 'lucide-react';
+import { Plus, Building2, MapPin, Phone, Mail } from 'lucide-react';
+import { PlusIcon, MagnifyingGlassIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import api from '../../lib/api';
 import { Button } from '../../components/ui/button';
-import { Card } from '../../components/ui/card';
-import { EmptyState } from '../../components/ui/EmptyState';
+import { useDirectionClasses } from '../../lib/translation';
 
 interface Branch {
   id: number;
@@ -21,18 +22,22 @@ interface Branch {
 
 const Branches: React.FC = () => {
   const { t } = useTranslation('branches');
+  const { isRTL } = useDirectionClasses();
+  const navigate = useNavigate();
   const [branches, setBranches] = useState<Branch[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [editingBranch, setEditingBranch] = useState<Branch | null>(null);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     loadBranches();
-  }, []);
+  }, [search]);
 
   const loadBranches = async () => {
     try {
-      const res = await api.get('/business/branches');
+      const res = await api.get('/business/branches', {
+        params: { search }
+      });
       // API returns { branches: [], total: number }
       const branchesData = res.data?.branches || [];
       setBranches(branchesData);
@@ -45,25 +50,28 @@ const Branches: React.FC = () => {
   };
 
   const handleCreate = () => {
-    setEditingBranch(null);
     setShowModal(true);
   };
 
-  const handleEdit = (branch: Branch) => {
-    setEditingBranch(branch);
-    setShowModal(true);
+  const handleEdit = (branchId: number) => {
+    navigate(`/business/branches/${branchId}/edit`);
   };
 
-  const handleToggleStatus = async (branch: Branch) => {
+  const handleDelete = async (branch: Branch) => {
+    if (branch.is_default) {
+      alert(t('cannotDeleteDefault', { fallback: 'Cannot delete the default branch' }));
+      return;
+    }
+
+    if (!confirm(t('confirmDelete', { fallback: 'Are you sure you want to delete this branch?' }))) {
+      return;
+    }
+
     try {
-      if (branch.is_active) {
-        await api.delete(`/business/branches/${branch.id}`);
-      } else {
-        await api.post(`/business/branches/${branch.id}/activate`);
-      }
+      await api.delete(`/business/branches/${branch.id}`);
       loadBranches();
-    } catch (error) {
-      console.error('Failed to toggle branch status:', error);
+    } catch (error: any) {
+      alert(error.response?.data?.message || t('deleteError', { fallback: 'Failed to delete branch' }));
     }
   };
 
@@ -72,110 +80,156 @@ const Branches: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-6" dir={isRTL ? 'rtl' : 'ltr'} lang={isRTL ? 'ar' : 'en'}>
+      {/* Header */}
+      <div className={`flex items-center ${isRTL ? 'justify-between flex-row-reverse' : 'justify-between'}`}>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{t('title')}</h1>
-          <p className="text-gray-600">{t('subtitle')}</p>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-800">
+            {t('title')}
+          </h1>
+          <p className="mt-1 text-sm text-gray-500">
+            {t('subtitle')}
+          </p>
         </div>
-        <Button onClick={handleCreate}>
-          <Plus className="w-4 h-4 mr-2" />
+        <button 
+          onClick={handleCreate}
+          className={`inline-flex items-center px-6 py-3 border border-transparent text-sm font-medium rounded-xl shadow-sm text-white bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 transform hover:scale-[1.02] transition-all duration-200 ${isRTL ? 'flex-row-reverse' : ''}`}
+        >
+          <PlusIcon className={`h-5 w-5 ${isRTL ? 'ml-2' : 'mr-2'}`} />
           {t('addBranch')}
-        </Button>
+        </button>
       </div>
 
-      {!Array.isArray(branches) || branches.length === 0 ? (
-        <EmptyState
-          icon={Building2}
-          title={t('noBranches')}
-          description={t('noBranchesDesc')}
-          action={{
-            label: t('addBranch'),
-            onClick: handleCreate
-          }}
-        />
+      {/* Search */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="relative">
+          <MagnifyingGlassIcon className={`h-5 w-5 absolute top-1/2 -translate-y-1/2 text-gray-400 ${isRTL ? 'right-4' : 'left-4'}`} />
+          <input
+            type="text"
+            placeholder={t('searchBranches', { fallback: 'Search branches...' })}
+            className={`w-full rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all duration-200 ${isRTL ? 'pr-12 pl-4 text-right' : 'pl-12 pr-4 text-left'} py-3 text-sm`}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+      </div>
+
+      {loading ? (
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+        </div>
+      ) : !Array.isArray(branches) || branches.length === 0 ? (
+        <div className="text-center py-16">
+          <div className="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner">
+            <Building2 className="h-10 w-10 text-gray-400" />
+          </div>
+          <div className="text-gray-500">
+            <h3 className="text-xl font-semibold mb-2">{t('noBranches')}</h3>
+            <p className="text-sm mb-4">{t('noBranchesDesc')}</p>
+            <button
+              onClick={handleCreate}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              {t('addBranch')}
+            </button>
+          </div>
+        </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.isArray(branches) && branches.map((branch) => (
-            <Card key={branch.id} className="p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${branch.is_active ? 'bg-blue-100' : 'bg-gray-100'}`}>
-                    <Building2 className={`w-5 h-5 ${branch.is_active ? 'text-blue-600' : 'text-gray-400'}`} />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">{branch.name}</h3>
-                    <p className="text-sm text-gray-500">{branch.code}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {branches.map((branch) => (
+            <div 
+              key={branch.id} 
+              className="group bg-white rounded-2xl shadow-sm border border-gray-200 hover:border-primary-300 p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+            >
+              {/* Header with Icon and Actions */}
+              <div className={`flex items-start gap-4 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
+                  <Building2 className="h-6 w-6 text-white" />
+                </div>
+                
+                <div className="flex-1 min-w-0">
+                  <h3 className={`text-lg font-bold text-gray-900 truncate ${isRTL ? 'text-right' : 'text-left'}`}>
+                    {branch.name}
+                  </h3>
+                  <p className={`text-sm text-gray-500 ${isRTL ? 'text-right' : 'text-left'}`}>
+                    {branch.code}
+                  </p>
+                  <div className="flex gap-2 mt-1">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      branch.is_active 
+                        ? 'bg-green-100 text-green-700' 
+                        : 'bg-gray-100 text-gray-600'
+                    }`}>
+                      {branch.is_active ? t('active', { fallback: 'Active' }) : t('inactive', { fallback: 'Inactive' })}
+                    </span>
+                    {branch.is_default && (
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                        {t('default')}
+                      </span>
+                    )}
                   </div>
                 </div>
-                {branch.is_default && (
-                  <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded">
-                    {t('default')}
-                  </span>
-                )}
-              </div>
 
+                {/* Action Buttons */}
+                <div className={`flex gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <button 
+                    onClick={() => handleEdit(branch.id)}
+                    className="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200"
+                    title={t('edit', { fallback: 'Edit' })}
+                  >
+                    <PencilIcon className="h-4 w-4" />
+                  </button>
+                  {!branch.is_default && (
+                    <button 
+                      onClick={() => handleDelete(branch)}
+                      className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
+                      title={t('delete', { fallback: 'Delete' })}
+                    >
+                      <TrashIcon className="h-4 w-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+              
+              {/* Branch Details */}
               <div className="space-y-2 mb-4">
                 {branch.address && (
-                  <div className="flex items-start gap-2 text-sm text-gray-600">
+                  <div className={`flex items-start gap-2 text-sm text-gray-600 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
                     <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
                     <span>{branch.address}, {branch.city}</span>
                   </div>
                 )}
                 {branch.phone && (
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <div className={`flex items-center gap-2 text-sm text-gray-600 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
                     <Phone className="w-4 h-4 flex-shrink-0" />
                     <span>{branch.phone}</span>
                   </div>
                 )}
                 {branch.email && (
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <div className={`flex items-center gap-2 text-sm text-gray-600 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
                     <Mail className="w-4 h-4 flex-shrink-0" />
-                    <span>{branch.email}</span>
+                    <span className="truncate">{branch.email}</span>
                   </div>
                 )}
               </div>
-
-              <div className="flex items-center gap-2 pt-4 border-t">
-                <Button
-                  variant="outline"
-                  size="sm"
+              
+              {/* Footer with View Button */}
+              <div className={`flex items-center justify-between pt-4 border-t border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <button
                   onClick={() => window.location.href = `/business/branches/${branch.id}`}
-                  className="flex-1"
+                  className="flex-1 px-4 py-2 text-sm font-medium text-primary-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg transition-all duration-200"
                 >
-                  <Building2 className="w-4 h-4 mr-2" />
-                  View
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleEdit(branch)}
-                >
-                  <Edit className="w-4 h-4" />
-                </Button>
-                {!branch.is_default && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleToggleStatus(branch)}
-                    className={branch.is_active ? 'text-red-600' : 'text-green-600'}
-                  >
-                    {branch.is_active ? (
-                      <PowerOff className="w-4 h-4" />
-                    ) : (
-                      <Power className="w-4 h-4" />
-                    )}
-                  </Button>
-                )}
+                  {t('viewDetails', { fallback: 'View Details' })}
+                </button>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       )}
 
       {showModal && (
         <BranchModal
-          branch={editingBranch}
           onClose={() => setShowModal(false)}
           onSuccess={() => {
             setShowModal(false);
@@ -188,20 +242,19 @@ const Branches: React.FC = () => {
 };
 
 interface BranchModalProps {
-  branch: Branch | null;
   onClose: () => void;
   onSuccess: () => void;
 }
 
-const BranchModal: React.FC<BranchModalProps> = ({ branch, onClose, onSuccess }) => {
+const BranchModal: React.FC<BranchModalProps> = ({ onClose, onSuccess }) => {
   const { t } = useTranslation('branches');
   const [formData, setFormData] = useState({
-    name: branch?.name || '',
-    code: branch?.code || '',
-    address: branch?.address || '',
-    city: branch?.city || '',
-    phone: branch?.phone || '',
-    email: branch?.email || '',
+    name: '',
+    code: '',
+    address: '',
+    city: '',
+    phone: '',
+    email: '',
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -212,11 +265,7 @@ const BranchModal: React.FC<BranchModalProps> = ({ branch, onClose, onSuccess })
     setError('');
 
     try {
-      if (branch) {
-        await api.put(`/business/branches/${branch.id}`, formData);
-      } else {
-        await api.post('/business/branches', formData);
-      }
+      await api.post('/business/branches', formData);
       onSuccess();
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to save branch');
@@ -229,7 +278,7 @@ const BranchModal: React.FC<BranchModalProps> = ({ branch, onClose, onSuccess })
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
         <h2 className="text-xl font-bold mb-4">
-          {branch ? t('editBranch') : t('addBranch')}
+          {t('addBranch')}
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">

@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import './assets/fonts/tajawal.css';
 @import './styles/rtl.css';
+@import './styles/calendar-light-effect.css';
 @import '@abdulrysr/saudi-riyal-new-symbol-font/style.css';
 
 /* Brand Colors */

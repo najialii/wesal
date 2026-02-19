@@ -15,7 +15,6 @@ export const formatCurrency = (amount: number, showDecimals: boolean = true): st
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   });
-  // Using Unicode character U+FDFC for Saudi Riyal symbol
   return `﷼${formatted}`;
 };
 

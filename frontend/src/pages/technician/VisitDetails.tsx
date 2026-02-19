@@ -16,7 +16,7 @@ import {
 import { useTranslation } from '@/lib/i18n/TranslationProvider';
 import { technicianService, TechnicianVisit } from '@/services/technician';
 import { toast } from 'sonner';
-import { formatCurrency } from '@/lib/currency';
+import { CurrencyDisplay } from '@/components/ui/CurrencyDisplay';
 import CompleteVisitModal from '@/components/technician/CompleteVisitModal';
 
 export default function VisitDetails() {
@@ -271,7 +271,7 @@ export default function VisitDetails() {
                         {t('visit_details.qty', { fallback: 'Qty' })}: {product.pivot.quantity}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {formatCurrency(product.pivot.total_cost)}
+                        <CurrencyDisplay amount={product.pivot.total_cost} />
                       </p>
                     </div>
                   </div>
@@ -382,8 +382,8 @@ export default function VisitDetails() {
               </div>
               <div className="p-6">
                 <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <div className="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center">
-                    <BuildingStorefrontIcon className="h-5 w-5 text-indigo-600" />
+                  <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                    <BuildingStorefrontIcon className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">{visit.branch.name}</p>

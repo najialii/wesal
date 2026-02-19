@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { technicianService, TechnicianVisit } from '@/services/technician';
-import { formatCurrency } from '@/lib/currency';
+import { CurrencyDisplay } from '@/components/ui/CurrencyDisplay';
 import { toast } from 'sonner';
 
 export default function VisitHistory() {
@@ -164,7 +164,7 @@ export default function VisitHistory() {
                         <div className="flex items-center justify-between pt-2 border-t border-gray-200">
                           <span className="text-sm font-medium text-gray-700">Total Cost</span>
                           <span className="text-lg font-semibold text-gray-900">
-                            {formatCurrency(visit.total_cost)}
+                            <CurrencyDisplay amount={visit.total_cost} />
                           </span>
                         </div>
                       )}

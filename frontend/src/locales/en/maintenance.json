@@ -151,5 +151,22 @@
   "recentVisits": "Recent Visits",
   "totalItemsCost": "Total Items Cost",
   "each": "each",
-  "noEndDate": "No end date"
+  "noEndDate": "No end date",
+  "maintenanceCalendar": "Maintenance Calendar",
+  "manageScheduledVisits": "Manage and track your scheduled maintenance visits",
+  "filters": "Filters",
+  "filterVisits": "Filter Visits",
+  "clearAll": "Clear All",
+  "search": "Search",
+  "searchPlaceholder": "Search visits...",
+  "allStatuses": "All Statuses",
+  "allPriorities": "All Priorities",
+  "allTechnicians": "All Technicians",
+  "inProgress": "In Progress",
+  "month": "Month",
+  "week": "Week",
+  "day": "Day",
+  "today": "Today",
+  "visitScheduledSuccessfully": "Visit scheduled successfully",
+  "failedToLoadVisits": "Failed to load visits"
 }

@@ -1,7 +1,10 @@
 export const GOOGLE_CONFIG = {
   clientId: '731847354740-eoghtim5ple035p4kdb2ukbiia274t8r.apps.googleusercontent.com',
-  redirectUri: window.location.origin, // This will automatically use the current origin
+  redirectUri: `${window.location.protocol}//${window.location.host}`,
   scopes: ['openid', 'email', 'profile'],
+  // Add these for better popup handling
+  ux_mode: 'popup',
+  auto_select: false,
 };
 
 // Load Google Identity Services script

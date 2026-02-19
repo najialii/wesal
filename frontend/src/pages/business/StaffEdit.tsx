@@ -154,7 +154,7 @@ export default function StaffEdit() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading staff member data...</p>
         </div>
       </div>
@@ -234,7 +234,7 @@ export default function StaffEdit() {
                     </label>
                     <select
                       {...form.register('is_active')}
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     >
                       <option value="true">Active</option>
                       <option value="false">Inactive</option>
@@ -291,8 +291,8 @@ export default function StaffEdit() {
                 
                 <div className="space-y-4">
                   {staffMember?.branches && staffMember.branches.length > 0 ? (
-                    <div className="flex items-center p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
-                      <BuildingStorefrontIcon className={`h-8 w-8 text-indigo-500 ${isRTL ? 'ml-4' : 'mr-4'}`} />
+                    <div className="flex items-center p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                      <BuildingStorefrontIcon className={`h-8 w-8 text-blue-500 ${isRTL ? 'ml-4' : 'mr-4'}`} />
                       <div className="flex-1">
                         <p className="text-sm font-medium text-gray-900">
                           {staffMember.branches[0].name}
@@ -301,7 +301,7 @@ export default function StaffEdit() {
                           {staffMember.branches[0].code}
                         </p>
                       </div>
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                         {isRTL ? 'الفرع المعين' : 'Assigned Branch'}
                       </span>
                     </div>
@@ -378,7 +378,7 @@ export default function StaffEdit() {
                 <button
                   type="button"
                   onClick={() => navigate('/business/staff')}
-                  className="px-6 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="px-6 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   disabled={loading}
                 >
                   Cancel
@@ -386,7 +386,7 @@ export default function StaffEdit() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-6 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <>

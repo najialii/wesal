@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f4f4f4;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <h1>WesalTech API Test</h1>
+    
+    <div>
+        <h3>Test Login</h3>
+        <button onclick="testLogin()">Test Admin Login</button>
+        <button onclick="testCORS()">Test CORS</button>
+        <button onclick="clearResult()">Clear</button>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+        const API_URL = 'http://localhost:8000/api';
+        const resultDiv = document.getElementById('result');
+
+        function showResult(message, isError = false) {
+            resultDiv.textContent = message;
+            resultDiv.className = isError ? 'error' : 'success';
+        }
+
+        function clearResult() {
+            resultDiv.textContent = '';
+            resultDiv.className = '';
+        }
+
+        async function testCORS() {
+            showResult('Testing CORS...');
+            try {
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'OPTIONS',
+                    headers: {
+                        'Origin': 'http://localhost:5175',
+                        'Access-Control-Request-Method': 'POST',
+                        'Access-Control-Request-Headers': 'Content-Type'
+                    }
+                });
+                
+                const corsHeaders = {
+                    'Access-Control-Allow-Origin': response.headers.get('Access-Control-Allow-Origin'),
+                    'Access-Control-Allow-Methods': response.headers.get('Access-Control-Allow-Methods'),
+                    'Access-Control-Allow-Headers': response.headers.get('Access-Control-Allow-Headers'),
+                };
+                
+                showResult(`CORS Test Result:\n${JSON.stringify(corsHeaders, null, 2)}`);
+            } catch (error) {
+                showResult(`CORS Test Failed:\n${error.message}`, true);
+            }
+        }
+
+        async function testLogin() {
+            showResult('Testing login...');
+            try {
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'admin@wesaltech.com',
+                        password: '11235813nJ'
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showResult(`Login Successful!\n\nUser: ${data.user.name}\nEmail: ${data.user.email}\nToken: ${data.token.substring(0, 20)}...`);
+                } else {
+                    showResult(`Login Failed (${response.status}):\n${JSON.stringify(data, null, 2)}`, true);
+                }
+            } catch (error) {
+                showResult(`Login Error:\n${error.message}\n\nMake sure backend is running on http://localhost:8000`, true);
+            }
+        }
+    </script>
+</body>
+</html>

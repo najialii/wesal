@@ -80,8 +80,37 @@ const BranchView: React.FC = () => {
 
   const loadBranchSummary = async () => {
     try {
-      const res = await api.get(`/business/branches/${id}/summary`);
-      setSummary(res.data);
+      // Fetch branch details - API returns { branch: {...} }
+      const branchRes = await api.get(`/business/branches/${id}`);
+      const branchData = branchRes.data.branch || branchRes.data;
+      
+      // Create summary object with branch data
+      // For now, we'll use mock data for stats until the summary endpoint is created
+      setSummary({
+        branch: branchData,
+        products: {
+          total: 0,
+          low_stock: 0,
+          total_stock_units: 0,
+        },
+        sales: {
+          total_count: 0,
+          total_revenue: 0,
+          today_count: 0,
+          today_revenue: 0,
+        },
+        maintenance: {
+          active_contracts: 0,
+          pending_visits: 0,
+        },
+        staff: {
+          count: 0,
+        },
+        warnings: {
+          has_low_stock: false,
+          low_stock_count: 0,
+        },
+      });
     } catch (error) {
       console.error('Failed to load branch summary:', error);
       toast.error('Failed to load branch details');
@@ -195,36 +224,36 @@ const BranchView: React.FC = () => {
         <h2 className="text-lg font-semibold mb-4">{t('branchDetails')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
-            {branch.address && (
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-gray-400 mt-0.5" />
-                <div>
-                  <p className="font-medium text-gray-900">Address</p>
-                  <p className="text-gray-600">{branch.address}</p>
-                  {branch.city && <p className="text-gray-600">{branch.city}</p>}
-                </div>
+            <div className="flex items-start gap-3">
+              <MapPin className="w-5 h-5 text-gray-400 mt-0.5" />
+              <div>
+                <p className="font-medium text-gray-900">Address</p>
+                <p className="text-gray-600">
+                  {branch.address || 'No address provided'}
+                </p>
+                {branch.city && <p className="text-gray-600">{branch.city}</p>}
               </div>
-            )}
-            {branch.phone && (
-              <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-gray-400" />
-                <div>
-                  <p className="font-medium text-gray-900">Phone</p>
-                  <p className="text-gray-600">{branch.phone}</p>
-                </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Phone className="w-5 h-5 text-gray-400" />
+              <div>
+                <p className="font-medium text-gray-900">Phone</p>
+                <p className="text-gray-600">
+                  {branch.phone || 'No phone provided'}
+                </p>
               </div>
-            )}
+            </div>
           </div>
           <div className="space-y-4">
-            {branch.email && (
-              <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-gray-400" />
-                <div>
-                  <p className="font-medium text-gray-900">Email</p>
-                  <p className="text-gray-600">{branch.email}</p>
-                </div>
+            <div className="flex items-center gap-3">
+              <Mail className="w-5 h-5 text-gray-400" />
+              <div>
+                <p className="font-medium text-gray-900">Email</p>
+                <p className="text-gray-600">
+                  {branch.email || 'No email provided'}
+                </p>
               </div>
-            )}
+            </div>
             <div className="flex items-center gap-3">
               <Calendar className="w-5 h-5 text-gray-400" />
               <div>

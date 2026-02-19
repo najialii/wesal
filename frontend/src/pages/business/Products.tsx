@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { PlusIcon, MagnifyingGlassIcon, PencilIcon, TrashIcon, CubeIcon, ShoppingBagIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/outline';
 import api from '../../lib/api';
 import { useTranslation, useDirectionClasses } from '../../lib/translation';
-import { formatCurrency } from '@/lib/currency';
+import { CurrencyDisplay } from '@/components/ui/CurrencyDisplay';
 import { getProductImageUrl } from '@/lib/imageUtils';
 import { Pagination } from '@/components/ui/Pagination';
 import { useBranch } from '@/contexts/BranchContext';
@@ -134,11 +134,11 @@ export default function Products() {
 
   const getStockStatus = (product: Product) => {
     if (product.stock_quantity <= 0) {
-      return { text: t('out_of_stock'), color: 'text-red-600 bg-red-100' };
+      return { text: t('out_of_stock'), color: 'text-red-400 bg-red-100' };
     } else if (product.stock_quantity <= product.min_stock_level) {
-      return { text: t('low_stock'), color: 'text-yellow-600 bg-yellow-100' };
+      return { text: t('low_stock'), color: 'text-yellow-400 bg-yellow-100' };
     } else {
-      return { text: t('in_stock'), color: 'text-green-600 bg-green-100' };
+      return { text: t('in_stock'), color: 'text-green-400 bg-green-100' };
     }
   };
 
@@ -157,7 +157,7 @@ export default function Products() {
         </div>
         <button 
           onClick={() => navigate('/business/products/add')}
-          className={`inline-flex items-center px-6 py-3 border border-transparent text-sm font-medium rounded-xl shadow-sm text-white bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 transform hover:scale-[1.02] transition-all duration-200 ${isRTL ? 'flex-row-reverse' : ''}`}
+          className={`inline-flex items-center px-6 py-3 border border-transparent text-sm font-medium rounded-xl shadow-sm text-white bg-gradient-to-r from-primary-400 to-primary-700 hover:from-primary-700 hover:to-primary-800 transform hover:scale-[1.02] transition-all duration-200 ${isRTL ? 'flex-row-reverse' : ''}`}
         >
           <PlusIcon className={`h-5 w-5 ${isRTL ? 'ml-2' : 'mr-2'}`} />
           {t('add_product')}
@@ -171,8 +171,8 @@ export default function Products() {
         </div>
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow duration-200">
           <div className="flex items-center space-x-2">
-            <ShoppingBagIcon className="w-5 h-5 text-blue-600" />
-            <div className="text-2xl font-bold text-blue-600">
+            <ShoppingBagIcon className="w-5 h-5 text-blue-400" />
+            <div className="text-2xl font-bold text-blue-400">
               {products.filter(p => !p.is_spare_part).length}
             </div>
           </div>
@@ -180,21 +180,21 @@ export default function Products() {
         </div>
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow duration-200">
           <div className="flex items-center space-x-2">
-            <WrenchScrewdriverIcon className="w-5 h-5 text-orange-600" />
-            <div className="text-2xl font-bold text-orange-600">
+            <WrenchScrewdriverIcon className="w-5 h-5 text-orange-400" />
+            <div className="text-2xl font-bold text-orange-400">
               {products.filter(p => p.is_spare_part).length}
             </div>
           </div>
           <div className="text-sm text-gray-500">{t('spare_part')}</div>
         </div>
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow duration-200">
-          <div className="text-2xl font-bold text-yellow-600">
+          <div className="text-2xl font-bold text-yellow-400">
             {products.filter(p => p.stock_quantity <= p.min_stock_level && p.stock_quantity > 0).length}
           </div>
           <div className="text-sm text-gray-500">{t('low_stock')}</div>
         </div>
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow duration-200">
-          <div className="text-2xl font-bold text-red-600">
+          <div className="text-2xl font-bold text-red-400">
             {products.filter(p => p.stock_quantity <= 0).length}
           </div>
           <div className="text-sm text-gray-500">{t('out_of_stock')}</div>
@@ -210,8 +210,8 @@ export default function Products() {
               onClick={() => setProductTypeFilter('all')}
               className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                 productTypeFilter === 'all'
-                  ? 'bg-primary-600 text-white shadow-md shadow-primary-200 scale-105'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:scale-105'
+                  ? 'bg-primary-400 text-white shadow-md shadow-primary-200 scale-105'
+                  : 'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:scale-105'
               }`}
             >
               {t('all_products', { fallback: 'All Products' })}
@@ -220,8 +220,8 @@ export default function Products() {
               onClick={() => setProductTypeFilter('regular')}
               className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 ${
                 productTypeFilter === 'regular'
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-200 scale-105'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:scale-105'
+                  ? 'bg-blue-400 text-white shadow-md shadow-blue-200 scale-105'
+                  : 'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:scale-105'
               }`}
             >
               <ShoppingBagIcon className="w-4 h-4" />
@@ -231,8 +231,8 @@ export default function Products() {
               onClick={() => setProductTypeFilter('spare')}
               className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 ${
                 productTypeFilter === 'spare'
-                  ? 'bg-orange-600 text-white shadow-md shadow-orange-200 scale-105'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:scale-105'
+                  ? 'bg-orange-400 text-white shadow-md shadow-orange-200 scale-105'
+                  : 'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:scale-105'
               }`}
             >
               <WrenchScrewdriverIcon className="w-4 h-4" />
@@ -265,13 +265,13 @@ export default function Products() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
                 <tr>
-                  <th className={`px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('product_name')}</th>
-                  <th className={`px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('product_type')}</th>
-                  <th className={`px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('category')}</th>
-                  <th className={`px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('price')}</th>
-                  <th className={`px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('stock')}</th>
-                  <th className={`px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('status')}</th>
-                  <th className={`px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('actions')}</th>
+                  <th className={`px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('product_name')}</th>
+                  <th className={`px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('product_type')}</th>
+                  <th className={`px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('category')}</th>
+                  <th className={`px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('price')}</th>
+                  <th className={`px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('stock')}</th>
+                  <th className={`px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('status')}</th>
+                  <th className={`px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider ${isRTL ? 'text-right' : 'text-left'}`}>{t('actions')}</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-100">
@@ -308,8 +308,8 @@ export default function Products() {
                         <div className={`flex items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
                           <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isRTL ? 'ml-2' : 'mr-2'} ${
                             product.is_spare_part 
-                              ? 'bg-orange-100 text-orange-600' 
-                              : 'bg-blue-100 text-blue-600'
+                              ? 'bg-orange-100 text-orange-400' 
+                              : 'bg-blue-100 text-blue-400'
                           }`}>
                             {product.is_spare_part ? (
                               <WrenchScrewdriverIcon className="w-4 h-4" />
@@ -332,8 +332,12 @@ export default function Products() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-bold text-gray-900">{formatCurrency(Number(product.selling_price))}</div>
-                        <div className="text-sm text-gray-500">{t('cost_price')}: {formatCurrency(Number(product.cost_price))}</div>
+                        <div className="text-sm font-bold text-gray-900">
+                          <CurrencyDisplay amount={Number(product.selling_price)} />
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          {t('cost_price')}: <CurrencyDisplay amount={Number(product.cost_price)} showIcon={false} />
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-semibold text-gray-900">{product.stock_quantity} {product.unit}</div>
@@ -347,13 +351,13 @@ export default function Products() {
                       <td className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${isRTL ? 'space-x-reverse space-x-3' : 'space-x-3'}`}>
                         <button 
                           onClick={() => navigate(`/business/products/edit/${product.id}`)} 
-                          className="text-primary-600 hover:text-primary-900 p-2 rounded-lg hover:bg-primary-50 transition-colors duration-200"
+                          className="text-primary-400 hover:text-primary-900 p-2 rounded-lg hover:bg-primary-50 transition-colors duration-200"
                         >
                           <PencilIcon className="h-5 w-5" />
                         </button>
                         <button 
                           onClick={() => handleDelete(product)} 
-                          className="text-red-600 hover:text-red-900 p-2 rounded-lg hover:bg-red-50 transition-colors duration-200"
+                          className="text-red-400 hover:text-red-900 p-2 rounded-lg hover:bg-red-50 transition-colors duration-200"
                         >
                           <TrashIcon className="h-5 w-5" />
                         </button>

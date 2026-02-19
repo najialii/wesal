@@ -330,11 +330,11 @@ const AuditLogs: React.FC = () => {
               </div>
               <div className="text-sm text-orange-600">Error Rate</div>
             </div>
-            <div className="bg-indigo-50 p-4 rounded-lg">
-              <div className="text-2xl font-bold text-indigo-600">
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="text-2xl font-bold text-blue-600">
                 {formatExecutionTime(analytics.statistics.avg_execution_time)}
               </div>
-              <div className="text-sm text-indigo-600">Avg Time</div>
+              <div className="text-sm text-blue-600">Avg Time</div>
             </div>
             <div className="bg-gray-50 p-4 rounded-lg">
               <div className="text-2xl font-bold text-gray-600">

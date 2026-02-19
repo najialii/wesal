@@ -180,7 +180,7 @@ export default function StaffCreate() {
 
   const getRoleColor = (role: string) => {
     switch (role) {
-      case 'business_owner': return 'from-purple-500 to-indigo-600';
+      case 'business_owner': return 'from-purple-500 to-blue-600';
       case 'salesman': return 'from-green-500 to-emerald-600';
       case 'technician': return 'from-orange-500 to-amber-600';
       default: return 'from-gray-500 to-gray-600';
@@ -228,7 +228,7 @@ export default function StaffCreate() {
             {/* Main Form - Left Side */}
             <div className="lg:col-span-2 space-y-6">
               {/* Personal Information Card */}
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <div className="bg-white  overflow-hidden">
                 <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
                   <h2 className={`text-lg font-semibold text-gray-900 flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <UserIcon className="h-5 w-5 text-gray-500" />
@@ -255,14 +255,14 @@ export default function StaffCreate() {
               </div>
 
               {/* Role Selection Card */}
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <div className="bg-white overflow-hidden">
                 <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
                   <h2 className={`text-lg font-semibold text-gray-900 flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <ShieldCheckIcon className="h-5 w-5 text-gray-500" />
                     {isRTL ? 'الدور والصلاحيات' : 'Role & Permissions'}
                   </h2>
                 </div>
-                <div className="p-6 space-y-5">
+                <div className="p-6 w-full space-y-5">
                   <SelectField
                     form={form}
                     name="role"
@@ -297,7 +297,7 @@ export default function StaffCreate() {
               </div>
 
               {/* Security Card */}
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <div className="bg-white overflow-hidden">
                 <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
                   <h2 className={`text-lg font-semibold text-gray-900 flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <LockClosedIcon className="h-5 w-5 text-gray-500" />
@@ -326,7 +326,7 @@ export default function StaffCreate() {
                   <button
                     type="button"
                     onClick={generatePassword}
-                    className={`w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg text-indigo-700 font-medium hover:from-indigo-100 hover:to-purple-100 transition-all ${isRTL ? 'flex-row-reverse' : ''}`}
+                    className={`w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg text-blue-700 font-medium hover:from-blue-100 hover:to-purple-100 transition-all ${isRTL ? 'flex-row-reverse' : ''}`}
                   >
                     <SparklesIcon className="h-5 w-5" />
                     {isRTL ? 'إنشاء كلمة مرور آمنة' : 'Generate Secure Password'}
@@ -348,9 +348,9 @@ export default function StaffCreate() {
                 <div className="p-6">
                   {currentBranch ? (
                     <div className="space-y-4">
-                      <div className={`flex items-center p-4 bg-indigo-50 border border-indigo-200 rounded-lg ${isRTL ? 'flex-row-reverse' : ''}`}>
-                        <div className={`w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center ${isRTL ? 'ml-4' : 'mr-4'}`}>
-                          <BuildingStorefrontIcon className="h-6 w-6 text-indigo-600" />
+                      <div className={`flex items-center p-4 bg-blue-50 border border-blue-200 rounded-lg ${isRTL ? 'flex-row-reverse' : ''}`}>
+                        <div className={`w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center ${isRTL ? 'ml-4' : 'mr-4'}`}>
+                          <BuildingStorefrontIcon className="h-6 w-6 text-blue-600" />
                         </div>
                         <div className="flex-1">
                           <p className="font-medium text-gray-900">{currentBranch.name}</p>
@@ -376,7 +376,7 @@ export default function StaffCreate() {
               </div>
 
               {/* Quick Tips Card */}
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100 p-6">
+              <div className="bg-gradient-to-br from-blue-50 to-blue-50 rounded-xl border border-blue-100 p-6">
                 <h3 className={`font-semibold text-gray-900 mb-3 flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <LightBulbIcon className="h-5 w-5 text-amber-500" />
                   {isRTL ? 'نصائح سريعة' : 'Quick Tips'}
